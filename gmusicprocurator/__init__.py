@@ -57,7 +57,10 @@ def get_song(song_id):
         audio = MP3(f.name)
         for gmf, id3f in METADATA_FIELDS.iteritems():
             if gmf in song_info:
-                audio[id3f] = str(song_info[gmf])
+                if isinstance(song_info[gmf], basestring):
+                    audio[id3f] = song_info[gmf]
+                else:
+                    audio[id3f] = str(song_info[gmf])
         audio.save()
         f.seek(0)
         if app.config['GMP_CACHE_SONGS']:
