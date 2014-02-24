@@ -1,13 +1,18 @@
-===============================================
-``gmusicprocurator`` - A Proxy for Google Music
-===============================================
+====================
+``gmusicprocurator``
+====================
 
-This mini webapp is inspired by/based on GMusicProxy_.
+A proxy for Google Music streaming. This mini webapp is inspired by/based
+on GMusicProxy_.
 
 .. _GMusicProxy: http://gmusicproxy.net
 
 Quick Install
 -------------
+
+.. note::
+
+   This has only been tested on Python 2.7.
 
 Create a config file in ``~/.config/gmusicprocurator.ini`` that looks like
 this:
@@ -30,4 +35,4 @@ Then run the following:
    $ git clone git://github.com/malept/gmusicprocurator.git
    $ cd gmusicprocurator
    $ pip install -r requirements.txt
-   $ ./gmusicprocurator
+   $ python -m gmusicprocurator

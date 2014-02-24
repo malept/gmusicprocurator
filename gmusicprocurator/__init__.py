@@ -16,20 +16,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import print_function
-
-from ConfigParser import SafeConfigParser
 from datetime import datetime
-from flask import abort, Flask, Response, url_for
-from gmusicapi import Mobileclient
+from flask import abort, Response, url_for
 from mutagen.mp3 import EasyMP3 as MP3
 import requests
-import sys
 from tempfile import NamedTemporaryFile
-from xdg import BaseDirectory
 from xspf import Xspf
 
-CFG_FILENAME = 'gmusicprocurator.ini'
+from .app import app, device_id, music
+
 # Google : Mutagen EasyID3
 METADATA_FIELDS = {
     'artist': 'artist',
@@ -43,19 +38,6 @@ METADATA_FIELDS = {
     'year': 'date',
     'durationMillis': 'length',
 }
-
-app = Flask(__name__)
-
-cfg = SafeConfigParser()
-read_files = cfg.read(BaseDirectory.load_config_paths(CFG_FILENAME))
-if len(read_files) == 0:
-    print('No config file found.', file=sys.stderr)
-    sys.exit(1)
-
-music = Mobileclient()
-music.login(cfg.get('credentials', 'email'),
-            cfg.get('credentials', 'password'))
-device_id = cfg.get('credentials', 'device-id')
 
 
 @app.route('/songs/<song_id>')
@@ -105,6 +87,3 @@ def get_playlist(playlist_id):
             metadata['image'] = album_art[0]['url']
         xspf.add_track(metadata)
     return Response(xspf.toXml(), mimetype='application/xspf+xml')
-
-if __name__ == '__main__':
-    app.run()
