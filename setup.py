@@ -48,7 +48,7 @@ with open('README.rst') as f:
 requires = requires_from_req_txt('requirements.txt')
 
 setup(name='gmusicprocurator',
-      version='1.0dev1',
+      version='1.0dev2',
       long_description=long_description,
       author='Mark Lee',
       packages=['gmusicprocurator'],

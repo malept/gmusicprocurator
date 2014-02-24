@@ -15,23 +15,21 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ConfigParser import SafeConfigParser
 from flask import Flask
 from gmusicapi import Mobileclient
+import os
 from xdg import BaseDirectory
 
-CFG_FILENAME = 'gmusicprocurator.ini'
+SETTINGS_VAR = 'GMUSICPROCURATOR_SETTINGS'
+CFG_FILENAME = 'gmusicprocurator.cfg'
+os.environ.setdefault(SETTINGS_VAR,
+                      BaseDirectory.load_first_config(CFG_FILENAME))
 
 app = Flask(__name__)
-
-cfg = SafeConfigParser()
-read_files = cfg.read(BaseDirectory.load_config_paths(CFG_FILENAME))
-if len(read_files) == 0:
-    raise RuntimeError('No config file found.')
+app.config.from_envvar(SETTINGS_VAR)
 
 music = Mobileclient()
-music.login(cfg.get('credentials', 'email'),
-            cfg.get('credentials', 'password'))
-device_id = cfg.get('credentials', 'device-id')
+music.login(app.config['GACCOUNT_EMAIL'],
+            app.config['GACCOUNT_PASSWORD'])
 
-__all__ = ['app', 'music', 'device_id']
+__all__ = ['app', 'music']

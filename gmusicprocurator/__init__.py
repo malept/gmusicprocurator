@@ -23,7 +23,7 @@ import requests
 from tempfile import NamedTemporaryFile
 from xspf import Xspf
 
-from .app import app, device_id, music
+from .app import app, music
 
 # Google : Mutagen EasyID3
 METADATA_FIELDS = {
@@ -43,7 +43,7 @@ METADATA_FIELDS = {
 @app.route('/songs/<song_id>')
 def get_song(song_id):
     song_info = music.get_track_info(song_id)
-    song_url = music.get_stream_url(song_id, device_id)
+    song_url = music.get_stream_url(song_id, app.config['GACCOUNT_DEVICE_ID'])
     response = requests.get(song_url)
     with NamedTemporaryFile() as f:
         f.write(response.content)

@@ -14,19 +14,17 @@ Quick Install
 
    This has only been tested on Python 2.7.
 
-Create a config file in ``~/.config/gmusicprocurator.ini`` that looks like
+Create a config file in ``~/.config/gmusicprocurator.cfg`` that looks like
 this:
 
-.. code-block:: ini
+.. code-block:: python
 
-   [credentials]
+   GACCOUNT_EMAIL = 'my-google-account@gmail.com'
+   GACCOUNT_PASSWORD = 'my-password'
+   GACCOUNT_DEVICE_ID = 'my-device-id'
 
-   email = my-google-account@gmail.com
-   password = my-password
-   device-id = my-device-id
-
-where ``device-id`` is the ID of one of your mobile devices that is associated
-with your Google account.
+where ``GACCOUNT_DEVICE_ID`` is the ID of one of your mobile devices that is
+associated with your Google account.
 
 Then run the following:
 
