@@ -15,26 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from flask import Flask
-from gmusicapi import Mobileclient
 import os
-from xdg import BaseDirectory
+from tempfile import gettempdir
 
-SETTINGS_VAR = 'GMUSICPROCURATOR_SETTINGS'
-CFG_FILENAME = 'gmusicprocurator.cfg'
-os.environ.setdefault(SETTINGS_VAR,
-                      BaseDirectory.load_first_config(CFG_FILENAME))
-
-app = Flask(__name__)
-app.config.from_object('gmusicprocurator.default_settings')
-app.config.from_envvar(SETTINGS_VAR)
-
-music = Mobileclient()
-music.login(app.config['GACCOUNT_EMAIL'],
-            app.config['GACCOUNT_PASSWORD'])
-
-if app.config['GMP_CACHE_SONGS'] and \
-   not os.path.isdir(app.config['GMP_CACHE_DIR']):
-    os.makedirs(app.config['GMP_CACHE_DIR'])
-
-__all__ = ['app', 'music']
+GMP_CACHE_SONGS = False
+GMP_CACHE_DIR = os.path.join(gettempdir(), 'gmusicprocurator')

@@ -34,3 +34,20 @@ Then run the following:
    $ cd gmusicprocurator
    $ pip install -r requirements.txt
    $ python -m gmusicprocurator
+
+Configuration
+-------------
+
+In addition to the Google Account settings mentioned above, you can set the
+following:
+
+``GMP_CACHE_SONGS``
+    Cache the songs on the filesystem to lower the number of API calls.
+    Defaults to ``False``. If set to ``True``, it is a good idea to monitor the
+    free space available to the cache directory.
+
+``GMP_CACHE_DIR``
+    The location on the filesystem to cache the songs, if ``GMP_CACHE_SONGS``
+    is enabled. Defaults to a folder called ``gmusicprocurator`` in the
+    system's temporary directory. If the directory does not exist, the app will
+    try to create it.

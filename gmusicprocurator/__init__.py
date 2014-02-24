@@ -17,9 +17,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from datetime import datetime
-from flask import abort, Response, url_for
+from flask import abort, Response, send_file, url_for
 from mutagen.mp3 import EasyMP3 as MP3
+import os
 import requests
+from shutil import copyfileobj
 from tempfile import NamedTemporaryFile
 from xspf import Xspf
 
@@ -42,6 +44,10 @@ METADATA_FIELDS = {
 
 @app.route('/songs/<song_id>')
 def get_song(song_id):
+    cached_fname = os.path.join(app.config['GMP_CACHE_DIR'], song_id)
+    if app.config['GMP_CACHE_SONGS'] and os.path.exists(cached_fname):
+        return send_file(cached_fname, mimetype='audio/mpeg')
+
     song_info = music.get_track_info(song_id)
     song_url = music.get_stream_url(song_id, app.config['GACCOUNT_DEVICE_ID'])
     response = requests.get(song_url)
@@ -54,7 +60,13 @@ def get_song(song_id):
                 audio[id3f] = str(song_info[gmf])
         audio.save()
         f.seek(0)
-        return Response(open(f.name).read(), mimetype='audio/mpeg')
+        if app.config['GMP_CACHE_SONGS']:
+            with open(cached_fname, 'wb') as cache_f:
+                copyfileobj(f, cache_f)
+                cache_f.seek(0)
+                return send_file(cache_f, mimetype='audio/mpeg')
+        else:
+            return Response(open(f.name).read(), mimetype='audio/mpeg')
 
 
 @app.route('/playlists/<playlist_id>')
