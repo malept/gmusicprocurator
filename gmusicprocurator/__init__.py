@@ -63,8 +63,7 @@ def get_song(song_id):
         if app.config['GMP_CACHE_SONGS']:
             with open(cached_fname, 'wb') as cache_f:
                 copyfileobj(f, cache_f)
-                cache_f.seek(0)
-                return send_file(cache_f, mimetype='audio/mpeg')
+            return send_file(cached_fname, mimetype='audio/mpeg')
         else:
             return Response(open(f.name).read(), mimetype='audio/mpeg')
 
