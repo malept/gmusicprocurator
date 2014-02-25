@@ -45,11 +45,23 @@ if app.config['GMP_EMBED_ALBUM_ART']:
     METADATA_FIELDS['albumArtRef'] = 'albumart'
 
 
+def mp3ify(resp):
+    '''Sets MIME Type and Content-Disposition header suitable for MP3s.'''
+    resp.mimetype = 'audio/mpeg'
+    resp.headers.add('Content-Disposition', 'inline', filename='song.mp3')
+    return resp
+
+
+def send_song(filename):
+    '''Generates a Flask response for an MP3 on the filesystem.'''
+    return mp3ify(send_file(filename))
+
+
 @app.route('/songs/<song_id>')
 def get_song(song_id):
     cached_fname = os.path.join(app.config['GMP_CACHE_DIR'], song_id)
     if app.config['GMP_CACHE_SONGS'] and os.path.exists(cached_fname):
-        return send_file(cached_fname, mimetype='audio/mpeg')
+        return send_song(cached_fname)
 
     song_info = music.get_track_info(song_id)
     song_url = music.get_stream_url(song_id, app.config['GACCOUNT_DEVICE_ID'])
@@ -79,9 +91,9 @@ def get_song(song_id):
         if app.config['GMP_CACHE_SONGS']:
             with open(cached_fname, 'wb') as cache_f:
                 copyfileobj(f, cache_f)
-            return send_file(cached_fname, mimetype='audio/mpeg')
+            return send_song(cached_fname)
         else:
-            return Response(open(f.name).read(), mimetype='audio/mpeg')
+            return mp3ify(Response(open(f.name).read()))
 
 
 @app.route('/playlists/<playlist_id>')
