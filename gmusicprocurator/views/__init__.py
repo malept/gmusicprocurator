@@ -15,7 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from .app import app
-from . import views  # noqa
+from . import proxy
 
-__all__ = ['app']
+__all__ = ['proxy']
