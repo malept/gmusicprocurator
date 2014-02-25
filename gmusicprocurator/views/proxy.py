@@ -30,7 +30,7 @@ from ..id3 import MP3
 JSON_TYPE = 'application/json'
 XSPF_TYPE = 'application/xspf+xml'
 
-# Google : Mutagen EasyID3
+# Mapping: Google : Mutagen EasyID3
 METADATA_FIELDS = {
     'artist': 'artist',
     'title': 'title',
@@ -60,8 +60,42 @@ def send_song(filename):
     return mp3ify(send_file(filename))
 
 
+def gmusic_playlist_to_xspf(playlist_id, playlist):
+    '''
+    Converts a playlist from gmusicapi into an XSPF playlist.
+
+    :type playlist: dict
+    :return: XSPF (XML), UTF-8 encoded
+    :rtype: str
+    '''
+    create_ts = int(playlist['creationTimestamp']) / 1000000.0
+    create_iso = datetime.utcfromtimestamp(create_ts).isoformat()
+    p_url = url_for('get_playlist', _external=True, playlist_id=playlist_id)
+    xspf = Xspf(title=playlist['name'], creator=playlist['ownerName'],
+                date=create_iso, location=p_url)
+    for track in playlist['tracks']:
+        if 'track' not in track:
+            continue
+        tmd = track['track']
+        url = url_for('get_song', _external=True, song_id=tmd['storeId'])
+        metadata = {
+            'location': url,
+            'title': tmd['title'],
+            'creator': tmd['artist'],
+            'album': tmd['album'],
+            'trackNum': str(tmd['trackNumber']),
+            'duration': tmd['durationMillis'],
+        }
+        album_art = tmd.get('albumArtRef', [])
+        if album_art:
+            metadata['image'] = album_art[0]['url']
+        xspf.add_track(metadata)
+    return xspf.toXml()
+
+
 @app.route('/songs/<song_id>')
 def get_song(song_id):
+    '''Retrieves the MP3 for a given ID.'''
     cached_fname = os.path.join(app.config['GMP_CACHE_DIR'], song_id)
     if app.config['GMP_CACHE_SONGS'] and os.path.exists(cached_fname):
         return send_song(cached_fname)
@@ -70,7 +104,7 @@ def get_song(song_id):
     song_url = music.get_stream_url(song_id, app.config['GACCOUNT_DEVICE_ID'])
     response = requests.get(song_url)
     # Write MP3 data to a temporary file so we can add metadata to it
-    # before sending
+    # before sending.
     with NamedTemporaryFile() as f:
         f.write(response.content)
         f.flush()
@@ -103,36 +137,21 @@ def get_song(song_id):
 
 @app.route('/playlists/<playlist_id>')
 def get_playlist(playlist_id):
+    '''Retrieves the metadata for a given playlist.'''
+    # 2014-02-25: At the time of this writing, this idiom is the only way to
+    # get a single playlist via the API.
     playlists = [p for p in music.get_all_user_playlist_contents()
                  if p['id'] == playlist_id]
     if len(playlists) == 0:
         abort(404)
+
     playlist = playlists[0]
+
     resp_type = request.accept_mimetypes.best_match([XSPF_TYPE, JSON_TYPE])
+    # Return JSON playlist only if explicitly requested.
     if resp_type == JSON_TYPE:
         return jsonify(playlist)
 
-    # generate XSPF playlist
-    create_ts = int(playlist['creationTimestamp']) / 1000000.0
-    create_iso = datetime.utcfromtimestamp(create_ts).isoformat()
-    p_url = url_for('get_playlist', _external=True, playlist_id=playlist_id)
-    xspf = Xspf(title=playlist['name'], creator=playlist['ownerName'],
-                date=create_iso, location=p_url)
-    for track in playlist['tracks']:
-        if 'track' not in track:
-            continue
-        tmd = track['track']
-        url = url_for('get_song', _external=True, song_id=tmd['storeId'])
-        metadata = {
-            'location': url,
-            'title': tmd['title'],
-            'creator': tmd['artist'],
-            'album': tmd['album'],
-            'trackNum': str(tmd['trackNumber']),
-            'duration': tmd['durationMillis'],
-        }
-        album_art = tmd.get('albumArtRef', [])
-        if album_art:
-            metadata['image'] = album_art[0]['url']
-        xspf.add_track(metadata)
-    return Response(xspf.toXml(), mimetype=XSPF_TYPE)
+    # Generate XSPF playlist, otherwise.
+    return Response(gmusic_playlist_to_xspf(playlist_id, playlist),
+                    mimetype=XSPF_TYPE)
