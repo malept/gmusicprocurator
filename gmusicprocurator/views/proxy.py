@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from datetime import datetime
-from flask import abort, request, Response, send_file, url_for
+from flask import abort, request, Response, safe_join, send_file, url_for
 from flask.json import jsonify
 import os
 import requests
@@ -96,7 +96,7 @@ def gmusic_playlist_to_xspf(playlist_id, playlist):
 @app.route('/songs/<song_id>')
 def get_song(song_id):
     '''Retrieves the MP3 for a given ID.'''
-    cached_fname = os.path.join(app.config['GMP_CACHE_DIR'], song_id)
+    cached_fname = safe_join(app.config['GMP_CACHE_DIR'], song_id)
     if app.config['GMP_CACHE_SONGS'] and os.path.exists(cached_fname):
         return send_song(cached_fname)
 
