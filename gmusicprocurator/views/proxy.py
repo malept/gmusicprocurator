@@ -16,7 +16,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from datetime import datetime
-from flask import abort, Response, send_file, url_for
+from flask import abort, request, Response, send_file, url_for
+from flask.json import jsonify
 import os
 import requests
 from shutil import copyfileobj
@@ -25,6 +26,9 @@ from xspf import Xspf
 
 from ..app import app, music
 from ..id3 import MP3
+
+JSON_TYPE = 'application/json'
+XSPF_TYPE = 'application/xspf+xml'
 
 # Google : Mutagen EasyID3
 METADATA_FIELDS = {
@@ -104,6 +108,11 @@ def get_playlist(playlist_id):
     if len(playlists) == 0:
         abort(404)
     playlist = playlists[0]
+    resp_type = request.accept_mimetypes.best_match([XSPF_TYPE, JSON_TYPE])
+    if resp_type == JSON_TYPE:
+        return jsonify(playlist)
+
+    # generate XSPF playlist
     create_ts = int(playlist['creationTimestamp']) / 1000000.0
     create_iso = datetime.utcfromtimestamp(create_ts).isoformat()
     p_url = url_for('get_playlist', _external=True, playlist_id=playlist_id)
@@ -126,4 +135,4 @@ def get_playlist(playlist_id):
         if album_art:
             metadata['image'] = album_art[0]['url']
         xspf.add_track(metadata)
-    return Response(xspf.toXml(), mimetype='application/xspf+xml')
+    return Response(xspf.toXml(), mimetype=XSPF_TYPE)
