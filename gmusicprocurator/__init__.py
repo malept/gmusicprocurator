@@ -18,7 +18,6 @@
 
 from datetime import datetime
 from flask import abort, Response, send_file, url_for
-from mutagen.mp3 import EasyMP3 as MP3
 import os
 import requests
 from shutil import copyfileobj
@@ -26,6 +25,7 @@ from tempfile import NamedTemporaryFile
 from xspf import Xspf
 
 from .app import app, music
+from .id3 import MP3
 
 # Google : Mutagen EasyID3
 METADATA_FIELDS = {
@@ -40,6 +40,9 @@ METADATA_FIELDS = {
     'year': 'date',
     'durationMillis': 'length',
 }
+
+if app.config['GMP_EMBED_ALBUM_ART']:
+    METADATA_FIELDS['albumArtRef'] = 'albumart'
 
 
 @app.route('/songs/<song_id>')
@@ -59,6 +62,16 @@ def get_song(song_id):
             if gmf in song_info:
                 if isinstance(song_info[gmf], basestring):
                     audio[id3f] = song_info[gmf]
+                elif isinstance(song_info[gmf], list):
+                    # take the first value, see what it is
+                    val = song_info[gmf][0]
+                    if isinstance(val, basestring):
+                        audio[id3f] = val
+                    elif isinstance(val, dict) and 'url' in val:
+                        # e.g., albumArtRef
+                        audio[id3f] = val['url']
+                    else:
+                        audio[id3f] = str(val)
                 else:
                     audio[id3f] = str(song_info[gmf])
         audio.save()

@@ -15,10 +15,26 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import os
-from tempfile import gettempdir
+from mutagen.id3 import APIC
+from mutagen.easyid3 import EasyID3
+from mutagen.mp3 import EasyMP3 as MP3
+import requests
 
-GMP_CACHE_SONGS = False
-GMP_CACHE_DIR = os.path.join(gettempdir(), 'gmusicprocurator')
+ENCODING_UTF8 = 3
+TYPE_COVER_FRONT = 3
 
-GMP_EMBED_ALBUM_ART = False
+
+def set_albumart(id3, key, urls):
+    '''
+    Originally from https://stackoverflow.com/q/14369366
+    '''
+    for url in urls:
+        response = requests.get(url)
+        tag = APIC(encoding=ENCODING_UTF8,
+                   mime=response.headers['Content-Type'],
+                   type=TYPE_COVER_FRONT, desc=u'Cover', data=response.content)
+        id3.add(tag)
+
+EasyID3.RegisterKey('albumart', setter=set_albumart)
+
+__all__ = ['MP3']

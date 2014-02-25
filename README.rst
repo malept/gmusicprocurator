@@ -51,3 +51,6 @@ following:
     is enabled. Defaults to a folder called ``gmusicprocurator`` in the
     system's temporary directory. If the directory does not exist, the app will
     try to create it.
+
+``GMP_EMBED_ALBUM_ART``
+    Embed album art in the songs' ID3 tags. Defaults to ``False``.
