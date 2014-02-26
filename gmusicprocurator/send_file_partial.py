@@ -29,6 +29,8 @@ import re
 
 from . import app
 
+HTTP_PARTIAL_CONTENT = 206
+
 
 @app.after_request
 def after_request(response):
@@ -36,7 +38,7 @@ def after_request(response):
     return response
 
 
-def send_file_partial(path):
+def send_file_partial(path, mimetype=None):
     '''
     Simple wrapper around send_file which handles HTTP 206 Partial Content
     (byte ranges)
@@ -45,7 +47,7 @@ def send_file_partial(path):
     '''
     range_header = request.headers.get('Range', None)
     if not range_header:
-        return send_file(path)
+        return send_file(path, mimetype=mimetype)
 
     size = os.path.getsize(path)
     byte1, byte2 = 0, None
@@ -70,7 +72,10 @@ def send_file_partial(path):
         f.seek(byte1)
         data = f.read(length)
 
-    rv = Response(data, 206, mimetype=mimetypes.guess_type(path)[0],
+    if not mimetype:
+        mimetype = mimetypes.guess_type(path)[0]
+
+    rv = Response(data, HTTP_PARTIAL_CONTENT, mimetype=mimetype,
                   direct_passthrough=True)
     cr = 'bytes {0}-{1}/{2}'.format(byte1, byte1 + length - 1, size)
     rv.headers.add('Content-Range', cr)
