@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from datetime import datetime
-from flask import abort, request, Response, safe_join, send_file, url_for
+from flask import abort, request, Response, safe_join, url_for
 from flask.json import jsonify
 import os
 import requests
@@ -26,8 +26,10 @@ from xspf import Xspf
 
 from ..app import app, music
 from ..id3 import MP3
+from ..send_file_partial import send_file_partial
 
 JSON_TYPE = 'application/json'
+MP3_TYPE = 'audio/mpeg'
 XSPF_TYPE = 'application/xspf+xml'
 
 # Mapping: Google : Mutagen EasyID3
@@ -50,14 +52,15 @@ if app.config['GMP_EMBED_ALBUM_ART']:
 
 def mp3ify(resp):
     '''Sets MIME Type and Content-Disposition header suitable for MP3s.'''
-    resp.mimetype = 'audio/mpeg'
+    if resp.mimetype != MP3_TYPE:
+        resp.mimetype = MP3_TYPE
     resp.headers.add('Content-Disposition', 'inline', filename='song.mp3')
     return resp
 
 
 def send_song(filename):
     '''Generates a Flask response for an MP3 on the filesystem.'''
-    return mp3ify(send_file(filename))
+    return mp3ify(send_file_partial(filename, MP3_TYPE))
 
 
 def gmusic_playlist_to_xspf(playlist_id, playlist):
