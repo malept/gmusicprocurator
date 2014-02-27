@@ -60,7 +60,9 @@ def mp3ify(resp):
 
 def send_song(filename):
     '''Generates a Flask response for an MP3 on the filesystem.'''
-    return mp3ify(send_file_partial(filename, MP3_TYPE))
+    resp = mp3ify(send_file_partial(filename, MP3_TYPE))
+    resp.headers.add('Accept-Ranges', 'bytes')
+    return resp
 
 
 def gmusic_playlist_to_xspf(playlist_id, playlist):

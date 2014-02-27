@@ -27,15 +27,7 @@ import mimetypes
 import os
 import re
 
-from . import app
-
 HTTP_PARTIAL_CONTENT = 206
-
-
-@app.after_request
-def after_request(response):
-    response.headers.add('Accept-Ranges', 'bytes')
-    return response
 
 
 def send_file_partial(path, mimetype=None):
