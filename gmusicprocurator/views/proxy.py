@@ -98,6 +98,11 @@ def gmusic_playlist_to_xspf(playlist_id, playlist):
     return xspf.toXml()
 
 
+@app.route('/songs/<song_id>/info')
+def get_song_info(song_id):
+    return jsonify(music.get_track_info(song_id))
+
+
 @app.route('/songs/<song_id>')
 def get_song(song_id):
     '''Retrieves the MP3 for a given ID.'''
@@ -160,3 +165,10 @@ def get_playlist(playlist_id):
     # Generate XSPF playlist, otherwise.
     return Response(gmusic_playlist_to_xspf(playlist_id, playlist),
                     mimetype=XSPF_TYPE)
+
+
+@app.route('/playlists')
+def get_playlists():
+    return jsonify({
+        'playlists': music.get_all_user_playlist_contents(),
+    })
