@@ -16,11 +16,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from gmusicprocurator import app
+from flask.ext.script import Manager
+from gmusicprocurator.app import app
+
+manager = Manager(app)
 
 
 def run():
-    app.run()
+    manager.run()
 
 if __name__ == '__main__':
     run()

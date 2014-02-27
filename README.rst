@@ -33,7 +33,7 @@ Then run the following:
    $ git clone git://github.com/malept/gmusicprocurator.git
    $ cd gmusicprocurator
    $ pip install -r requirements.txt
-   $ python -m gmusicprocurator
+   $ python -m gmusicprocurator runserver
 
 Configuration
 -------------
