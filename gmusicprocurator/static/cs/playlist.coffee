@@ -55,9 +55,20 @@ class gmp.Tracks extends Backbone.Collection
 class gmp.PlaylistView extends Backbone.View
   tagName: 'section'
   template: _.template($('#playlist-tpl').html())
+  events:
+    'mouseover .albumart span': 'album_mouseover'
+    'mouseout .albumart span': 'album_mouseout'
   render: ->
     @$el.html(@template(@model.toJSON()))
     return this
+
+  album_mouseover: (e) ->
+    $(e.target).addClass('fa-play').css('background-image', '')
+
+  album_mouseout: (e) ->
+    aa = $(e.target)
+    aa.removeClass('fa-play')
+    aa.css('background-image', "url(#{aa.data('art-url')})")
 
 class gmp.PlaylistEntryView extends Backbone.View
   tagName: 'li'
