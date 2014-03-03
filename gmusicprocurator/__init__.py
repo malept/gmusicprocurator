@@ -16,6 +16,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from .app import app
-from . import views  # noqa
+from . import assets, views  # noqa
 
 __all__ = ['app']
