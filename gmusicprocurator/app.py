@@ -16,6 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from flask import Flask
+from flask.ext.assets import Environment
 from gmusicapi import Mobileclient
 import os
 from xdg import BaseDirectory
@@ -29,6 +30,8 @@ app = Flask(__name__)
 app.config.from_object('gmusicprocurator.default_settings')
 app.config.from_envvar(SETTINGS_VAR)
 
+assets = Environment(app)
+
 music = Mobileclient()
 music.login(app.config['GACCOUNT_EMAIL'],
             app.config['GACCOUNT_PASSWORD'])
@@ -37,4 +40,4 @@ if app.config['GMP_CACHE_SONGS'] and \
    not os.path.isdir(app.config['GMP_CACHE_DIR']):
     os.makedirs(app.config['GMP_CACHE_DIR'])
 
-__all__ = ['app', 'music']
+__all__ = ['app', 'assets', 'music']

@@ -1,0 +1,5 @@
+*.min.css
+*.min.js*
+*.out.css
+gmusicprocurator/static/vendor/*
+.webassets-cache

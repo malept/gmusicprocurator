@@ -1,4 +1,7 @@
+closure
+cssmin
 Flask
+flask-assets
 Flask-Script
 gmusicapi
 pyxdg

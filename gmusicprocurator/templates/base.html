@@ -1,0 +1,51 @@
+<!DOCTYPE html>{# vim: set ft=jinja ts=2 sts=2 sw=2 : #}
+<html class="no-js">
+<head>
+  <title>{% block title %}GMusicProcurator{% endblock %}</title>
+  {% if meta_description %}<meta name="description" content="{{ meta_description }}">{% endif %}
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  {# Place favicon.ico and apple-touch-icon(s) in the root directory #}
+  {% assets 'css' -%}
+  <link rel="stylesheet" href="{{ ASSET_URL }}">
+  {% endassets -%}
+  {#% assets 'modernizr' -%}
+  <script src="{{{ ASSET_URL }}"></script>
+  {% endassets -%}#}
+</head>
+<body>
+  <!--[if lt IE 8]>
+  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+
+  <header>
+    <h1>GMusicProcurator</h1>
+    {% block header %}{% endblock %}
+  </header>
+
+  {# Add your site or application content here #}
+  <main>
+  {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+  {% block footer%}{% endblock %}
+  </footer>
+
+  {% assets 'js' -%}
+  <script src="{{ ASSET_URL }}"></script>
+  {% endassets -%}
+
+  {% if config.GOOGLE_ANALYTICS_ID -%}
+  {# Google Analytics: change UA-XXXXX-X to be your site's ID. #}
+  <script>
+    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+      function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+      e.src='//www.google-analytics.com/analytics.js';
+      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create',{{ config.GOOGLE_ANALYTICS_ID }});ga('send','pageview');
+  </script>
+  {% endif -%}
+</body>
+</html>

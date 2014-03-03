@@ -1,0 +1,41 @@
+{% extends 'base.html' %}{# vim: set ft=jinja ts=2 sts=2 sw=2 : #}
+
+{% block title %}Music Player{% endblock %}
+
+{% block content %}
+<div class="pure-g">
+  <nav class="pure-u-1-4">
+    <button id="get-playlists" class="pure-button pure-button-primary">Get Playlists</button>
+    <h2 id="playlists-header" style="display:none">Playlists</h2>
+    <ul id="playlists"></ul>
+  </nav>
+  <section class="pure-u-3-4">
+    <table id="playlist">
+      <thead>
+        <tr>
+          <th>Track</th>
+          <th>Artist</th>
+          <th>Album</th>
+          <th>#</th>
+        </tr>
+      </thead>
+    </table>
+  </section>
+</div>
+
+{% endblock content %}
+
+{% block footer %}
+<nav>
+  <button class="pure-button"><span class="fa fa-step-backward"></span></span>
+  <button class="pure-button"><span class="fa fa-backward"></span></span>
+  <button class="pure-button"><span class="fa fa-stop"></span></span>
+  <button class="pure-button"><span class="fa fa-play"></span></span>
+  <button class="pure-button"><span class="fa fa-forward"></span></span>
+  <button class="pure-button"><span class="fa fa-step-forward"></span></span>
+</nav>
+
+<script type="text/template" id="playlists-tpl">
+  <a data-playlist-id="[[ id ]]" href="#playlist-[[ id ]]">[[ name ]]</a>
+</script>
+{% endblock footer %}

@@ -15,6 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from . import proxy
+from . import proxy, ui
 
-__all__ = ['proxy']
+__all__ = ['proxy', 'ui']
