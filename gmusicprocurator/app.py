@@ -15,16 +15,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from appdirs import user_data_dir
 from flask import Flask
 from flask.ext.assets import Environment
 from gmusicapi import Mobileclient
 import os
-from xdg import BaseDirectory
 
 SETTINGS_VAR = 'GMUSICPROCURATOR_SETTINGS'
 CFG_FILENAME = 'gmusicprocurator.cfg'
 os.environ.setdefault(SETTINGS_VAR,
-                      BaseDirectory.load_first_config(CFG_FILENAME))
+                      os.path.join(user_data_dir('gmusicapi'), CFG_FILENAME))
 
 app = Flask(__name__)
 app.config.from_object('gmusicprocurator.default_settings')

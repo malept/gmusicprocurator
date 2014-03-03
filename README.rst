@@ -14,7 +14,7 @@ Quick Install
 
    This has only been tested on Python 2.7.
 
-Create a config file in ``~/.config/gmusicprocurator.cfg`` that looks like
+Create a config file in ``~/.config/gmusicapi/gmusicprocurator.cfg`` that looks like
 this:
 
 .. code-block:: python

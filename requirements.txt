@@ -4,6 +4,5 @@ Flask
 flask-assets
 Flask-Script
 gmusicapi
-pyxdg
 # xspf
 git+git://github.com/alastair/xspf.git#egg=xspf
