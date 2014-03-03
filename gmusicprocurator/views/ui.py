@@ -20,8 +20,14 @@ from flask.ext.assets import Bundle
 
 from ..app import app, assets
 
+
+def bundlify(fmt, modules, **kwargs):
+    '''Creates a Bundle based on a path format and a list of modules.'''
+    return Bundle(*[fmt.format(f) for f in modules], **kwargs)
+
 normalize = 'vendor/pure/base.css'
 
+# typography is in a separate bundle so it can be placed before pure
 typography = Bundle('scss/typography.scss', filters='scss',
                     output='scss/typography.out.css')
 
@@ -31,7 +37,7 @@ pure_modules = [
     'tables',
 ]
 
-pure = Bundle(*['vendor/pure/{0}.css'.format(f) for f in pure_modules])
+pure = bundlify('vendor/pure/{0}.css', pure_modules)
 
 main_css = Bundle('scss/main.scss', filters='scss',
                   output='scss/main.out.css')
@@ -49,8 +55,8 @@ cs_modules = [
     'app',
 ]
 
-cs = Bundle(*['cs/{0}.coffee'.format(f) for f in cs_modules],
-            filters='coffeescript', output='cs/out.js')
+cs = bundlify('cs/{0}.coffee', cs_modules, filters='coffeescript',
+              output='cs/out.js')
 js = Bundle(vendor, cs, filters='closure_js', output='all.min.js')
 assets.register('js', js)
 
