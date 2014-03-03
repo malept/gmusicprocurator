@@ -9,17 +9,7 @@
     <h2 id="playlists-header" style="display:none">Playlists</h2>
     <ul id="playlists"></ul>
   </nav>
-  <section class="pure-u-3-4">
-    <table id="playlist">
-      <thead>
-        <tr>
-          <th>Track</th>
-          <th>Artist</th>
-          <th>Album</th>
-          <th>#</th>
-        </tr>
-      </thead>
-    </table>
+  <section class="pure-u-3-4" id="playlist">
   </section>
 </div>
 
@@ -35,7 +25,36 @@
   <button class="pure-button"><span class="fa fa-step-forward"></span></span>
 </nav>
 
-<script type="text/template" id="playlists-tpl">
+<script type="text/template" id="playlist-entry-tpl">
   <a data-playlist-id="[[ id ]]" href="#playlist-[[ id ]]">[[ name ]]</a>
+</script>
+
+<script type="text/template" id="playlist-tpl">
+  <section id="playlist-info">
+    <h3>[[ name ]]</h3>
+  </section>
+  <table class="listing">
+    <thead>
+      <tr>
+        <th>Track</th>
+        <th>Artist</th>
+        <th>Album</th>
+        <th>#</th>
+      </tr>
+    </thead>
+    <tbody>
+      [%
+        tracks.forEach(function(track) {
+          var tdata = track.get('track');
+      %]
+      <tr>
+        <td>[[ tdata.get('title') ]]</td>
+        <td>[[ tdata.get('artist') ]]</td>
+        <td>[[ tdata.get('album') ]]</td>
+        <td>[[ tdata.get('trackNumber') ]]</td>
+      </tr>
+      [% }); /* tracks.forEach */ %]
+    </tbody>
+  </table>
 </script>
 {% endblock footer %}
