@@ -16,6 +16,7 @@
 {% endblock content %}
 
 {% block footer %}
+<audio id="player" autoplay></audio>
 <nav>
   <button class="pure-button"><span class="fa fa-step-backward"></span></span>
   <button class="pure-button"><span class="fa fa-backward"></span></span>
@@ -50,7 +51,7 @@
           var t_aa = tdata.get('albumArtRef');
       %]
       <tr>
-        <td class="albumart">[% if (!!t_aa) { %]<span data-art-url="[[ t_aa[0].url ]]" class="fa" style="background-image:url([[ t_aa[0].url ]])"></span>[% } %]</td>
+        <td class="albumart">[% if (!!t_aa) { %]<span data-song-id="[[ tdata.id ]]" data-art-url="[[ t_aa[0].url ]]" class="fa" style="background-image:url([[ t_aa[0].url ]])"></span>[% } %]</td>
         <td>[[ tdata.get('title') ]]</td>
         <td>[[ tdata.get('artist') ]]</td>
         <td>[[ tdata.get('album') ]]</td>

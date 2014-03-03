@@ -44,6 +44,9 @@ class gmp.PlaylistEntries extends Backbone.Collection
   model: gmp.PlaylistEntry
 
 class gmp.Track extends Backbone.Model
+  constructor: (data, options) ->
+    data.id = data.storeId if !!data && !!data.storeId
+    super(data, options)
 
 class gmp.Tracks extends Backbone.Collection
   model: gmp.Track
@@ -58,6 +61,7 @@ class gmp.PlaylistView extends Backbone.View
   events:
     'mouseover .albumart span': 'album_mouseover'
     'mouseout .albumart span': 'album_mouseout'
+    'click .albumart span': 'play_track'
   render: ->
     @$el.html(@template(@model.toJSON()))
     return this
@@ -69,6 +73,19 @@ class gmp.PlaylistView extends Backbone.View
     aa = $(e.target)
     aa.removeClass('fa-play')
     aa.css('background-image', "url(#{aa.data('art-url')})")
+
+  play_track: (e) ->
+    song_url = "/songs/#{$(e.target).data('song-id')}"
+    audio = $('#player')[0]
+    if !!audio.canPlayType
+      if audio.canPlayType('audio/mpeg')
+        audio.setAttribute('src', song_url)
+        audio.load()
+      else
+        window.alert 'You cannot play MP3s natively. Sorry.'
+    else
+      window.alert 'Cannot play HTML5 audio. Sorry.'
+
 
 class gmp.PlaylistEntryView extends Backbone.View
   tagName: 'li'
