@@ -4,12 +4,11 @@
 
 {% block content %}
 <div class="pure-g">
-  <nav class="pure-u-1-4">
+  <nav class="pure-u-1-5">
     <button id="get-playlists" class="pure-button pure-button-primary">Get Playlists</button>
-    <h2 id="playlists-header" style="display:none">Playlists</h2>
     <ul id="playlists"></ul>
   </nav>
-  <section class="pure-u-3-4" id="playlist">
+  <section class="pure-u-4-5" id="playlist">
   </section>
 </div>
 
@@ -32,9 +31,9 @@
 
 <script type="text/template" id="playlist-tpl">
   <section id="playlist-info">
-    <h3>[[ name ]]</h3>
+    <h3 class="delta">[[ name ]]</h3>
   </section>
-  <table class="listing">
+  <table class="listing pure-table pure-table-striped">
     <thead>
       <tr>
         <th>&nbsp;</th>

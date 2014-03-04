@@ -13,7 +13,16 @@ footer {
 
 #playlist {
   .listing {
-    .albumart {
+    font-size: smaller;
+
+    tbody tr {
+      height: 60px;
+    }
+
+    td.albumart {
+      padding: 0;
+      vertical-align: middle;
+
       span {
         $aa_size: 32px;
         background-size: contain;

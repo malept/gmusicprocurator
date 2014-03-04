@@ -12,7 +12,6 @@ class gmp.AppView extends Backbone.View
       btn = this
       $.getJSON '/playlists', (data) ->
         gmp.playlists.add(data.playlists)
-        $('#playlists-header').show()
         $(btn).hide()
 
 ####
