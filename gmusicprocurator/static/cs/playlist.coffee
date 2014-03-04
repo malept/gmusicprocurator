@@ -1,14 +1,11 @@
 # -*- coding: utf-8 -*-
 # vim: set ts=2 sts=2 sw=2 :
 
-# Config for mustache-style templates
-# Unfortunately, since we're using Jinja, this can't be used.
-###
-_.templateSettings =
-  evaluate: /\{%([\s\S]+?)%\}/g
-  interpolate: /\{\{([\s\S]+?)\}\}/g
-  escape: /\{%-([\s\S]+?)%\}/g
-###
+
+# Config for underscore templates:
+# * eval = [% ... %]
+# * interpolate = [[ ... ]]
+# * escape: [%- ... %]
 _.templateSettings =
   evaluate: /\[%([\s\S]+?)%\]/g
   interpolate: /\[\[([\s\S]+?)\]\]/g
