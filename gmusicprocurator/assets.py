@@ -56,5 +56,5 @@ cs_modules = [
 
 cs = bundlify('cs/{0}.coffee', cs_modules, filters='coffeescript',
               output='cs/out.js')
-js = Bundle(vendor, cs, filters='closure_js', output='all.min.js')
+js = Bundle(vendor, cs, filters='uglifyjs', output='all.min.js')
 assets.register('js', js)
