@@ -1,0 +1,29 @@
+  <section id="playlist-info">
+    <h3 class="delta">[[ name ]]</h3>
+  </section>
+  <table class="listing pure-table pure-table-striped">
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <th>Track</th>
+        <th>Artist</th>
+        <th>Album</th>
+        <th>#</th>
+      </tr>
+    </thead>
+    <tbody>
+      [%
+        tracks.forEach(function(track) {
+          var tdata = track.get('track');
+          var t_aa = tdata.get('albumArtRef');
+      %]
+      <tr>
+        <td class="albumart">[% if (!!t_aa) { %]<span data-song-id="[[ tdata.id ]]" data-art-url="[[ t_aa[0].url ]]" class="fa" style="background-image:url([[ t_aa[0].url ]])"></span>[% } %]</td>
+        <td>[[ tdata.get('title') ]]</td>
+        <td>[[ tdata.get('artist') ]]</td>
+        <td>[[ tdata.get('album') ]]</td>
+        <td>[[ tdata.get('trackNumber') ]]</td>
+      </tr>
+      [% }); /* tracks.forEach */ %]
+    </tbody>
+  </table>
