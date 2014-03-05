@@ -16,19 +16,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-# Config for underscore templates:
-# * eval = [% ... %]
-# * interpolate = [[ ... ]]
-# * escape: [%- ... %]
-_.templateSettings =
-  evaluate: /\[%([\s\S]+?)%\]/g
-  interpolate: /\[\[([\s\S]+?)\]\]/g
-  escape: /\[%-([\s\S]+?)%\]/g
-
-# namespace
-gmp = {}
-
 ####
 # Models / Collections
 ####

@@ -50,6 +50,7 @@ vendor = Bundle('vendor/jquery/dist/jquery.js',
                 'vendor/backbone/backbone.js')
 
 cs_modules = [
+    'init',
     'playlist',
     'app',
 ]
