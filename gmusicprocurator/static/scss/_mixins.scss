@@ -1,0 +1,7 @@
+@mixin text-outline($color, $size: 1px) {
+  // Based on https://stackoverflow.com/a/4919231
+  text-shadow: -$size -$size 0 $color,
+               $size -$size 0 $color,
+               -$size $size 0 $color,
+               $size $size 0 $color;
+}

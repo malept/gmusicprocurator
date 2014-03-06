@@ -64,15 +64,20 @@ class gmp.PlaylistView extends Backbone.View
     return this
 
   album_mouseover: (e) ->
-    $(e.target).addClass('fa-play').css('background-image', '')
+    aa = $(e.target)
+    return false if aa.hasClass('fa-music')
+    aa.addClass('fa-play').css('background-image', '')
 
   album_mouseout: (e) ->
     aa = $(e.target)
+    return false if aa.hasClass('fa-music')
     aa.removeClass('fa-play')
     aa.css('background-image', "url(#{aa.data('art-url')})")
 
   play_track: (e) ->
+    @$el.find('.albumart span.fa-music').removeClass('fa-music')
     gmp.player.play("/songs/#{$(e.target).data('song-id')}")
+    $(e.target).mouseout().addClass('fa-music')
 
 
 class gmp.PlaylistEntryView extends Backbone.View

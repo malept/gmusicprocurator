@@ -1,3 +1,5 @@
+@import 'mixins';
+
 main {
   margin-bottom: 50px;
 }
@@ -44,8 +46,15 @@ footer {
         width: $aa_size;
       }
 
+      span.fa-music {
+        font-size: 1.5em;
+        @include text-outline(#fff);
+      }
+
       span:hover {
         background-color: #E6E6E6;
+      }
+      span:hover:not(.fa-music) {
         cursor: pointer;
       }
     }
