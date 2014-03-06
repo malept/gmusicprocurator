@@ -1,10 +1,16 @@
 footer {
+  background: #fff;
   bottom: 0;
   position: fixed;
+  width: 100%;
 
   button.pure-button {
     border-radius: 0;
   }
+}
+
+#player {
+  text-align: center;
 }
 
 #copyright {
