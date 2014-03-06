@@ -22,6 +22,8 @@ class gmp.PlayerView extends Backbone.View
   events:
     'click .play-pause': 'play_pause'
     'click .stop': 'stop'
+    'click .rewind': 'rewind'
+    'click .forward': 'forward'
   render: ->
     @$el.html(@template())
     @$play_pause = @$el.find('.play-pause > span')
@@ -55,3 +57,13 @@ class gmp.PlayerView extends Backbone.View
     return false unless @audio.played.length
     @audio.pause() if @$play_pause.hasClass('fa-pause')
     @audio.currentTime = 0
+
+  rewind: ->
+    return false unless @audio.played.length
+    return false if @$play_pause.hasClass('fa-play')
+    @audio.currentTime -= 5
+
+  forward: ->
+    return false unless @audio.played.length
+    return false if @$play_pause.hasClass('fa-play')
+    @audio.currentTime += 5
