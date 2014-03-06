@@ -2,8 +2,8 @@
 <nav>
   <button class="pure-button"><span class="fa fa-step-backward"></span></span>
   <button class="pure-button"><span class="fa fa-backward"></span></span>
-  <button class="pure-button"><span class="fa fa-stop"></span></span>
-  <button class="pure-button"><span class="fa fa-play play-pause"></span></span>
+  <button class="pure-button stop"><span class="fa fa-stop"></span></span>
+  <button class="pure-button play-pause"><span class="fa fa-play"></span></span>
   <button class="pure-button"><span class="fa fa-forward"></span></span>
   <button class="pure-button"><span class="fa fa-step-forward"></span></span>
 </nav>

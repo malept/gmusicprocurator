@@ -21,9 +21,10 @@ class gmp.PlayerView extends Backbone.View
   template: _.template($('#player-tpl').html())
   events:
     'click .play-pause': 'play_pause'
+    'click .stop': 'stop'
   render: ->
     @$el.html(@template())
-    @$play_pause = @$el.find('.play-pause')
+    @$play_pause = @$el.find('.play-pause > span')
     @$audio = @$el.children('audio')
     @audio = @$audio[0]
     @$audio.on 'pause', =>
@@ -49,3 +50,8 @@ class gmp.PlayerView extends Backbone.View
     else
       @audio.pause()
     return true
+
+  stop: ->
+    return false unless @audio.played.length
+    @audio.pause() if @$play_pause.hasClass('fa-pause')
+    @audio.currentTime = 0
