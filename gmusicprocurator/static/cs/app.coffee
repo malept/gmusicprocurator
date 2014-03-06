@@ -20,6 +20,8 @@ class gmp.AppView extends Backbone.View
   el: 'main'
 
   initialize: ->
+    gmp.playlists = new gmp.PlaylistCollection
+
     @listenTo gmp.playlists, 'add', (playlist) ->
       view = new gmp.PlaylistEntryView({model: playlist})
       $('#playlists').append(view.render().el)
@@ -28,10 +30,12 @@ class gmp.AppView extends Backbone.View
       $.getJSON '/playlists', (data) ->
         gmp.playlists.add(data.playlists)
         $(btn).hide()
+    gmp.player = new gmp.PlayerView
+    $('#player').append(gmp.player.render().el)
 
 ####
 # Initializer
 ####
 
 $ ->
-  new gmp.AppView
+  gmp.app = new gmp.AppView

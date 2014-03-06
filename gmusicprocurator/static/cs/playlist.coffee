@@ -31,8 +31,6 @@ class gmp.Playlist extends Backbone.Model
 class gmp.PlaylistCollection extends Backbone.Collection
   model: gmp.Playlist
 
-gmp.playlists = new gmp.PlaylistCollection
-
 class gmp.PlaylistEntry extends Backbone.Model
   constructor: (data, options) ->
     track = data.track
@@ -74,16 +72,7 @@ class gmp.PlaylistView extends Backbone.View
     aa.css('background-image', "url(#{aa.data('art-url')})")
 
   play_track: (e) ->
-    song_url = "/songs/#{$(e.target).data('song-id')}"
-    audio = $('#player')[0]
-    if !!audio.canPlayType
-      if audio.canPlayType('audio/mpeg')
-        audio.setAttribute('src', song_url)
-        audio.load()
-      else
-        window.alert 'You cannot play MP3s natively. Sorry.'
-    else
-      window.alert 'Cannot play HTML5 audio. Sorry.'
+    gmp.player.play("/songs/#{$(e.target).data('song-id')}")
 
 
 class gmp.PlaylistEntryView extends Backbone.View

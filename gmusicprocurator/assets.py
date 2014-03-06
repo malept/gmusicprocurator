@@ -51,6 +51,7 @@ vendor = Bundle('vendor/jquery/dist/jquery.js',
 
 cs_modules = [
     'init',
+    'player',
     'playlist',
     'app',
 ]

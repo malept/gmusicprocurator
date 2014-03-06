@@ -15,15 +15,7 @@
 {% endblock content %}
 
 {% block footer %}
-<audio id="player" autoplay></audio>
-<nav>
-  <button class="pure-button"><span class="fa fa-step-backward"></span></span>
-  <button class="pure-button"><span class="fa fa-backward"></span></span>
-  <button class="pure-button"><span class="fa fa-stop"></span></span>
-  <button class="pure-button"><span class="fa fa-play"></span></span>
-  <button class="pure-button"><span class="fa fa-forward"></span></span>
-  <button class="pure-button"><span class="fa fa-step-forward"></span></span>
-</nav>
+<section id="player"></section>
 
 <script type="text/template" id="playlist-entry-tpl">
   <a data-playlist-id="[[ id ]]" href="#playlist-[[ id ]]">[[ name ]]</a>
@@ -31,5 +23,9 @@
 
 <script type="text/template" id="playlist-tpl">
   {% include 'js/playlist.mtpl' %}
+</script>
+
+<script type="text/template" id="player-tpl">
+  {% include 'js/player.mtpl' %}
 </script>
 {% endblock footer %}
