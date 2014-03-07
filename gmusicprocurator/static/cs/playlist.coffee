@@ -56,28 +56,33 @@ class gmp.PlaylistView extends Backbone.View
   tagName: 'section'
   template: _.template($('#playlist-tpl').html())
   events:
-    'mouseover .albumart span': 'album_mouseover'
-    'mouseout .albumart span': 'album_mouseout'
-    'click .albumart span': 'play_track'
+    'mouseover .albumart span.fa': 'album_mouseover'
+    'mouseout .albumart span.fa': 'album_mouseout'
+    'click .albumart span.fa-play': 'play_track'
   render: ->
     @$el.html(@template(@model.toJSON()))
     return this
 
   album_mouseover: (e) ->
-    aa = $(e.target)
-    return false if aa.hasClass('fa-music')
-    aa.addClass('fa-play').css('background-image', '')
+    icon = $(e.target)
+    return false if icon.hasClass('fa-music') or icon.hasClass('fa-spinner')
+    icon.addClass('fa-play')
 
   album_mouseout: (e) ->
-    aa = $(e.target)
-    return false if aa.hasClass('fa-music')
-    aa.removeClass('fa-play')
-    aa.css('background-image', "url(#{aa.data('art-url')})")
+    icon = $(e.target)
+    return false if icon.hasClass('fa-music') or icon.hasClass('fa-spinner')
+    icon.removeClass('fa-play')
 
   play_track: (e) ->
+    spin_cls = 'fa-spinner fa-spin'
+    icon = $(e.target)
+    aa = icon.parent()
     @$el.find('.albumart span.fa-music').removeClass('fa-music')
-    gmp.player.play("/songs/#{$(e.target).data('song-id')}")
-    $(e.target).mouseout().addClass('fa-music')
+    @$el.find('.albumart span.fa-spinner').removeClass(spin_cls)
+    gmp.player.play("/songs/#{aa.data('song-id')}")
+    icon.removeClass('fa-play').addClass(spin_cls)
+    gmp.player.$audio.one 'play', ->
+      icon.removeClass(spin_cls).addClass('fa-music')
 
 
 class gmp.PlaylistEntryView extends Backbone.View

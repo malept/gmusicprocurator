@@ -57,11 +57,9 @@ footer {
     td.albumart {
       padding: 0;
       vertical-align: middle;
+      $aa_size: 32px;
 
       span {
-        $aa_size: 32px;
-        background-size: contain;
-        background-repeat: no-repeat;
         display: inline-block;
         height: $aa_size;
         line-height: $aa_size;
@@ -69,15 +67,29 @@ footer {
         width: $aa_size;
       }
 
-      span.fa-music {
+      > span {
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
+
+      span.fa {
         font-size: 1.5em;
+      }
+
+      span.fa-music {
         @include text-outline(#fff);
       }
 
-      span:hover {
-        background-color: #E6E6E6;
+      span.fa-spinner {
+        background-image: radial-gradient(#E6E6E6, rgba(255, 255, 255, 0));
+        border-radius: $aa_size / 2;
       }
-      span:hover:not(.fa-music) {
+
+      span.fa-play:hover {
+        background-color: rgba(230, 230, 230, 0.75);
+      }
+
+      span:hover {
         cursor: pointer;
       }
     }
