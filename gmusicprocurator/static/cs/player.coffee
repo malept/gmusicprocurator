@@ -38,6 +38,7 @@ class gmp.PlayerView extends Backbone.View
     @$el.html(@template())
     @$play_pause = @$el.find('.play-pause > span')
     @$track_position = @$el.children('#track-position')
+
     @$audio = @$el.children('audio')
     @audio = @$audio[0]
     @$audio.on 'pause', =>
@@ -51,6 +52,7 @@ class gmp.PlayerView extends Backbone.View
       cur_pos = human_readable_time(@audio.currentTime)
       total = human_readable_time(@audio.duration)
       @$track_position.attr('title', "#{cur_pos} / #{total}")
+
     @$volume_icon = @$el.find('.volume-control > span')
     @$volume_widget = @$el.find('.volume-control-widget')
     @$volume_widget.on 'change', (e) =>
@@ -65,6 +67,10 @@ class gmp.PlayerView extends Backbone.View
         volume_cls = 'fa-volume-off'
       @$volume_icon.addClass(volume_cls)
     @$volume_widget.val(50).change()
+
+    @$track_position.on 'click', (e) =>
+      return false unless @audio.played.length
+      @audio.currentTime = (e.offsetX / $(e.target).width()) * @audio.duration
     return this
 
   play: (url) ->

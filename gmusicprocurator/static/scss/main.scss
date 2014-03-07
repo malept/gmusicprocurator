@@ -18,9 +18,14 @@ footer {
 #player {
   text-align: center;
 
-  nav button {
-    height: 48px;
-    width: 48px;
+  nav {
+    $btn_size: 48px;
+    height: $btn_size;
+
+    button {
+      height: $btn_size;
+      width: $btn_size;
+    }
   }
 
   .volume-control {
@@ -28,7 +33,11 @@ footer {
   }
 
   #track-position {
-    height:2px;
+    cursor: pointer;
+    height: 2px;
+    left: 0;
+    position: absolute;
+    top: 0;
     width: 100%;
   }
 }
