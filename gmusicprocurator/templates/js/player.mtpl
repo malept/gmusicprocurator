@@ -1,4 +1,5 @@
 <audio autoplay></audio>
+<progress id="track-position" max="0" value="0"></progress>
 <nav>
   <button class="pure-button" title="Previous track"><span class="fa fa-step-backward"></span></button>
   <button class="pure-button rewind" title="Rewind"><span class="fa fa-backward"></span></button>
