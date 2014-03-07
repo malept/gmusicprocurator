@@ -24,6 +24,7 @@ class gmp.PlayerView extends Backbone.View
     'click .stop': 'stop'
     'click .rewind': 'rewind'
     'click .forward': 'forward'
+    'click .volume-control': 'toggle_volume_control_widget'
   render: ->
     @$el.html(@template())
     @$play_pause = @$el.find('.play-pause > span')
@@ -33,6 +34,20 @@ class gmp.PlayerView extends Backbone.View
       @$play_pause.removeClass('fa-pause').addClass('fa-play')
     @$audio.on 'play', =>
       @$play_pause.removeClass('fa-play').addClass('fa-pause')
+    @$volume_icon = @$el.find('.volume-control > span')
+    @$volume_widget = @$el.find('.volume-control-widget')
+    @$volume_widget.on 'change', (e) =>
+      volume = $(e.target).val() / 100
+      @audio.volume = volume
+      @$volume_icon.removeClass('fa-volume-off fa-volume-down fa-volume-up')
+      if volume > 0.5
+        volume_cls = 'fa-volume-up'
+      else if volume > 0
+        volume_cls = 'fa-volume-down'
+      else
+        volume_cls = 'fa-volume-off'
+      @$volume_icon.addClass(volume_cls)
+    @$volume_widget.val(50).change()
     return this
 
   play: (url) ->
@@ -67,3 +82,6 @@ class gmp.PlayerView extends Backbone.View
     return false unless @audio.played.length
     return false if @$play_pause.hasClass('fa-play')
     @audio.currentTime += 5
+
+  toggle_volume_control_widget: ->
+    @$volume_widget.toggleClass('invisible')

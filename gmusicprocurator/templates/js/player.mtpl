@@ -6,4 +6,13 @@
   <button class="pure-button play-pause" title="Play/pause"><span class="fa fa-play"></span></button>
   <button class="pure-button forward" title="Fast forward"><span class="fa fa-forward"></span></button>
   <button class="pure-button" title="Next track"><span class="fa fa-step-forward"></span></button>
+  <button class="pure-button volume-control" title="Volume control"><span class="fa"></span></button>
+  <span class="volume-control-widget invisible">
+    <input type="range" min="0" max="100" list="volume-presets"/>
+    <datalist id="volume-presets">
+      [% _.each([0, 25, 50, 75, 100], function(preset) { %]
+      <option value="[[ preset ]]"/>
+      [% }); /* end foreach */ %]
+    </datalist>
+  </span>
 </nav>

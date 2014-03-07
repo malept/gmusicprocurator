@@ -17,6 +17,15 @@ footer {
 
 #player {
   text-align: center;
+
+  nav button {
+    height: 48px;
+    width: 48px;
+  }
+
+  .volume-control {
+    display: inline-block;
+  }
 }
 
 #copyright {
@@ -59,4 +68,8 @@ footer {
       }
     }
   }
+}
+
+.invisible {
+  visibility: hidden !important;
 }
