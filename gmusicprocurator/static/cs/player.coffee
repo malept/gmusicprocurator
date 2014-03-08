@@ -19,7 +19,7 @@
 #
 # Note: only does SSSS -> MM:SS
 #
-human_readable_time = (seconds) ->
+gmp.human_readable_time = (seconds) ->
   minutes = (seconds / 60).toFixed(0)
   remainder = (seconds % 60).toFixed(0)
   remainder = "0#{remainder}" if remainder < 10
@@ -118,8 +118,8 @@ class gmp.PlayerView extends Backbone.View
       @$track_position.attr('max', @audio.duration())
     @audio.timeupdate =>
       @$track_position.val(@audio.currentTime())
-      cur_pos = human_readable_time(@audio.currentTime())
-      total = human_readable_time(@audio.duration())
+      cur_pos = gmp.human_readable_time(@audio.currentTime())
+      total = gmp.human_readable_time(@audio.duration())
       @$track_position.attr('title', "#{cur_pos} / #{total}")
 
     @$volume_icon = @$('.volume-control > span')
