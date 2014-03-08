@@ -25,6 +25,70 @@ human_readable_time = (seconds) ->
   remainder = "0#{remainder}" if remainder < 10
   return "#{minutes}:#{remainder}"
 
+class gmp.HTML5Audio
+  constructor: ->
+    @player = new Audio()
+    @$player = $(@player)
+    @$player.attr('autoplay', 'autoplay')
+
+    create_evt_func = (name, args...) =>
+      return (callback = null) =>
+        if !!callback
+          @$player.on name, callback
+        else if !!@player[name]
+          @player[name](args...)
+        else
+          @$player.trigger(name, args)
+    for n in ['play', 'pause', 'durationchange', 'timeupdate']
+      @[n] = create_evt_func(n)
+
+    create_prop_func = (name) =>
+      return (val = null) ->
+        if val is null
+          return @player[name]
+        else
+          @player[name] = val
+    for n in ['currentTime', 'volume']
+      @[n] = create_prop_func(n)
+
+    @playing = false
+    @$player.on 'play', =>
+      @playing = true
+    @$player.on 'pause', =>
+      @playing = false
+
+  load: (url) ->
+    @$player.attr('src', url)
+    @player.load()
+
+  duration: ->
+    return @player.duration
+
+  audio_playable: ->
+    return !!@player.canPlayType
+
+  format_playable: (mimetype) ->
+    return @player.canPlayType(mimetype)
+
+  play_started: (callback = null) ->
+    if callback is null
+      return @player.played.length > 0
+    else
+      @$player.one 'play', callback
+
+  toggle_playback: ->
+    if @playing
+      @player.pause()
+    else
+      @player.play()
+
+  seek: (delta) ->
+    @player.currentTime += delta
+
+  stop: ->
+    @player.pause() if @playing
+    @player.currentTime = 0
+
 class gmp.PlayerView extends Backbone.View
   tagName: 'section'
   id: 'player'
@@ -43,20 +107,19 @@ class gmp.PlayerView extends Backbone.View
     @$play_pause = @$('.play-pause > span')
     @$track_position = @$el.children('#track-position')
 
-    @$audio = @$el.children('audio')
-    @audio = @$audio[0]
+    @audio = new gmp.HTML5Audio
 
     # For some reason, can't transform these into view-based events
-    @$audio.on 'pause', =>
+    @audio.pause =>
       @$play_pause.removeClass('fa-pause').addClass('fa-play')
-    @$audio.on 'play', =>
+    @audio.play =>
       @$play_pause.removeClass('fa-play').addClass('fa-pause')
-    @$audio.on 'durationchange', =>
-      @$track_position.attr('max', @audio.duration)
-    @$audio.on 'timeupdate', =>
-      @$track_position.val(@audio.currentTime)
-      cur_pos = human_readable_time(@audio.currentTime)
-      total = human_readable_time(@audio.duration)
+    @audio.durationchange =>
+      @$track_position.attr('max', @audio.duration())
+    @audio.timeupdate =>
+      @$track_position.val(@audio.currentTime())
+      cur_pos = human_readable_time(@audio.currentTime())
+      total = human_readable_time(@audio.duration())
       @$track_position.attr('title', "#{cur_pos} / #{total}")
 
     @$volume_icon = @$('.volume-control > span')
@@ -66,44 +129,35 @@ class gmp.PlayerView extends Backbone.View
     return this
 
   play: (url) ->
-    if !!@audio.canPlayType
-      if @audio.canPlayType('audio/mpeg')
-        @audio.setAttribute('src', url)
-        @audio.load()
+    if @audio.audio_playable()
+      if @audio.format_playable('audio/mpeg')
+        @audio.load(url)
       else
         window.alert 'You cannot play MP3s natively. Sorry.'
     else
       window.alert 'Cannot play HTML5 audio. Sorry.'
 
   play_pause: ->
-    return false unless @audio.played.length
-    if @$play_pause.hasClass('fa-play')
-      @audio.play()
-    else
-      @audio.pause()
-    return true
+    @audio.toggle_playback()
 
   stop: ->
-    return false unless @audio.played.length
-    @audio.pause() if @$play_pause.hasClass('fa-pause')
-    @audio.currentTime = 0
+    return false unless @audio.play_started()
+    @audio.stop()
 
   rewind: ->
-    return false unless @audio.played.length
-    return false if @$play_pause.hasClass('fa-play')
-    @audio.currentTime -= 5
+    return false unless @audio.play_started()
+    @audio.seek(-5)
 
   forward: ->
-    return false unless @audio.played.length
-    return false if @$play_pause.hasClass('fa-play')
-    @audio.currentTime += 5
+    return false unless @audio.play_started()
+    @audio.seek(5)
 
   toggle_volume_control_widget: ->
     @$volume_widget.toggleClass('invisible')
 
   update_volume: (e) =>
     volume = $(e.target).val() / 100
-    @audio.volume = volume
+    @audio.volume(volume)
     @$volume_icon.removeClass('fa-volume-off fa-volume-down fa-volume-up')
     if volume > 0.5
       volume_cls = 'fa-volume-up'
@@ -114,5 +168,5 @@ class gmp.PlayerView extends Backbone.View
     @$volume_icon.addClass(volume_cls)
 
   update_position_from_progress: (e) =>
-    return false unless @audio.played.length
-    @audio.currentTime = (e.offsetX / $(e.target).width()) * @audio.duration
+    return false unless @audio.play_started()
+    @audio.currentTime((e.offsetX / $(e.target).width()) * @audio.duration())
