@@ -27,6 +27,7 @@ human_readable_time = (seconds) ->
 
 class gmp.PlayerView extends Backbone.View
   tagName: 'section'
+  id: 'player'
   template: _.template($('#player-tpl').html())
   events:
     'click .play-pause': 'play_pause'

@@ -31,7 +31,7 @@ class gmp.AppView extends Backbone.View
         gmp.playlists.add(data.playlists)
         $(btn).hide()
     gmp.player = new gmp.PlayerView
-    $('#player').append(gmp.player.render().el)
+    $('body > footer').append(gmp.player.render().el)
 
 ####
 # Initializer
