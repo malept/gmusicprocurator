@@ -54,6 +54,8 @@ class gmp.Tracks extends Backbone.Collection
 
 class gmp.PlaylistView extends Backbone.View
   tagName: 'section'
+  id: 'playlist'
+  className: 'pure-u-4-5'
   template: _.template($('#playlist-tpl').html())
   events:
     'mouseover .albumart span.fa': 'album_mouseover'
@@ -99,5 +101,6 @@ class gmp.PlaylistEntryView extends Backbone.View
     view = new gmp.PlaylistView({
       model: gmp.playlists.get($(e.target).data('playlist-id'))
     })
-    $('#playlist').empty().append(view.render().el)
+    $('#playlist').remove()
+    $('main nav:first').after(view.render().el)
     return false
