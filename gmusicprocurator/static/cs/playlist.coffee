@@ -90,17 +90,21 @@ class gmp.PlaylistView extends Backbone.View
 class gmp.PlaylistEntryView extends Backbone.View
   tagName: 'li'
   template: _.template($('#playlist-entry-tpl').html())
-  events:
-    'click a[data-playlist-id]': 'load_playlist'
   render: ->
     @$el.html(@template(@model.toJSON()))
     return this
 
-  load_playlist: (e) ->
-    e.preventDefault()
+####
+# Routers
+####
+
+class gmp.PlaylistRouter extends Backbone.Router
+  routes:
+    'playlist/:id': 'load_playlist'
+
+  load_playlist: (id) ->
     view = new gmp.PlaylistView({
-      model: gmp.playlists.get($(e.target).data('playlist-id'))
+      model: gmp.playlists.get(id)
     })
     $('#playlist').remove()
     $('main nav:first').after(view.render().el)
-    return false
