@@ -35,13 +35,18 @@ class gmp.PlayerView extends Backbone.View
     'click .rewind': 'rewind'
     'click .forward': 'forward'
     'click .volume-control': 'toggle_volume_control_widget'
+    'change .volume-control-widget': 'update_volume'
+    'click #track-position': 'update_position_from_progress'
   render: ->
     @$el.html(@template())
+
     @$play_pause = @$('.play-pause > span')
     @$track_position = @$el.children('#track-position')
 
     @$audio = @$el.children('audio')
     @audio = @$audio[0]
+
+    # For some reason, can't transform these into view-based events
     @$audio.on 'pause', =>
       @$play_pause.removeClass('fa-pause').addClass('fa-play')
     @$audio.on 'play', =>
@@ -56,22 +61,8 @@ class gmp.PlayerView extends Backbone.View
 
     @$volume_icon = @$('.volume-control > span')
     @$volume_widget = @$('.volume-control-widget')
-    @$volume_widget.on 'change', (e) =>
-      volume = $(e.target).val() / 100
-      @audio.volume = volume
-      @$volume_icon.removeClass('fa-volume-off fa-volume-down fa-volume-up')
-      if volume > 0.5
-        volume_cls = 'fa-volume-up'
-      else if volume > 0
-        volume_cls = 'fa-volume-down'
-      else
-        volume_cls = 'fa-volume-off'
-      @$volume_icon.addClass(volume_cls)
     @$volume_widget.val(50).change()
 
-    @$track_position.on 'click', (e) =>
-      return false unless @audio.played.length
-      @audio.currentTime = (e.offsetX / $(e.target).width()) * @audio.duration
     return this
 
   play: (url) ->
@@ -109,3 +100,19 @@ class gmp.PlayerView extends Backbone.View
 
   toggle_volume_control_widget: ->
     @$volume_widget.toggleClass('invisible')
+
+  update_volume: (e) =>
+    volume = $(e.target).val() / 100
+    @audio.volume = volume
+    @$volume_icon.removeClass('fa-volume-off fa-volume-down fa-volume-up')
+    if volume > 0.5
+      volume_cls = 'fa-volume-up'
+    else if volume > 0
+      volume_cls = 'fa-volume-down'
+    else
+      volume_cls = 'fa-volume-off'
+    @$volume_icon.addClass(volume_cls)
+
+  update_position_from_progress: (e) =>
+    return false unless @audio.played.length
+    @audio.currentTime = (e.offsetX / $(e.target).width()) * @audio.duration
