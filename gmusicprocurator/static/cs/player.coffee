@@ -37,7 +37,7 @@ class gmp.PlayerView extends Backbone.View
     'click .volume-control': 'toggle_volume_control_widget'
   render: ->
     @$el.html(@template())
-    @$play_pause = @$el.find('.play-pause > span')
+    @$play_pause = @$('.play-pause > span')
     @$track_position = @$el.children('#track-position')
 
     @$audio = @$el.children('audio')
@@ -54,8 +54,8 @@ class gmp.PlayerView extends Backbone.View
       total = human_readable_time(@audio.duration)
       @$track_position.attr('title', "#{cur_pos} / #{total}")
 
-    @$volume_icon = @$el.find('.volume-control > span')
-    @$volume_widget = @$el.find('.volume-control-widget')
+    @$volume_icon = @$('.volume-control > span')
+    @$volume_widget = @$('.volume-control-widget')
     @$volume_widget.on 'change', (e) =>
       volume = $(e.target).val() / 100
       @audio.volume = volume

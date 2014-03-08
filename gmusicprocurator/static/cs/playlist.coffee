@@ -77,8 +77,8 @@ class gmp.PlaylistView extends Backbone.View
     spin_cls = 'fa-spinner fa-spin'
     icon = $(e.target)
     aa = icon.parent()
-    @$el.find('.albumart span.fa-music').removeClass('fa-music')
-    @$el.find('.albumart span.fa-spinner').removeClass(spin_cls)
+    @$('.albumart span.fa-music').removeClass('fa-music')
+    @$('.albumart span.fa-spinner').removeClass(spin_cls)
     gmp.player.play("/songs/#{aa.data('song-id')}")
     icon.removeClass('fa-play').addClass(spin_cls)
     gmp.player.$audio.one 'play', ->
