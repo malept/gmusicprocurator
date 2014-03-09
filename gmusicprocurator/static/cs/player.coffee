@@ -25,69 +25,16 @@ gmp.human_readable_time = (seconds) ->
   remainder = "0#{remainder}" if remainder < 10
   return "#{minutes}:#{remainder}"
 
-class gmp.HTML5Audio
-  constructor: ->
-    @player = new Audio()
-    @$player = $(@player)
-    @$player.attr('autoplay', 'autoplay')
-
-    create_evt_func = (name, args...) =>
-      return (callback = null) =>
-        if !!callback
-          @$player.on name, callback
-        else if !!@player[name]
-          @player[name](args...)
-        else
-          @$player.trigger(name, args)
-    for n in ['play', 'pause', 'durationchange', 'timeupdate']
-      @[n] = create_evt_func(n)
-
-    create_prop_func = (name) =>
-      return (val = null) ->
-        if val is null
-          return @player[name]
-        else
-          @player[name] = val
-    for n in ['currentTime', 'volume']
-      @[n] = create_prop_func(n)
-
-    @playing = false
-    @$player.on 'play', =>
-      @playing = true
-    @$player.on 'pause', =>
-      @playing = false
-
-  load: (url) ->
-    @$player.attr('src', url)
-    @player.load()
-
-  duration: ->
-    return @player.duration
-
-  audio_playable: ->
-    return !!@player.canPlayType
-
-  format_playable: (mimetype) ->
-    return @player.canPlayType(mimetype)
-
-  play_started: (callback = null) ->
-    if callback is null
-      return @player.played.length > 0
-    else
-      @$player.one 'play', callback
-
-  toggle_playback: ->
-    if @playing
-      @player.pause()
-    else
-      @player.play()
-
-  seek: (delta) ->
-    @player.currentTime += delta
-
-  stop: ->
-    @player.pause() if @playing
-    @player.currentTime = 0
+gmp.load_audio_backend = ->
+  backends = [
+    gmp.HTML5Audio
+    gmp.AuroraAudio
+  ]
+  for backend_cls in backends
+    backend = new backend_cls
+    if backend.audio_playable() and backend.mp3_playable()
+      return backend
+  return null
 
 class gmp.PlayerView extends Backbone.View
   tagName: 'section'
@@ -107,7 +54,8 @@ class gmp.PlayerView extends Backbone.View
     @$play_pause = @$('.play-pause > span')
     @$track_position = @$el.children('#track-position')
 
-    @audio = new gmp.HTML5Audio
+    @audio = gmp.load_audio_backend()
+    return this unless @audio
 
     # For some reason, can't transform these into view-based events
     @audio.pause =>
@@ -129,8 +77,8 @@ class gmp.PlayerView extends Backbone.View
     return this
 
   play: (url) ->
-    if @audio.audio_playable()
-      if @audio.format_playable('audio/mpeg')
+    if @audio?.audio_playable()
+      if @audio.mp3_playable()
         @audio.load(url)
       else
         window.alert 'You cannot play MP3s natively. Sorry.'
@@ -169,4 +117,7 @@ class gmp.PlayerView extends Backbone.View
 
   update_position_from_progress: (e) =>
     return false unless @audio.play_started()
-    @audio.currentTime((e.offsetX / $(e.target).width()) * @audio.duration())
+    $tgt = $(e.target)
+    # see http://bugs.jquery.com/ticket/8523#comment:12
+    offset = e.offsetX or (e.clientX - $tgt.offset().left)
+    @audio.currentTime((offset / $tgt.width()) * @audio.duration())

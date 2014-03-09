@@ -33,12 +33,19 @@ footer {
   }
 
   #track-position {
+    background: #fff;
+    border: none;
     cursor: pointer;
     height: 2px;
     left: 0;
     position: absolute;
     top: 0;
     width: 100%;
+  }
+
+  #track-position::-webkit-progress-bar {
+    background: #fff;
+    border: none;
   }
 }
 

@@ -16,8 +16,29 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from flask.ext.assets import Bundle
+from webassets.filter import ExternalTool, register_filter
 
 from .app import assets
+
+
+class ImporterFilter(ExternalTool):
+    name = 'importer_js'
+    method = 'open'
+    options = {
+        'binary': 'IMPORTERJS_BIN',
+        'extra_args': 'IMPORTERJS_EXTRA_ARGS',
+    }
+
+    def setup(self):
+        self.argv = [
+            self.binary or 'importer',
+            '{1}',  # source_path
+            '{{output}}',
+        ]
+        if self.extra_args:
+            self.argv.extend(self.extra_args)
+
+register_filter(ImporterFilter)
 
 
 def bundlify(fmt, modules, **kwargs):
@@ -45,12 +66,21 @@ css = Bundle(normalize, typography, pure, main_css, filters='cssmin',
              output='all.min.css')
 assets.register('css', css)
 
+aurora = Bundle('vendor/aurora.js/browser.coffee', filters='importer_js',
+                output='vendor/aurora.built.js')
+mp3 = Bundle('vendor/mp3.js/mp3.js', filters='importer_js',
+             output='vendor/mp3.built.js')
+aurora_mp3 = Bundle(aurora, mp3, filters='uglifyjs', output='auroramp3.min.js')
+assets.register('aurora_mp3', aurora_mp3)
+
 vendor = Bundle('vendor/jquery/dist/jquery.js',
                 'vendor/underscore/underscore.js',
                 'vendor/backbone/backbone.js')
 
 cs_modules = [
     'init',
+    'backends/webaudio',
+    'backends/aurora',
     'player',
     'playlist',
     'app',
