@@ -36,8 +36,4 @@ music = Mobileclient()
 music.login(app.config['GACCOUNT_EMAIL'],
             app.config['GACCOUNT_PASSWORD'])
 
-if app.config['GMP_CACHE_SONGS'] and \
-   not os.path.isdir(app.config['GMP_CACHE_DIR']):
-    os.makedirs(app.config['GMP_CACHE_DIR'])
-
 __all__ = ['app', 'assets', 'music']

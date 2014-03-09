@@ -16,17 +16,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from datetime import datetime
-from flask import abort, request, Response, safe_join, url_for
+from flask import abort, request, Response, url_for
 from flask.json import jsonify
-import os
 import requests
-from shutil import copyfileobj
 from tempfile import NamedTemporaryFile
 from xspf import Xspf
 
 from ..app import app, music
 from ..id3 import MP3
-from ..send_file_partial import send_file_partial
 
 JSON_TYPE = 'application/json'
 MP3_TYPE = 'audio/mpeg'
@@ -55,13 +52,6 @@ def mp3ify(resp):
     if resp.mimetype != MP3_TYPE:
         resp.mimetype = MP3_TYPE
     resp.headers.add('Content-Disposition', 'inline', filename='song.mp3')
-    return resp
-
-
-def send_song(filename):
-    '''Generates a Flask response for an MP3 on the filesystem.'''
-    resp = mp3ify(send_file_partial(filename, MP3_TYPE))
-    resp.headers.add('Accept-Ranges', 'bytes')
     return resp
 
 
@@ -106,10 +96,6 @@ def get_song_info(song_id):
 @app.route('/songs/<song_id>')
 def get_song(song_id):
     '''Retrieves the MP3 for a given ID.'''
-    cached_fname = safe_join(app.config['GMP_CACHE_DIR'], song_id)
-    if app.config['GMP_CACHE_SONGS'] and os.path.exists(cached_fname):
-        return send_song(cached_fname)
-
     song_info = music.get_track_info(song_id)
     song_url = music.get_stream_url(song_id, app.config['GACCOUNT_DEVICE_ID'])
     response = requests.get(song_url)
@@ -137,12 +123,7 @@ def get_song(song_id):
                     audio[id3f] = str(song_info[gmf])
         audio.save()
         f.seek(0)
-        if app.config['GMP_CACHE_SONGS']:
-            with open(cached_fname, 'wb') as cache_f:
-                copyfileobj(f, cache_f)
-            return send_song(cached_fname)
-        else:
-            return mp3ify(Response(open(f.name).read()))
+        return mp3ify(Response(open(f.name).read()))
 
 
 @app.route('/playlists/<playlist_id>')

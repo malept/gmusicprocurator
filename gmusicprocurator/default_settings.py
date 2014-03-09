@@ -15,10 +15,4 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import os
-from tempfile import gettempdir
-
-GMP_CACHE_SONGS = False
-GMP_CACHE_DIR = os.path.join(gettempdir(), 'gmusicprocurator')
-
 GMP_EMBED_ALBUM_ART = False
