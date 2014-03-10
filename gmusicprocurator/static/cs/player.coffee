@@ -36,6 +36,11 @@ gmp.load_audio_backend = ->
       return backend
   return null
 
+class gmp.NowPlayingView extends gmp.SingletonView
+  tagName: 'span'
+  id: 'now-playing'
+  template: _.template($('#now-playing-tpl').html())
+
 class gmp.PlayerView extends Backbone.View
   tagName: 'section'
   id: 'player'
@@ -76,10 +81,12 @@ class gmp.PlayerView extends Backbone.View
 
     return this
 
-  play: (url) ->
+  play: (url, metadata) ->
     if @audio?.audio_playable()
       if @audio.mp3_playable()
         @audio.load(url)
+        tview = new gmp.NowPlayingView({model: metadata})
+        tview.renderify('#player > nav', 'prepend')
       else
         window.alert 'You cannot play MP3s natively. Sorry.'
     else

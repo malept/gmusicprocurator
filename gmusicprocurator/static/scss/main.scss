@@ -1,7 +1,11 @@
 @import 'mixins';
 
+$progress_height: 2px;
+$controls_height: 48px;
+$player_height: $progress_height + $controls_height;
+
 main {
-  margin-bottom: 50px;
+  margin-bottom: $player_height;
 }
 
 footer {
@@ -16,16 +20,48 @@ footer {
 }
 
 #player {
-  text-align: center;
+  height: $player_height;
 
   nav {
-    $btn_size: 48px;
-    height: $btn_size;
+    height: $controls_height;
 
     button {
-      height: $btn_size;
-      width: $btn_size;
+      height: $controls_height;
+      width: $controls_height;
     }
+  }
+
+  #now-playing {
+    display: inline-block;
+    width: 40%;
+
+    .details {
+      * {
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      > * {
+        display: block;
+      }
+    }
+
+    .secondary {
+      font-size: smaller;
+    }
+  }
+
+  .albumart {
+    float: left;
+    height: $controls_height;
+    padding-right: 5px;
+    vertical-align: top;
+  }
+
+  .controls {
+    position: absolute;
+    top: 0;
   }
 
   .volume-control {
@@ -36,7 +72,7 @@ footer {
     background: #fff;
     border: none;
     cursor: pointer;
-    height: 2px;
+    height: $progress_height;
     left: 0;
     position: absolute;
     top: 0;

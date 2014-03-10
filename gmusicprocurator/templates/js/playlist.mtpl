@@ -1,7 +1,7 @@
   <section id="playlist-info">
     <h3 class="delta">[[ name ]]</h3>
   </section>
-  <table class="listing pure-table pure-table-striped">
+  <table data-playlist-id="[[ id ]]" class="listing pure-table pure-table-striped">
     <thead>
       <tr>
         <th>&nbsp;</th>
@@ -17,7 +17,7 @@
           var tdata = track.get('track');
           var t_aa = tdata.get('albumArtRef');
       %]
-      <tr>
+      <tr data-entry-id="[[ track.id ]]">
         <td class="albumart">[% if (!!t_aa) { %]<span data-song-id="[[ tdata.id ]]" data-art-url="[[ t_aa[0].url ]]" style="background-image:url([[ t_aa[0].url ]])"><span class="fa"></span></span>[% } %]</td>
         <td>[[ tdata.get('title') ]]</td>
         <td>[[ tdata.get('artist') ]]</td>

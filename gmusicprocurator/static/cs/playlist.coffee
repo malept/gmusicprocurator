@@ -76,9 +76,15 @@ class gmp.PlaylistView extends gmp.SingletonView
     spin_cls = 'fa-spinner fa-spin'
     icon = $(e.target)
     aa = icon.parent()
+    trow = aa.closest('tr')
+    table = trow.closest('table')
+    playlist_id = table.data('playlist-id')
+    entry_id = trow.data('entry-id')
+    song = gmp.playlists.get(playlist_id).get('tracks')
+              .get(entry_id).get('track')
     @$('.albumart span.fa-music').removeClass('fa-music')
     @$('.albumart span.fa-spinner').removeClass(spin_cls)
-    gmp.player.play("/songs/#{aa.data('song-id')}")
+    gmp.player.play("/songs/#{aa.data('song-id')}", song)
     icon.removeClass('fa-play').addClass(spin_cls)
     gmp.player.audio.play_started ->
       icon.removeClass(spin_cls).addClass('fa-music')
