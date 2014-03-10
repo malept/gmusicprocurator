@@ -41,5 +41,20 @@ Configuration
 In addition to the Google Account settings mentioned above, you can set the
 following:
 
+``GMP_SONG_FILTERS``
+    A tuple of callable filters used on streaming MP3 data. By default, it
+    looks like:
+
+    .. code-block:: python
+
+        GMP_SONG_FILTERS = (
+            'add_id3_tags_to_mp3',
+        )
+
+    Tuple items can be either strings (built-in to the app) or callables.
+    Callables have the following signature::
+
+        func(str song_id, io.BytesIO data) -> io.BytesIO
+
 ``GMP_EMBED_ALBUM_ART``
     Embed album art in the songs' ID3 tags. Defaults to ``False``.

@@ -18,7 +18,9 @@
 from datetime import datetime
 from flask import abort, request, Response, url_for
 from flask.json import jsonify
+from io import BytesIO
 import requests
+from shutil import copyfileobj
 from tempfile import NamedTemporaryFile
 from xspf import Xspf
 
@@ -88,21 +90,13 @@ def gmusic_playlist_to_xspf(playlist_id, playlist):
     return xspf.toXml()
 
 
-@app.route('/songs/<song_id>/info')
-def get_song_info(song_id):
-    return jsonify(music.get_track_info(song_id))
-
-
-@app.route('/songs/<song_id>')
-def get_song(song_id):
-    '''Retrieves the MP3 for a given ID.'''
+def add_id3_tags_to_mp3(song_id, input_data):
     song_info = music.get_track_info(song_id)
-    song_url = music.get_stream_url(song_id, app.config['GACCOUNT_DEVICE_ID'])
-    response = requests.get(song_url)
-    # Write MP3 data to a temporary file so we can add metadata to it
-    # before sending.
+    output = BytesIO()
+    # We have to write the MP3 data to a temporary file so mutagen can add
+    # metadata to it.
     with NamedTemporaryFile() as f:
-        f.write(response.content)
+        f.write(input_data.getvalue())
         f.flush()
         audio = MP3(f.name)
         for gmf, id3f in METADATA_FIELDS.iteritems():
@@ -122,8 +116,27 @@ def get_song(song_id):
                 else:
                     audio[id3f] = str(song_info[gmf])
         audio.save()
-        f.seek(0)
-        return mp3ify(Response(open(f.name).read()))
+        copyfileobj(open(f.name, 'rb'), output)
+    return output
+
+
+@app.route('/songs/<song_id>/info')
+def get_song_info(song_id):
+    return jsonify(music.get_track_info(song_id))
+
+
+@app.route('/songs/<song_id>')
+def get_song(song_id):
+    '''Retrieves the MP3 for a given ID.'''
+    song_url = music.get_stream_url(song_id, app.config['GACCOUNT_DEVICE_ID'])
+    response = requests.get(song_url)
+    data = BytesIO(response.content)
+    for song_filter in app.config['GMP_SONG_FILTERS']:
+        if callable(song_filter):
+            data = song_filter(song_id, data)
+        else:
+            data = globals()[song_filter](song_id, data)
+    return mp3ify(Response(data.getvalue()))
 
 
 @app.route('/playlists/<playlist_id>')
