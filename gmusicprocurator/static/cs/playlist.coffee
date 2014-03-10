@@ -52,7 +52,7 @@ class gmp.Tracks extends Backbone.Collection
 # Views
 ####
 
-class gmp.PlaylistView extends Backbone.View
+class gmp.PlaylistView extends gmp.SingletonView
   tagName: 'section'
   id: 'playlist'
   className: 'pure-u-4-5'
@@ -61,9 +61,6 @@ class gmp.PlaylistView extends Backbone.View
     'mouseover .albumart span.fa': 'album_mouseover'
     'mouseout .albumart span.fa': 'album_mouseout'
     'click .albumart span.fa-play': 'play_track'
-  render: ->
-    @$el.html(@template(@model.toJSON()))
-    return this
 
   album_mouseover: (e) ->
     icon = $(e.target)
@@ -86,13 +83,9 @@ class gmp.PlaylistView extends Backbone.View
     gmp.player.audio.play_started ->
       icon.removeClass(spin_cls).addClass('fa-music')
 
-
-class gmp.PlaylistEntryView extends Backbone.View
+class gmp.PlaylistEntryView extends gmp.View
   tagName: 'li'
   template: _.template($('#playlist-entry-tpl').html())
-  render: ->
-    @$el.html(@template(@model.toJSON()))
-    return this
 
 ####
 # Routers
@@ -106,5 +99,4 @@ class gmp.PlaylistRouter extends Backbone.Router
     view = new gmp.PlaylistView({
       model: gmp.playlists.get(id)
     })
-    $('#playlist').remove()
-    $('main nav:first').after(view.render().el)
+    view.renderify('main nav:first', 'after')

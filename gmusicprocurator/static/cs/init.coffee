@@ -27,3 +27,22 @@ _.templateSettings =
 
 # namespace
 gmp = {}
+
+#
+# Abstract base class for common GMP+Backbone views.
+#
+class gmp.View extends Backbone.View
+  render: ->
+    @$el.html(@template(@model.toJSON()))
+    return this
+
+#
+# Abstract base class for singleton views.
+#
+class gmp.SingletonView extends gmp.View
+  #
+  # Removes the existing view and replaces it with the newly rendered one.
+  #
+  renderify: (relative_selector, manip_func) ->
+    $("##{@id}").remove()
+    $(relative_selector)[manip_func](@render().el)
