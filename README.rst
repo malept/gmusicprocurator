@@ -25,7 +25,8 @@ Quick Install
 
    This has only been tested on Python 2.7.
 
-These instructions are for running the proxy only.
+These instructions are for running the proxy only. For proxy + frontend
+instructions, consult ``INSTALL.rst``.
 
 Create a config file in ``~/.config/gmusicapi/gmusicprocurator.cfg`` that looks like
 this:
@@ -39,7 +40,7 @@ Then run the following:
 
 .. code-block:: console
 
-   $ git clone git://github.com/malept/gmusicprocurator.git
+   $ git clone https://github.com/malept/gmusicprocurator.git
    $ cd gmusicprocurator
    $ pip install -r requirements.txt
    $ python -m gmusicprocurator list_devices --no-desktop
