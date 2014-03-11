@@ -77,11 +77,11 @@ footer {
     position: absolute;
     top: 0;
     width: 100%;
-  }
 
-  #track-position::-webkit-progress-bar {
-    background: #fff;
-    border: none;
+    &::-webkit-progress-bar {
+      background: #fff;
+      border: none;
+    }
   }
 }
 
@@ -112,32 +112,32 @@ footer {
         line-height: $aa_size;
         text-align: center;
         width: $aa_size;
+
+        &.fa {
+          font-size: 1.5em;
+        }
+
+        &.fa-music {
+          @include text-outline(#fff);
+        }
+
+        &.fa-spinner {
+          background-image: radial-gradient(#E6E6E6, rgba(255, 255, 255, 0));
+          border-radius: $aa_size / 2;
+        }
+
+        &.fa-play:hover {
+          background-color: rgba(230, 230, 230, 0.75);
+        }
+
+        &:hover {
+          cursor: pointer;
+        }
       }
 
       > span {
         background-size: contain;
         background-repeat: no-repeat;
-      }
-
-      span.fa {
-        font-size: 1.5em;
-      }
-
-      span.fa-music {
-        @include text-outline(#fff);
-      }
-
-      span.fa-spinner {
-        background-image: radial-gradient(#E6E6E6, rgba(255, 255, 255, 0));
-        border-radius: $aa_size / 2;
-      }
-
-      span.fa-play:hover {
-        background-color: rgba(230, 230, 230, 0.75);
-      }
-
-      span:hover {
-        cursor: pointer;
       }
     }
   }
