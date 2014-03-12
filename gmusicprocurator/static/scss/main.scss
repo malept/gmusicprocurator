@@ -94,7 +94,18 @@ footer {
 }
 
 #playlist {
+  #playlist-info {
+    h3 {
+      float: left;
+    }
+
+    p {
+      float: right;
+    }
+  }
+
   .listing {
+    clear: both;
     font-size: smaller;
 
     tbody tr {

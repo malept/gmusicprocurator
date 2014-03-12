@@ -1,5 +1,6 @@
 <section id="playlist-info">
   <h3 class="delta">[[ name ]]</h3>
+  <p><a href="/playlists/[[ id ]]">XSPF Playlist</a></p>
 </section>
 <table data-playlist-id="[[ id ]]" class="listing pure-table pure-table-striped">
   <thead>
