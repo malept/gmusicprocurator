@@ -24,7 +24,8 @@ class gmp.Playlist extends Backbone.Model
   active: false
 
   constructor: (data, options) ->
-    tracks = data.tracks
+    data ||= {}
+    tracks = if data.tracks? then data.tracks else []
     data.tracks = new gmp.PlaylistEntries(tracks)
     super(data, options)
 
