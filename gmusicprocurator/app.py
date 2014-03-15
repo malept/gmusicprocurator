@@ -32,8 +32,11 @@ app.config.from_envvar(SETTINGS_VAR)
 
 assets = Environment(app)
 
-music = Mobileclient()
-music.login(app.config['GACCOUNT_EMAIL'],
-            app.config['GACCOUNT_PASSWORD'])
+if app.config['GMP_OFFLINE_MODE']:
+    music = None
+else:
+    music = Mobileclient()
+    music.login(app.config['GACCOUNT_EMAIL'],
+                app.config['GACCOUNT_PASSWORD'])
 
 __all__ = ['app', 'assets', 'music']

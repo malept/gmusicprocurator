@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+GMP_OFFLINE_MODE = False
+
 GMP_SONG_FILTERS = (
     'add_id3_tags_to_mp3',
 )

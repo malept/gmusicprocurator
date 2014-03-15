@@ -18,10 +18,12 @@
 from datetime import datetime
 from flask import abort, request, Response, url_for
 from flask.json import jsonify
+from functools import wraps
 from io import BytesIO
 import requests
 from shutil import copyfileobj
 from tempfile import NamedTemporaryFile
+from werkzeug.exceptions import ServiceUnavailable
 from xspf import Xspf
 
 from ..app import app, music
@@ -47,6 +49,17 @@ METADATA_FIELDS = {
 
 if app.config['GMP_EMBED_ALBUM_ART']:
     METADATA_FIELDS['albumArtRef'] = 'albumart'
+
+
+def online_only(f):
+
+    @wraps(f)
+    def check_offline_mode(*args, **kwargs):
+        if app.config['GMP_OFFLINE_MODE']:
+            raise ServiceUnavailable()
+        return f(*args, **kwargs)
+
+    return check_offline_mode
 
 
 def mp3ify(resp):
@@ -121,11 +134,13 @@ def add_id3_tags_to_mp3(song_id, input_data):
 
 
 @app.route('/songs/<song_id>/info')
+@online_only
 def get_song_info(song_id):
     return jsonify(music.get_track_info(song_id))
 
 
 @app.route('/songs/<song_id>')
+@online_only
 def get_song(song_id):
     '''Retrieves the MP3 for a given ID.'''
     song_url = music.get_stream_url(song_id, app.config['GACCOUNT_DEVICE_ID'])
@@ -140,6 +155,7 @@ def get_song(song_id):
 
 
 @app.route('/playlists/<playlist_id>')
+@online_only
 def get_playlist(playlist_id):
     '''Retrieves the metadata for a given playlist.'''
     # 2014-02-25: At the time of this writing, this idiom is the only way to
@@ -162,6 +178,7 @@ def get_playlist(playlist_id):
 
 
 @app.route('/playlists')
+@online_only
 def get_playlists():
     return jsonify({
         'playlists': music.get_all_user_playlist_contents(),

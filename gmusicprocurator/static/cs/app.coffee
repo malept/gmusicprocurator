@@ -40,6 +40,7 @@ class gmp.AppView extends Backbone.View
 
 $ ->
   gmp.app = new gmp.AppView
-  gmp.app.get_playlists ->
-    gmp.playlist_router = new gmp.PlaylistRouter
-    Backbone.history.start()
+  if location.search.indexOf('offline') == -1
+    gmp.app.get_playlists ->
+      gmp.playlist_router = new gmp.PlaylistRouter
+      Backbone.history.start()
