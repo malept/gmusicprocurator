@@ -1,0 +1,65 @@
+#player {
+  height: $player_height;
+
+  nav {
+    height: $controls_height;
+
+    button {
+      height: $controls_height;
+      width: $controls_height;
+    }
+  }
+
+  #now-playing {
+    display: inline-block;
+    width: 40%;
+
+    .details {
+      * {
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      > * {
+        display: block;
+      }
+    }
+
+    .secondary {
+      font-size: smaller;
+    }
+  }
+
+  .albumart {
+    float: left;
+    height: $controls_height;
+    padding-right: 5px;
+    vertical-align: top;
+  }
+
+  .controls {
+    position: absolute;
+    top: 0;
+  }
+
+  .volume-control {
+    display: inline-block;
+  }
+
+  #track-position {
+    background: #fff;
+    border: none;
+    cursor: pointer;
+    height: $progress_height;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+
+    &::-webkit-progress-bar {
+      background: #fff;
+      border: none;
+    }
+  }
+}
