@@ -83,6 +83,7 @@ cs_modules = [
     'backends/aurora',
     'player',
     'playlist',
+    'queue',
     'app',
 ]
 

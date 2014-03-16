@@ -4,8 +4,13 @@
       float: left;
     }
 
-    p {
+    ul {
       float: right;
+      list-style-type: none;
+      margin-top: 0;
+      padding-left: 0;
+      padding-right: 5px;
+      text-align: right;
     }
   }
 

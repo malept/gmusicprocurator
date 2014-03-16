@@ -28,6 +28,14 @@ _.templateSettings =
 # namespace
 gmp = {}
 
+gmp.QUEUE_ID = 'queue'
+
+#
+# Generates a song URL based on song metadata.
+#
+gmp.song_url = (metadata) ->
+  return "/songs/#{metadata.id}"
+
 #
 # Abstract base class for common GMP+Backbone views.
 #

@@ -5,8 +5,8 @@
 {% block content %}
 <div class="pure-g">
   <nav class="pure-u-1-5">
-    <span id="playlists-loading" class="fa fa-4x fa-spin fa-spinner"></span>
     <ul id="playlists"></ul>
+    <span id="playlists-loading" class="fa fa-4x fa-spin fa-spinner"></span>
   </nav>
 </div>
 
@@ -15,7 +15,7 @@
 {% block footer %}
 
 <script type="text/template" id="playlist-entry-tpl">
-  <a href="#playlist/[[ id ]]">[[ name ]]</a>
+  {% include 'js/playlist-entry.mtpl' %}
 </script>
 
 <script type="text/template" id="playlist-tpl">

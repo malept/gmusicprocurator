@@ -1,0 +1,1 @@
+<a href="#playlist/[[ id ]]"[% if (id == gmp.QUEUE_ID) { %] class="queue"[% } /* queue */ %]>[[ name ]]</a>

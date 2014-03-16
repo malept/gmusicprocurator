@@ -1,6 +1,11 @@
 <section id="playlist-info">
   <h3 class="delta">[[ name ]]</h3>
-  <p><a href="/playlists/[[ id ]]">XSPF Playlist</a></p>
+  [% if (id != gmp.QUEUE_ID) { %]
+  <ul>
+    <li><a href="/playlists/[[ id ]]">XSPF Playlist</a></li>
+    <li><button class="add-to-queue">Add to queue</button></li>
+  </ul>
+  [% } /* !queue */ %]
 </section>
 <table data-playlist-id="[[ id ]]" class="listing pure-table pure-table-striped">
   <thead>
@@ -14,12 +19,12 @@
   </thead>
   <tbody>
     [%
-      tracks.forEach(function(track) {
+      tracks.forEach(function(track, idx) {
         var tdata = track.get('track');
         var t_aa = tdata.get('albumArtRef');
     %]
     <tr data-entry-id="[[ track.id ]]">
-      <td class="albumart">[% if (!!t_aa) { %]<span data-song-id="[[ tdata.id ]]" data-art-url="[[ t_aa[0].url ]]" style="background-image:url([[ t_aa[0].url ]])"><span class="fa"></span></span>[% } %]</td>
+      <td class="albumart">[% if (!!t_aa) { %]<span data-idx="[[ idx ]]" data-art-url="[[ t_aa[0].url ]]" style="background-image:url([[ t_aa[0].url ]])"><span class="fa"></span></span>[% } %]</td>
       <td>[[ tdata.get('title') ]]</td>
       <td>[[ tdata.get('artist') ]]</td>
       <td>[[ tdata.get('album') ]]</td>

@@ -25,7 +25,10 @@ class gmp.AppView extends Backbone.View
     @listenTo gmp.playlists, 'add', (playlist) ->
       view = new gmp.PlaylistEntryView({model: playlist})
       $('#playlists').append(view.render().el)
-    gmp.player = new gmp.PlayerView
+
+    gmp.queue = new gmp.QueueView({model: new gmp.Queue})
+    gmp.playlists.add(gmp.queue.model)
+    gmp.player = new gmp.PlayerView({model: gmp.queue.model})
     $('body > footer').append(gmp.player.render().el)
 
   get_playlists: (callback) ->
@@ -44,3 +47,5 @@ $ ->
     gmp.app.get_playlists ->
       gmp.playlist_router = new gmp.PlaylistRouter
       Backbone.history.start()
+  else
+    $('#playlists-loading').remove()

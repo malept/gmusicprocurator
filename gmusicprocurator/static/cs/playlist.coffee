@@ -21,13 +21,17 @@
 ####
 
 class gmp.Playlist extends Backbone.Model
-  active: false
-
   constructor: (data, options) ->
     data ||= {}
     tracks = if data.tracks? then data.tracks else []
     data.tracks = new gmp.PlaylistEntries(tracks)
     super(data, options)
+
+  add_track: (track) ->
+    @add_entries(new gmp.PlaylistEntry({track: track}))
+
+  add_entries: (entry_or_entries) ->
+    @get('tracks').add(entry_or_entries)
 
 class gmp.PlaylistCollection extends Backbone.Collection
   model: gmp.Playlist
@@ -62,6 +66,7 @@ class gmp.PlaylistView extends gmp.SingletonView
     'mouseover .albumart span.fa': 'album_mouseover'
     'mouseout .albumart span.fa': 'album_mouseout'
     'click .albumart span.fa-play': 'play_track'
+    'click .add-to-queue': 'add_to_queue'
 
   album_mouseover: (e) ->
     icon = $(e.target)
@@ -73,22 +78,24 @@ class gmp.PlaylistView extends gmp.SingletonView
     return false if icon.hasClass('fa-music') or icon.hasClass('fa-spinner')
     icon.removeClass('fa-play')
 
-  play_track: (e) ->
+  _play_track: (song, icon) ->
     spin_cls = 'fa-spinner fa-spin'
-    icon = $(e.target)
-    aa = icon.parent()
-    trow = aa.closest('tr')
-    table = trow.closest('table')
-    playlist_id = table.data('playlist-id')
-    entry_id = trow.data('entry-id')
-    song = gmp.playlists.get(playlist_id).get('tracks')
-              .get(entry_id).get('track')
     @$('.albumart span.fa-music').removeClass('fa-music')
     @$('.albumart span.fa-spinner').removeClass(spin_cls)
-    gmp.player.play("/songs/#{aa.data('song-id')}", song)
+    gmp.player.play(song)
     icon.removeClass('fa-play').addClass(spin_cls)
     gmp.player.audio.play_started ->
       icon.removeClass(spin_cls).addClass('fa-music')
+
+  play_track: (e) ->
+    icon = $(e.target)
+    trow = icon.closest('tr')
+    entry_id = trow.data('entry-id')
+    song = @model.get('tracks').get(entry_id).get('track')
+    @_play_track(song, icon)
+
+  add_to_queue: (e) ->
+    gmp.queue.model.add_playlist(@model)
 
 class gmp.PlaylistEntryView extends gmp.View
   tagName: 'li'
@@ -103,7 +110,12 @@ class gmp.PlaylistRouter extends Backbone.Router
     'playlist/:id': 'load_playlist'
 
   load_playlist: (id) ->
-    view = new gmp.PlaylistView({
-      model: gmp.playlists.get(id)
-    })
+    if id == gmp.QUEUE_ID
+      view = gmp.queue
+    else
+      view = new gmp.PlaylistView({
+        model: gmp.playlists.get(id)
+      })
     view.renderify('main nav:first', 'after')
+    if id == gmp.QUEUE_ID
+      view.delegateEvents()

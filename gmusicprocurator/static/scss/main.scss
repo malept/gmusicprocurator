@@ -19,12 +19,18 @@ footer {
 @import 'sections/player';
 @import 'sections/playlist';
 
-#copyright {
-  font-size: smaller;
+#playlists {
+  a[href$="/queue"] {
+    font-weight: bold;
+  }
 }
 
 #playlists-loading {
-  padding: 1em;
+  padding: 0.75em;
+}
+
+#copyright {
+  font-size: smaller;
 }
 
 .invisible {

@@ -3,12 +3,12 @@
 <nav>
   <span id="now-playing"></span>
   <span class="controls">
-    <button class="pure-button" title="Previous track"><span class="fa fa-step-backward"></span></button>
+    <button class="pure-button previous" title="Previous track"><span class="fa fa-step-backward"></span></button>
     <button class="pure-button rewind" title="Rewind"><span class="fa fa-backward"></span></button>
     <button class="pure-button stop" title="Stop"><span class="fa fa-stop"></span></button>
     <button class="pure-button play-pause" title="Play/pause"><span class="fa fa-play"></span></button>
     <button class="pure-button forward" title="Fast forward"><span class="fa fa-forward"></span></button>
-    <button class="pure-button" title="Next track"><span class="fa fa-step-forward"></span></button>
+    <button class="pure-button next" title="Next track"><span class="fa fa-step-forward"></span></button>
     <button class="pure-button volume-control" title="Volume control"><span class="fa"></span></button>
     <span class="volume-control-widget invisible">
       <input type="range" min="0" max="100" list="volume-presets"/>

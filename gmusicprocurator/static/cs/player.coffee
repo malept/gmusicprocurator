@@ -50,6 +50,8 @@ class gmp.PlayerView extends Backbone.View
     'click .stop': 'stop'
     'click .rewind': 'rewind'
     'click .forward': 'forward'
+    'click .previous': 'previous_track'
+    'click .next': 'next_track'
     'click .volume-control': 'toggle_volume_control_widget'
     'change .volume-control-widget': 'update_volume'
     'click #track-position': 'update_position_from_progress'
@@ -81,7 +83,8 @@ class gmp.PlayerView extends Backbone.View
 
     return this
 
-  play: (url, metadata) ->
+  play: (metadata, url = null) ->
+    url = gmp.song_url(metadata) unless url
     if @audio?.audio_playable()
       if @audio.mp3_playable()
         @audio.load(url)
@@ -91,6 +94,10 @@ class gmp.PlayerView extends Backbone.View
         window.alert 'You cannot play MP3s natively. Sorry.'
     else
       window.alert 'Cannot play HTML5 audio. Sorry.'
+
+  ####
+  # Event Handlers
+  ####
 
   play_pause: ->
     @audio.toggle_playback()
@@ -106,6 +113,18 @@ class gmp.PlayerView extends Backbone.View
   forward: ->
     return false unless @audio.play_started()
     @audio.seek(5)
+
+  _select_track: (func_name) ->
+    entry = @model[func_name]()
+    return unless entry?
+    track = entry.get('track')
+    @play(track)
+
+  previous_track: ->
+    @_select_track('previous')
+
+  next_track: ->
+    @_select_track('next')
 
   toggle_volume_control_widget: ->
     @$volume_widget.toggleClass('invisible')
