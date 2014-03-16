@@ -17,6 +17,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class gmp.Queue extends gmp.Playlist
+  ###
+  The play queue.
+  ###
   constructor: (data, options) ->
     data ||= {}
     data.id = gmp.QUEUE_ID
@@ -24,49 +27,50 @@ class gmp.Queue extends gmp.Playlist
     data.current_track = 0
     super(data, options)
 
-  #
-  # Retrieves the currently playing track.
-  #
-  # :rtype: gmp.PlaylistEntry
-  #
   current: ->
+    ###
+    Retrieves the currently playing track.
+
+    :rtype: gmp.PlaylistEntry
+    ###
     tracks = @get('tracks')
     return null if tracks.length == 0
     return tracks.at(@get('current_track'))
 
-  #
-  # Sets the current track to the previous one.
-  #
-  # :rtype: gmp.PlaylistEntry or null
-  #
   previous: ->
+    ###
+    Sets the current track to the previous one.
+
+    :rtype: gmp.PlaylistEntry or :data:`null`
+    ###
     @seek(@get('current_track') - 1)
 
-  #
-  # Advances the queue to the next track.
-  #
-  # :rtype: gmp.PlaylistEntry or null
-  #
   next: ->
+    ###
+    Advances the queue to the next track.
+
+    :rtype: gmp.PlaylistEntry or :data:`null`
+    ###
     @seek(@get('current_track') + 1)
 
-  #
-  # Retrieves a specific entry in the playlist and set it as the current track.
-  #
-  # :type idx: Number (int)
-  # :rtype: gmp.PlaylistEntry or null
-  #
   seek: (idx) ->
+    ###
+    Retrieves a specific entry in the playlist and set it as the current track.
+
+    :type idx: :class:`Number` (int)
+    :rtype: gmp.PlaylistEntry or :data:`null`
+    ###
     return null if idx < 0 or idx >= @get('tracks').length
     @set('current_track', idx)
     return @current()
 
-  #
-  # Adds a non-queue playlist to the queue.
-  #
-  # :type playlist: gmp.Playlist (not gmp.Queue)
-  #
   add_playlist: (playlist) ->
+    ###
+    Adds a non-queue playlist to the queue.
+
+    :type playlist: :coffee:class:`playlist::gmp.Playlist`
+                    (not :coffee:class:`queue::gmp.Queue`)
+    ###
     return unless playlist?
     return if playlist instanceof gmp.Queue
     @add_entries(playlist.get('tracks').models)

@@ -21,6 +21,9 @@
 ####
 
 class gmp.Playlist extends Backbone.Model
+  ###
+  A representation of a Google Music playlist.
+  ###
   constructor: (data, options) ->
     data ||= {}
     tracks = if data.tracks? then data.tracks else []
@@ -28,9 +31,20 @@ class gmp.Playlist extends Backbone.Model
     super(data, options)
 
   add_track: (track) ->
+    ###
+    Appends a track to a playlist.
+
+    :type track: :class:`gmp.Track`
+    ###
     @add_entries(new gmp.PlaylistEntry({track: track}))
 
   add_entries: (entry_or_entries) ->
+    ###
+    Appends one or more playlist entries to a playlist.
+
+    :type entry_or_entries: :class:`gmp.PlaylistEntry` or an :class:`Array` of
+                            :class:`gmp.PlaylistEntry` objects.
+    ###
     @get('tracks').add(entry_or_entries)
 
 class gmp.PlaylistCollection extends Backbone.Collection

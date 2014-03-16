@@ -180,6 +180,7 @@ def get_playlist(playlist_id):
 @app.route('/playlists')
 @online_only
 def get_playlists():
+    '''Retrieves all of the logged in user's playlists.'''
     return jsonify({
         'playlists': music.get_all_user_playlist_contents(),
     })
