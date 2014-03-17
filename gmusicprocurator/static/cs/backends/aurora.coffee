@@ -88,7 +88,7 @@ class gmp.AuroraAudio
       if @player?
         setter()
       else
-        @dispatcher.once 'create_player', =>
+        @dispatcher.once 'create_player', ->
           setter()
 
   duration: ->
