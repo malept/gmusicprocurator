@@ -2,4 +2,7 @@
 *.min.js*
 *.out.css
 gmusicprocurator/static/vendor/*
+.sass-cache
+.tox
 .webassets-cache
+build
