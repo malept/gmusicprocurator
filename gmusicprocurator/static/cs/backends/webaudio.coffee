@@ -84,3 +84,6 @@ class gmp.HTML5Audio
   stop: ->
     @player.pause() if @playing
     @player.currentTime = 0
+
+  is_playing: ->
+    return @playing

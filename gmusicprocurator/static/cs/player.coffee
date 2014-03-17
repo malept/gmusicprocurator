@@ -147,3 +147,6 @@ class gmp.PlayerView extends Backbone.View
     # see http://bugs.jquery.com/ticket/8523#comment:12
     offset = e.offsetX or (e.clientX - $tgt.offset().left)
     @audio.currentTime((offset / $tgt.width()) * @audio.duration())
+
+  is_playing: ->
+    return @audio.is_playing()

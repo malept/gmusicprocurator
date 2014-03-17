@@ -103,10 +103,16 @@ class gmp.PlaylistView extends gmp.SingletonView
 
   play_track: (e) ->
     icon = $(e.target)
-    trow = icon.closest('tr')
-    entry_id = trow.data('entry-id')
-    song = @model.get('tracks').get(entry_id).get('track')
-    @_play_track(song, icon)
+    entry_id = icon.closest('tr').data('entry-id')
+    entry = @model.get('tracks').get(entry_id)
+    queue = gmp.queue.model
+    queue.insert_entry_after_current(entry)
+    unless gmp.player.is_playing()
+      last = queue.get('tracks').length - 1
+      if queue.get('current_track') == last
+        queue.trigger('change:current_track', queue, last)
+      else
+        queue.set('current_track', last)
 
   add_to_queue: (e) ->
     gmp.queue.model.add_playlist(@model)

@@ -64,6 +64,22 @@ class gmp.Queue extends gmp.Playlist
     @set('current_track', idx)
     return @current()
 
+  insert_entry_after_current: (entry) ->
+    ###
+    Inserts a playlist entry after the current track.
+
+    :rtype: :coffee:class:`Number` (int)
+    :returns: The index of the playlist entry
+    ###
+    track_ct = @get('tracks').length
+    # empty list
+    if track_ct == 0
+      @add_entries(entry)
+      return 0
+    entry_idx = @get('current_track') + 1
+    @add(entry, {at: entry_idx})
+    return entry_idx
+
   add_playlist: (playlist) ->
     ###
     Adds a non-queue playlist to the queue.
