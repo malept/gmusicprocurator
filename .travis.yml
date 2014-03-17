@@ -3,6 +3,8 @@ python:
   - "2.7"
   - "pypy"
 install:
+  - sudo add-apt-repository --yes ppa:chris-lea/node.js
+  - sudo apt-get update -qq
   - sudo apt-get install npm
   - sudo npm install -g coffeelint
   - pip install -r requirements-dev.txt
