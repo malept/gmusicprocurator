@@ -1,3 +1,8 @@
+@mixin bgcolor-rgba($r, $g, $b, $a) {
+  background-color: rgb($r, $g, $b);
+  background-color: rgba($r, $g, $b, $a);
+}
+
 @mixin text-outline($color, $size: 1px) {
   // Based on https://stackoverflow.com/a/4919231
   $nsize: -$size;

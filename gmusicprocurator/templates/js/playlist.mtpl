@@ -1,5 +1,5 @@
 <section id="playlist-info">
-  <h3 class="delta">[[ name ]]</h3>
+  <h3 class="delta name">[[ name ]]</h3>
   [% if (id != gmp.QUEUE_ID) { %]
   <ul>
     <li><a href="/playlists/[[ id ]]">XSPF Playlist</a></li>

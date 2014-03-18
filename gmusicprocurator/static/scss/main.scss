@@ -10,17 +10,13 @@ footer {
   bottom: 0;
   position: fixed;
   width: 100%;
-
-  button.pure-button {
-    border-radius: 0;
-  }
 }
 
 @import 'sections/player';
 @import 'sections/playlist';
 
 #playlists {
-  a[href$="/queue"] {
+  .queue {
     font-weight: bold;
   }
 }
