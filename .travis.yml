@@ -5,8 +5,10 @@ python:
 install:
   - sudo add-apt-repository --yes ppa:chris-lea/node.js
   - sudo apt-get update -qq
-  - sudo apt-get install nodejs ruby1.9.3
+  - sudo apt-get install nodejs
   - sudo npm install -g coffeelint csslint
-  - sudo gem install sass
+  - rvm install 1.9.3
+  - rvm use 1.9.3
+  - gem install sass
   - pip install -r requirements-dev.txt
 script:  ./run_tests.sh
