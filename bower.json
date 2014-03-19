@@ -18,7 +18,7 @@
   ],
   "dependencies": {
     "font-awesome": "~4.0.3",
-    "jquery": "~1.11",
+    "jquery": "~2.1.0",
     "pure": "~0.4.2",
     "roboto-fontface": "~0.1.4",
     "typeplate": "typeplate/bower#~1.1.3",
