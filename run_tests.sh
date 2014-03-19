@@ -9,4 +9,4 @@ MAIN_OUT_CSS="${SCSS_DIR}"/main.out.css
 flake8 --exclude=static "${GMP_DIR}"
 coffeelint "${STATIC_DIR}"/cs
 scss --style expanded "${SCSS_DIR}"/main.scss "${MAIN_OUT_CSS}"
-csslint --ignore=ids,important "${MAIN_OUT_CSS}"
+csslint "${MAIN_OUT_CSS}"
