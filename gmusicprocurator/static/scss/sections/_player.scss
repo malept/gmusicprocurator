@@ -1,20 +1,20 @@
 #player {
-  height: $player_height;
+  height: $player-height;
 
   nav {
-    height: $controls_height;
+    height: $controls-height;
 
     button {
       border-radius: 0;
-      height: $controls_height;
-      width: $controls_height;
+      height: $controls-height;
+      width: $controls-height;
     }
   }
 
 
   .albumart {
     float: left;
-    height: $controls_height;
+    height: $controls-height;
     padding-right: 5px;
     vertical-align: top;
   }
@@ -47,9 +47,9 @@
 
 #track-position {
   background: #fff;
-  border: none;
+  border: 0;
   cursor: pointer;
-  height: $progress_height;
+  height: $progress-height;
   left: 0;
   position: absolute;
   top: 0;
@@ -57,6 +57,6 @@
 
   &::-webkit-progress-bar {
     background: #fff;
-    border: none;
+    border: 0;
   }
 }

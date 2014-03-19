@@ -2,49 +2,49 @@
   .listing {
     clear: both;
     font-size: smaller;
+  }
 
-    tbody tr {
-      height: 60px;
+  tbody tr {
+    height: 60px;
+  }
+
+  td.albumart {
+    padding: 0;
+    vertical-align: middle;
+    $aa-size: 32px;
+
+    span {
+      display: inline-block;
+      height: $aa-size;
+      line-height: $aa-size;
+      text-align: center;
+      width: $aa-size;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
 
-    td.albumart {
-      padding: 0;
-      vertical-align: middle;
-      $aa_size: 32px;
+    .fa {
+      font-size: 1.5em;
+    }
 
-      span {
-        display: inline-block;
-        height: $aa_size;
-        line-height: $aa_size;
-        text-align: center;
-        width: $aa_size;
+    .fa-music {
+      @include text-outline(#fff);
+    }
 
-        &:hover {
-          cursor: pointer;
-        }
-      }
+    .fa-spinner {
+      background-image: radial-gradient(#e6e6e6, rgba(255, 255, 255, 0));
+      border-radius: $aa-size / 2;
+    }
 
-      .fa {
-        font-size: 1.5em;
-      }
+    .fa-play:hover {
+      @include bgcolor-rgba(230, 230, 230, 0.75);
+    }
 
-      .fa-music {
-        @include text-outline(#fff);
-      }
-
-      .fa-spinner {
-        background-image: radial-gradient(#E6E6E6, rgba(255, 255, 255, 0));
-        border-radius: $aa_size / 2;
-      }
-
-      .fa-play:hover {
-        @include bgcolor-rgba(230, 230, 230, 0.75);
-      }
-
-      > span {
-        background-size: contain;
-        background-repeat: no-repeat;
-      }
+    > span {
+      background-repeat: no-repeat;
+      background-size: contain;
     }
   }
 }

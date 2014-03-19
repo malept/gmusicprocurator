@@ -1,14 +1,14 @@
-$robotoFontPath: "vendor/roboto-fontface/fonts";
+$robotoFontPath: 'vendor/roboto-fontface/fonts';
 
-@import "../vendor/roboto-fontface/roboto-fontface";
+@import '../vendor/roboto-fontface/roboto-fontface';
 
 $custom-font-family: Roboto;
 $serif-boolean: false;
 
 $font-size: 100;
 
-@import "../vendor/typeplate/scss/typeplate";
+@import '../vendor/typeplate/scss/typeplate';
 
-$fa-font-path: "vendor/font-awesome/fonts";
+$fa-font-path: 'vendor/font-awesome/fonts';
 
-@import "../vendor/font-awesome/scss/font-awesome";
+@import '../vendor/font-awesome/scss/font-awesome';
