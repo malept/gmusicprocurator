@@ -21,8 +21,14 @@ Frontend
 * UglifyJS2 (``npm install -g uglify-js``)
 * importer (``npm install -g importer``)
 
-
 .. _Sass: http://sass-lang.com/
+
+Browser
+~~~~~~~
+
+Any web browser which `supports the HTML5 audio element`_ is supported.
+
+.. _supports the HTML5 audio element: http://caniuse.com/audio
 
 Instructions
 ------------
