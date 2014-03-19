@@ -8,6 +8,6 @@ install:
   - sudo apt-get install nodejs
   - sudo npm install -g coffeelint csslint
   - rvm use 1.9.3
-  - gem install sass
+  - gem install scss-lint
   - pip install -r requirements-dev.txt
 script:  ./run_tests.sh
