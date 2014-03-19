@@ -45,7 +45,7 @@ def bundlify(fmt, modules, **kwargs):
     '''Creates a Bundle based on a path format and a list of modules.'''
     return Bundle(*[fmt.format(f) for f in modules], **kwargs)
 
-normalize = 'vendor/pure/base.css'
+normalize = 'vendor/normalize-css/normalize.css'
 
 # typography is in a separate bundle so it can be placed before pure
 typography = Bundle('scss/typography.scss', filters='scss',
