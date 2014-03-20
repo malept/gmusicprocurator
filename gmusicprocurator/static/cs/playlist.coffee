@@ -129,13 +129,16 @@ class gmp.PlaylistRouter extends Backbone.Router
   routes:
     'playlist/:id': 'load_playlist'
 
+  constructor: (options) ->
+    super(options)
+    @playlists =
+      queue: gmp.queue
+
   load_playlist: (id) ->
-    if id == gmp.QUEUE_ID
-      view = gmp.queue
-    else
+    view = @playlists[id]
+    unless view
       view = new gmp.PlaylistView({
         model: gmp.playlists.get(id)
       })
+      @playlists[id] = view
     view.renderify('main nav:first', 'after')
-    if id == gmp.QUEUE_ID
-      view.delegateEvents()

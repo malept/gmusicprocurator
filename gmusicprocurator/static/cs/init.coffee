@@ -54,3 +54,4 @@ class gmp.SingletonView extends gmp.View
   renderify: (relative_selector, manip_func) ->
     $("##{@id}").remove()
     $(relative_selector)[manip_func](@render().el)
+    @delegateEvents()
