@@ -96,11 +96,22 @@ class gmp.QueueView extends gmp.PlaylistView
     super(options)
     @model.on('change:current_track', @on_change_track)
 
+  render: ->
+    super()
+    if gmp.player.is_playing()
+      @icon_for_index(@model.get('current_track')).addClass('fa-music')
+    return this
+
   play_track: (e) ->
     e.stopImmediatePropagation()
     return unless @model.seek($(e.target).parent().data('idx'))
 
+  icon_for_index: (idx) ->
+    return @icon_for_entry(@model.get('tracks').at(idx))
+
+  icon_for_entry: (entry) ->
+    return @$el.find("tr[data-entry-id=\"#{entry.get('id')}\"] .albumart .fa")
+
   on_change_track: (model, value, options) =>
     entry = model.get('tracks').at(value)
-    icon = @$el.find("tr[data-entry-id=\"#{entry.get('id')}\"] .albumart .fa")
-    @_play_track(entry.get('track'), icon)
+    @_play_track(entry.get('track'), @icon_for_entry(entry))
