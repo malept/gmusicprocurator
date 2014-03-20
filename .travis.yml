@@ -1,13 +1,13 @@
 language: python
+rvm:
+  - "1.9.3"
+node_js:
+  - "0.10"
 python:
   - "2.7"
   - "pypy"
 install:
-  - sudo add-apt-repository --yes ppa:chris-lea/node.js
-  - sudo apt-get update -qq
-  - sudo apt-get install nodejs
   - sudo npm install -g coffeelint csslint
-  - rvm use 1.9.3
   - gem install scss-lint
   - pip install -r requirements-dev.txt
 script:  ./run_tests.sh
