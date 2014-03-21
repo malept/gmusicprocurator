@@ -30,28 +30,38 @@ gmp = {}
 
 gmp.QUEUE_ID = 'queue'
 
-#
-# Generates a song URL based on song metadata.
-#
 gmp.song_url = (metadata) ->
+  ###
+  Generates a song URL based on song metadata.
+
+  :type metadata: Object with ``id`` key
+  :rtype: String
+  ###
   return "/songs/#{metadata.id}"
 
-#
-# Abstract base class for common GMP+Backbone views.
-#
 class gmp.View extends Backbone.View
+  ###
+  Abstract base class for common GMP+Backbone views.
+  ###
   render: ->
     @$el.html(@template(@model.toJSON()))
     return this
 
-#
-# Abstract base class for singleton views.
-#
 class gmp.SingletonView extends gmp.View
-  #
-  # Removes the existing view and replaces it with the newly rendered one.
-  #
+  ###
+  Abstract base class for singleton views.
+  ###
   renderify: (relative_selector, manip_func) ->
+    ###
+    Removes the existing view and replaces it with the newly rendered one.
+
+    :param relative_selector: The CSS selector that is used to create a jQuery
+                              object that serves as a reference point to attach
+                              the view to the document.
+    :param manip_func: The jQuery DOM manipulation function that is used to
+                       attach the view to the document, relative to the jQuery
+                       object created via ``relative_selector``.
+    ###
     $("##{@id}").remove()
     $(relative_selector)[manip_func](@render().el)
     @delegateEvents()
