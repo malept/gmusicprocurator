@@ -94,7 +94,7 @@ class gmp.Queue extends gmp.Playlist
 class gmp.QueueView extends gmp.PlaylistView
   constructor: (options) ->
     super(options)
-    @model.on('change:current_track', @on_change_track)
+    @model.on('change:current_track', @on_current_track_changed)
 
   render: ->
     super()
@@ -112,6 +112,6 @@ class gmp.QueueView extends gmp.PlaylistView
   icon_for_entry: (entry) ->
     return @$el.find("tr[data-entry-id=\"#{entry.get('id')}\"] .albumart .fa")
 
-  on_change_track: (model, value, options) =>
+  on_current_track_changed: (model, value, options) =>
     entry = model.get('tracks').at(value)
     @_play_track(entry.get('track'), @icon_for_entry(entry))
