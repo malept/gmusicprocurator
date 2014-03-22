@@ -30,6 +30,12 @@ gmp = {}
 
 gmp.QUEUE_ID = 'queue'
 
+gmp.get_template = (id) ->
+  ###
+  Shortcut for retrieving a template by ID.
+  ###
+  return _.template($("##{id}-tpl").html())
+
 gmp.song_url = (metadata) ->
   ###
   Generates a song URL based on song metadata.

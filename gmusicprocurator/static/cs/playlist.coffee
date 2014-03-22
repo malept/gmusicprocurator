@@ -75,7 +75,7 @@ class gmp.PlaylistView extends gmp.SingletonView
   tagName: 'section'
   id: 'playlist'
   className: 'pure-u-4-5'
-  template: _.template($('#playlist-tpl').html())
+  template: gmp.get_template('playlist')
   events:
     'mouseover .albumart span.fa': 'album_mouseover'
     'mouseout .albumart span.fa': 'album_mouseout'
@@ -119,7 +119,7 @@ class gmp.PlaylistView extends gmp.SingletonView
 
 class gmp.PlaylistEntryView extends gmp.View
   tagName: 'li'
-  template: _.template($('#playlist-entry-tpl').html())
+  template: gmp.get_template('playlist-entry')
 
 ####
 # Routers

@@ -39,12 +39,12 @@ gmp.load_audio_backend = ->
 class gmp.NowPlayingView extends gmp.SingletonView
   tagName: 'span'
   id: 'now-playing'
-  template: _.template($('#now-playing-tpl').html())
+  template: gmp.get_template('now-playing')
 
 class gmp.PlayerView extends Backbone.View
   tagName: 'section'
   id: 'player'
-  template: _.template($('#player-tpl').html())
+  template: gmp.get_template('player')
   events:
     'click .play-pause': 'play_pause'
     'click .stop': 'stop'
