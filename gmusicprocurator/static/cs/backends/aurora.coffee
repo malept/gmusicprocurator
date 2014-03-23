@@ -108,7 +108,7 @@ class gmp.AuroraAudio
 
   toggle_playback: ->
     @player.togglePlayback()
-    @dispatcher.trigger(@player.playing ? 'play' : 'pause')
+    @dispatcher.trigger(if @player.playing then 'play' else 'pause')
 
   seek: (delta) ->
     @player.seek((@currentTime() + delta) * 1000)

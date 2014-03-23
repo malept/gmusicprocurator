@@ -41,6 +41,7 @@ class gmp.NowPlayingView extends gmp.SingletonView
   id: 'now-playing'
   template: gmp.get_template('now-playing')
 
+
 class gmp.PlayerView extends Backbone.View
   tagName: 'section'
   id: 'player'
