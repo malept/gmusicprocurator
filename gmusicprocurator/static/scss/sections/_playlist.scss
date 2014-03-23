@@ -2,6 +2,7 @@
   .listing {
     clear: both;
     font-size: smaller;
+    width: 100%;
   }
 
   tbody tr {
@@ -9,9 +10,10 @@
   }
 
   td.albumart {
+    $aa-size: 32px;
     padding: 0;
     vertical-align: middle;
-    $aa-size: 32px;
+    width: $aa-size;
 
     span {
       display: inline-block;
