@@ -12,21 +12,17 @@
 
 {% endblock content %}
 
+{% macro mtpl(name) -%}
+<script type="text/template" id="{{ name }}-tpl">
+{% include "js/{0}.mtpl".format(name) %}
+</script>
+{% endmacro -%}
+
 {% block footer %}
 
-<script type="text/template" id="playlist-entry-tpl">
-  {% include 'js/playlist-entry.mtpl' %}
-</script>
-
-<script type="text/template" id="playlist-tpl">
-  {% include 'js/playlist.mtpl' %}
-</script>
-
-<script type="text/template" id="player-tpl">
-  {% include 'js/player.mtpl' %}
-</script>
-
-<script type="text/template" id="now-playing-tpl">
-  {% include 'js/now-playing.mtpl' %}
-</script>
+{{ mtpl('playlist-entry') }}
+{{ mtpl('playlist-track') }}
+{{ mtpl('playlist') }}
+{{ mtpl('player') }}
+{{ mtpl('now-playing') }}
 {% endblock footer %}

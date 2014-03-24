@@ -77,7 +77,7 @@ class gmp.Queue extends gmp.Playlist
       @add_entries(entry)
       return 0
     entry_idx = @get('current_track') + 1
-    @add(entry, {at: entry_idx})
+    @add_entries(entry, {at: entry_idx})
     return entry_idx
 
   add_playlist: (playlist) ->

@@ -76,11 +76,31 @@ class gmp.PlaylistView extends gmp.SingletonView
   id: 'playlist'
   className: 'pure-u-4-5'
   template: gmp.get_template('playlist')
+  track_template: gmp.get_template('playlist-track')
   events:
     'mouseover .albumart span.fa': 'album_mouseover'
     'mouseout .albumart span.fa': 'album_mouseout'
     'click .albumart span.fa-play': 'play_track'
     'click .add-to-queue': 'add_to_queue'
+
+  constructor: (options) ->
+    super(options)
+    tracks = @model.get('tracks')
+    tracks.on('add', @on_tracks_add)
+
+  render_track: (playlist_entry, idx) =>
+    data = playlist_entry.toJSON()
+    data.idx = idx if idx?
+    return @track_template(data)
+
+  render_data: ->
+    data = super()
+    data.render_track = @render_track
+    return data
+
+  ####
+  # Event handlers
+  ####
 
   album_mouseover: (e) ->
     icon = $(e.target)
@@ -117,6 +137,13 @@ class gmp.PlaylistView extends gmp.SingletonView
   add_to_queue: (e) ->
     gmp.queue.model.add_playlist(@model)
 
+  on_tracks_add: (model, collection, options) =>
+    track = @render_track(model, collection.indexOf(model))
+    if options.at? # insert
+      @$el.find("tbody tr:nth-child(#{options.at})").before(track)
+    else # append
+      @$el.find('tbody').append(track)
+
 class gmp.PlaylistEntryView extends gmp.View
   tagName: 'li'
   template: gmp.get_template('playlist-entry')
@@ -132,13 +159,15 @@ class gmp.PlaylistRouter extends Backbone.Router
   constructor: (options) ->
     super(options)
     @playlists =
-      queue: gmp.queue
+      queue: gmp.queue.render()
 
   load_playlist: (id) ->
     view = @playlists[id]
+    func = 'replace'
     unless view
       view = new gmp.PlaylistView({
         model: gmp.playlists.get(id)
       })
       @playlists[id] = view
-    view.renderify('main nav:first', 'after')
+      func = 'renderify'
+    view[func]('main nav:first', 'after')

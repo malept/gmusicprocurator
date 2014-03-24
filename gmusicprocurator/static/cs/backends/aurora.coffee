@@ -117,4 +117,4 @@ class gmp.AuroraAudio
     @player.stop()
 
   is_playing: ->
-    return @player.playing
+    return @player?.playing

@@ -1,0 +1,10 @@
+[%
+var aa = track.get('albumArtRef');
+%]
+<tr data-entry-id="[[ id ]]">
+  <td class="albumart">[% if (!!aa) { %]<span data-idx="[[ idx ]]" data-art-url="[[ aa[0].url ]]" style="background-image:url([[ aa[0].url ]])"><span class="fa"></span></span>[% } %]</td>
+  <td>[[ track.get('title') ]]</td>
+  <td>[[ track.get('artist') ]]</td>
+  <td>[[ track.get('album') ]]</td>
+  <td>[[ track.get('trackNumber') ]]</td>
+</tr>

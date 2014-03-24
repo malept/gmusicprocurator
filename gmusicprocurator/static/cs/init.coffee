@@ -50,13 +50,42 @@ class gmp.View extends Backbone.View
   Abstract base class for common GMP+Backbone views.
   ###
   render: ->
-    @$el.html(@template(@model.toJSON()))
+    ###
+    Renders a template using the data from :meth:`render_data`, and puts it in
+    the view's element.
+
+    :return: The view being operated on
+    :rtype: :class:`gmp.View`
+    ###
+    @$el.html(@template(@render_data()))
     return this
+
+  render_data: ->
+    ###
+    The data used by the view to render the template.
+
+    :rtype: :class:`Object`
+    ###
+    return @model.toJSON()
 
 class gmp.SingletonView extends gmp.View
   ###
   Abstract base class for singleton views.
   ###
+  replace: (relative_selector, manip_func) ->
+    ###
+    Removes the existing view and replaces it with the currently rendered one.
+
+    :param relative_selector: The CSS selector that is used to create a jQuery
+                              object that serves as a reference point to attach
+                              the view to the document.
+    :param manip_func: The jQuery DOM manipulation function that is used to
+                       attach the view to the document, relative to the jQuery
+                       object created via ``relative_selector``.
+    ###
+    $("##{@id}").remove()
+    $(relative_selector)[manip_func](@el)
+    @delegateEvents()
   renderify: (relative_selector, manip_func) ->
     ###
     Removes the existing view and replaces it with the newly rendered one.
@@ -68,6 +97,5 @@ class gmp.SingletonView extends gmp.View
                        attach the view to the document, relative to the jQuery
                        object created via ``relative_selector``.
     ###
-    $("##{@id}").remove()
-    $(relative_selector)[manip_func](@render().el)
-    @delegateEvents()
+    @render()
+    @replace(relative_selector, manip_func)
