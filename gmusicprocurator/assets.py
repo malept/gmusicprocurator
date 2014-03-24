@@ -74,7 +74,7 @@ aurora_mp3 = Bundle(aurora, mp3, filters='uglifyjs', output='auroramp3.min.js')
 assets.register('aurora_mp3', aurora_mp3)
 
 vendor = Bundle('vendor/jquery/dist/jquery.js',
-                'vendor/underscore/underscore.js',
+                'vendor/lodash/dist/lodash.js',
                 'vendor/backbone/backbone.js')
 
 cs_modules = [
