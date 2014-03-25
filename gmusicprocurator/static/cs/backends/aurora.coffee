@@ -16,10 +16,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#
-# Uses Aurora.js + MP3.js to play MP3s.
-#
 class gmp.AuroraAudio
+  ###
+  Uses Aurora.js + MP3.js to play MP3s.
+  ###
   constructor: ->
     unless AV?
       # load Aurora.js + MP3.js if they aren't loaded

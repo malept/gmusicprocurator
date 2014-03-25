@@ -18,10 +18,10 @@
 
 gmp.MP3_FMT = 'audio/mpeg'
 
-#
-# Uses HTMLAudioElement to play MP3s.
-#
 class gmp.HTML5Audio
+  ###
+  Uses HTMLAudioElement to play MP3s.
+  ###
   constructor: ->
     @player = new Audio()
     @$player = $(@player)
