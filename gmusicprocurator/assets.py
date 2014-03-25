@@ -66,7 +66,7 @@ css = Bundle(normalize, typography, pure, main_css, filters='cssmin',
              output='all.min.css')
 assets.register('css', css)
 
-aurora = Bundle('vendor/aurora.js/browser.coffee', filters='importer_js',
+aurora = Bundle('vendor/aurora.js/browser_slim.coffee', filters='importer_js',
                 output='vendor/aurora.built.js')
 mp3 = Bundle('vendor/mp3.js/mp3.js', filters='importer_js',
              output='vendor/mp3.built.js')
