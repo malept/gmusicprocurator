@@ -63,7 +63,7 @@ class gmp.PlayerView extends Backbone.View
     @$track_position = @$el.children('#track-position')
 
     @audio = gmp.load_audio_backend()
-    return this unless @audio
+    return this unless @audio?
 
     # For some reason, can't transform these into view-based events
     @audio.pause =>
@@ -84,8 +84,8 @@ class gmp.PlayerView extends Backbone.View
 
     return this
 
-  play: (metadata, url = null) ->
-    url = gmp.song_url(metadata) unless url
+  play: (metadata, url) ->
+    url = gmp.song_url(metadata) unless url?
     if @audio?.audio_playable()
       if @audio.mp3_playable()
         @audio.load(url)
