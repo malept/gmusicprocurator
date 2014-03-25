@@ -32,9 +32,9 @@ class gmp.AuroraAudio
     @dispatcher = _.clone(Backbone.Events)
 
     create_proxy_evt_func = (name) ->
-      return (callback = null) ->
-        if !!callback
-          @dispatcher.on name, callback
+      return (handler) ->
+        if handler?
+          @dispatcher.on name, handler
         else
           @player[name]()
           @dispatcher.trigger(name)
@@ -42,13 +42,13 @@ class gmp.AuroraAudio
       @[n] = create_proxy_evt_func(n)
 
     create_evt_func = (name) ->
-      return (callback = null) ->
-        if !!callback
+      return (handler) ->
+        if handler?
           if @player?
-            @player.on name, callback
+            @player.on name, handler
           else
             @dispatcher.on 'create_player', =>
-              @player.on name, callback
+              @player.on name, handler
         else
           @dispatcher.trigger(name)
     @durationchange = create_evt_func('duration')
@@ -100,11 +100,11 @@ class gmp.AuroraAudio
   mp3_playable: ->
     return AV.Decoder.find('mp3')?
 
-  play_started: (callback = null) ->
-    if callback is null
-      return @started_play
+  play_started: (handler) ->
+    if handler?
+      @player.once 'ready', handler
     else
-      @player.once 'ready', callback
+      return @started_play
 
   toggle_playback: ->
     @player.togglePlayback()

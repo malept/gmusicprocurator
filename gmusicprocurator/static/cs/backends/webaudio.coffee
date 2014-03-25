@@ -28,9 +28,9 @@ class gmp.HTML5Audio
     @$player.attr('autoplay', 'autoplay')
 
     create_evt_func = (name, args...) ->
-      return (callback = null) ->
-        if !!callback
-          @$player.on name, callback
+      return (handler) ->
+        if handler?
+          @$player.on name, handler
         else if !!@player[name]
           @player[name](args...)
         else
@@ -66,11 +66,11 @@ class gmp.HTML5Audio
   mp3_playable: ->
     return @player.canPlayType(gmp.MP3_FMT)
 
-  play_started: (callback = null) ->
-    if callback is null
-      return @player.played.length > 0
+  play_started: (handler) ->
+    if handler?
+      @$player.one 'play', handler
     else
-      @$player.one 'play', callback
+      return @player.played.length > 0
 
   toggle_playback: ->
     if @playing
