@@ -59,7 +59,7 @@ class gmp.PlayerView extends Backbone.View
   render: ->
     @$el.html(@template())
 
-    @$play_pause = @$('.play-pause > span')
+    @$play_pause = @$el.find('.play-pause').children('span')
     @$track_position = @$el.children('#track-position')
 
     @audio = gmp.load_audio_backend()
@@ -78,8 +78,8 @@ class gmp.PlayerView extends Backbone.View
       total = gmp.human_readable_time(@audio.duration())
       @$track_position.attr('title', "#{cur_pos} / #{total}")
 
-    @$volume_icon = @$('.volume-control > span')
-    @$volume_widget = @$('.volume-control-widget')
+    @$volume_icon = @$el.find('.volume-control').children('span')
+    @$volume_widget = @$el.find('.volume-control-widget')
     @$volume_widget.val(50).change()
 
     return this
