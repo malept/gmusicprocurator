@@ -16,10 +16,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#
-# Note: only does SSSS -> MM:SS
-#
 gmp.human_readable_time = (seconds) ->
+  ###
+  Converts seconds to MM:SS.
+  ###
   minutes = (seconds / 60).toFixed(0)
   remainder = (seconds % 60).toFixed(0)
   remainder = "0#{remainder}" if remainder < 10
