@@ -16,7 +16,7 @@ Frontend
 
 * Sass_
 * Node.js + NPM
-* Bower (``npm install bower``)
+* Bower (``npm install -g bower``)
 * CoffeeScript (``npm install -g coffee-script``)
 * UglifyJS2 (``npm install -g uglify-js``)
 * importer (``npm install -g importer``)
