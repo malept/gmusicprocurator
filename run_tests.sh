@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 BASE_DIR=`dirname "$0"`
 GMP_DIR="${BASE_DIR}"/gmusicprocurator
