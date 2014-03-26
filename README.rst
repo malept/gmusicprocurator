@@ -40,7 +40,7 @@ Then run the following:
 
 .. code-block:: console
 
-   $ git clone https://github.com/malept/gmusicprocurator.git
+   $ git clone --recursive https://github.com/malept/gmusicprocurator.git
    $ cd gmusicprocurator
    $ pip install -r requirements.txt
    $ python -m gmusicprocurator list_devices --no-desktop
