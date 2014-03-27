@@ -17,7 +17,7 @@
 
 from mutagen.id3 import APIC
 from mutagen.easyid3 import EasyID3
-from mutagen.mp3 import EasyMP3 as MP3
+from mutagen.mp3 import EasyMP3
 import requests
 
 ENCODING_UTF8 = 3
@@ -37,4 +37,4 @@ def set_albumart(id3, key, urls):
 
 EasyID3.RegisterKey('albumart', setter=set_albumart)
 
-__all__ = ['MP3']
+__all__ = ['EasyMP3']

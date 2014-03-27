@@ -27,7 +27,7 @@ from werkzeug.exceptions import ServiceUnavailable
 from xspf import Xspf
 
 from ..app import app, music
-from ..id3 import MP3
+from ..id3 import EasyMP3
 
 JSON_TYPE = 'application/json'
 MP3_TYPE = 'audio/mpeg'
@@ -111,7 +111,7 @@ def add_id3_tags_to_mp3(song_id, input_data):
     with NamedTemporaryFile() as f:
         f.write(input_data.getvalue())
         f.flush()
-        audio = MP3(f.name)
+        audio = EasyMP3(f.name)
         for gmf, id3f in METADATA_FIELDS.iteritems():
             if gmf in song_info:
                 if isinstance(song_info[gmf], basestring):
