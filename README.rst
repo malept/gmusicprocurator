@@ -19,7 +19,9 @@ Features
   * Option to embed album art in MP3 streams
 * Browse playlists via an HTML5 frontend
 * Stream playlists in the browser without using Flash or other browser plugins,
-  in browsers that support HTML5 Audio
+  in `browsers that support HTML5 Audio`_
+
+.. _browsers that support HTML5 Audio: http://caniuse.com/audio
 
 Quick Install
 -------------
