@@ -53,15 +53,20 @@ class gmp.Queue extends gmp.Playlist
     ###
     @seek(@get('current_track') + 1)
 
-  seek: (idx) ->
+  seek: (idx, force_change) ->
     ###
     Retrieves a specific entry in the playlist and set it as the current track.
 
     :type idx: :class:`Number` (int)
+    :param Boolean force_change: Whether to force a track change if ``idx`` is
+                                 the same as ``current_track``.
     :rtype: gmp.PlaylistEntry or :data:`null`
     ###
     return null if idx < 0 or idx >= @get('tracks').length
-    @set('current_track', idx)
+    if @get('current_track') == idx
+      @trigger('change:current_track', this, idx, {}) if force_change
+    else
+      @set('current_track', idx)
     return @current()
 
   insert_entry_after_current: (entry) ->
@@ -104,7 +109,10 @@ class gmp.QueueView extends gmp.PlaylistView
 
   play_track: (e) ->
     e.stopImmediatePropagation()
-    return unless @model.seek($(e.target).parent().data('idx'))
+    idx = $(e.target).parent().data('idx')
+    same_track = idx == @model.get('current_track')
+    return if same_track and gmp.player.is_playing()
+    @model.seek(idx, same_track)
 
   icon_for_index: (idx) ->
     return @icon_for_entry(@model.get('tracks').at(idx))
