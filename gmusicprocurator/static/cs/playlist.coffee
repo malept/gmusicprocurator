@@ -134,7 +134,7 @@ class gmp.PlaylistView extends gmp.SingletonView
       else
         queue.set('current_track', last)
 
-  add_to_queue: (e) ->
+  add_to_queue: ->
     gmp.queue.model.add_playlist(@model)
 
   on_tracks_add: (model, collection, options) =>
