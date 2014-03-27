@@ -23,10 +23,12 @@ Quick Install
 
 .. note::
 
-   This has only been tested on Python 2.7.
+   These **abbreviated instructions** are for running the **proxy only**. For
+   proxy + frontend instructions, plus **detailed prerequisites**, consult
+   ``INSTALL.rst``.
 
-   These abbreviated instructions are for running the proxy only. For proxy +
-   frontend instructions, plus detailed requirements, consult ``INSTALL.rst``.
+   This has only been tested on Python 2.7. In theory, it runs on PyPy (not
+   PyPy3).
 
 Create a config file in ``~/.config/gmusicapi/gmusicprocurator.cfg`` that looks like
 this:
