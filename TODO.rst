@@ -9,3 +9,4 @@ In no particular order:
 * Ability to play filesystem music?
 * Better docs/setup story (wizard?)
 * Multi-user?
+* Python 3.3+ support
