@@ -1,23 +1,29 @@
-<section id="playlist-info">
-  <h3 class="delta name">[[ name ]]</h3>
-  [% if (id != gmp.QUEUE_ID) { %]
-  <ul>
-    <li><a href="/playlists/[[ id ]]">XSPF Playlist</a></li>
-    <li><button class="add-to-queue">Add to queue</button></li>
-  </ul>
-  [% } /* !queue */ %]
-</section>
-<table data-playlist-id="[[ id ]]" class="listing pure-table pure-table-striped">
-  <thead>
-    <tr>
-      <th>&nbsp;</th>
-      <th>Track</th>
-      <th>Artist</th>
-      <th>Album</th>
-      <th>#</th>
-    </tr>
-  </thead>
-  <tbody>
-    [[ tracks.map(render_track).join('') ]]
-  </tbody>
-</table>
+<div>[% /* For flexbox */ %]
+  <section id="playlist-info">
+    <h3 class="delta name">[[ name ]]</h3>
+    [% if (id != gmp.QUEUE_ID) { %]
+    <ul>
+      <li><a href="/playlists/[[ id ]]">XSPF Playlist</a></li>
+      <li><button class="add-to-queue">Add to queue</button></li>
+    </ul>
+    [% } /* !queue */ %]
+  </section>
+  <div class="playlist-contents">
+    <div>[% /* For flexbox */ %]
+      <table data-playlist-id="[[ id ]]" class="listing pure-table pure-table-striped">
+        <thead>
+          <tr>
+            <th>&nbsp;</th>
+            <th>Track</th>
+            <th>Artist</th>
+            <th>Album</th>
+            <th>#</th>
+          </tr>
+        </thead>
+        <tbody>
+          [[ tracks.map(render_track).join('') ]]
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

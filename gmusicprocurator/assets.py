@@ -63,7 +63,6 @@ typography = Bundle('scss/typography.scss', filters='scss',
 
 pure_modules = [
     'buttons',
-    'grids',
     'tables',
 ]
 

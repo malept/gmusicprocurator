@@ -74,7 +74,6 @@ class gmp.Tracks extends Backbone.Collection
 class gmp.PlaylistView extends gmp.SingletonView
   tagName: 'section'
   id: 'playlist'
-  className: 'pure-u-4-5'
   template: gmp.get_template('playlist')
   track_template: gmp.get_template('playlist-track')
   events:

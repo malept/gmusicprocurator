@@ -1,15 +1,36 @@
+@import '../vendor/bourbon/dist/settings/prefixer';
+@import '../vendor/bourbon/dist/addons/prefixer';
+@import '../vendor/bourbon/dist/css3/flex-box';
 @import 'include/mixins';
 @import 'include/variables';
 
-main {
-  margin-bottom: $player-height;
+// This was incredibly helpful:
+// https://stackoverflow.com/q/21515042
+
+body {
+  bottom: 0;
+  @include display(flex);
+  @include flex-direction(column);
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
+header,
 footer {
   background: #fff;
-  bottom: 0;
-  position: fixed;
   width: 100%;
+}
+
+main {
+  @include flexify;
+  @include flex-direction(row);
+
+  > nav {
+    width: 20%;
+  }
 }
 
 @import 'sections/player';

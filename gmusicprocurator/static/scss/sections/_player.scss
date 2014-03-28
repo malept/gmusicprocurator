@@ -2,6 +2,7 @@
   height: $player-height;
 
   nav {
+    @include display(flex);
     height: $controls-height;
 
     button {
@@ -17,11 +18,6 @@
     height: $controls-height;
     padding-right: 5px;
     vertical-align: top;
-  }
-
-  .controls {
-    position: absolute;
-    top: 0;
   }
 
   .volume-control {
@@ -49,10 +45,8 @@
   background: #fff;
   border: 0;
   cursor: pointer;
+  display: block;
   height: $progress-height;
-  left: 0;
-  position: absolute;
-  top: 0;
   width: 100%;
 
   &::-webkit-progress-bar {

@@ -1,6 +1,25 @@
 #playlist {
+  @include flexify;
+
+  > div {
+    @include display(flex);
+    @include flex-direction(column);
+    width: 100%;
+  }
+
+  .playlist-contents {
+    @include flexify;
+    overflow-y: auto;
+    width: 100%;
+
+    > div {
+      @include display(flex);
+      @include value-prefixer(min-height, min-content, webkit moz spec);
+      width: 100%;
+    }
+  }
+
   .listing {
-    clear: both;
     font-size: smaller;
     width: 100%;
   }
@@ -52,12 +71,15 @@
 }
 
 #playlist-info {
+  @include display(flex);
+  @include flex-direction(row);
+  height: 5em;
+
   .name {
-    float: left;
+    @include flexify;
   }
 
   ul {
-    float: right;
     list-style-type: none;
     margin-top: 0;
     padding-left: 0;
