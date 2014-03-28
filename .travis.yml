@@ -12,4 +12,5 @@ install:
   - sudo npm install -g coffeelint csslint
   - gem install scss-lint
   - pip install -r requirements-dev.txt
+  - bower install
 script:  ./run_tests.sh
