@@ -14,6 +14,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+"""GMusicProcurator Flask app module."""
 
 from appdirs import user_data_dir
 from flask import Flask
@@ -39,4 +40,4 @@ else:
     music.login(app.config['GACCOUNT_EMAIL'],
                 app.config['GACCOUNT_PASSWORD'])
 
-__all__ = ['app', 'assets', 'music']
+__all__ = ('app', 'assets', 'music')

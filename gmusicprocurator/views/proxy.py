@@ -14,6 +14,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+"""Flask views for the Google Music proxy."""
 
 from datetime import datetime
 from flask import abort, request, Response, url_for
@@ -52,7 +53,11 @@ if app.config['GMP_EMBED_ALBUM_ART']:
 
 
 def online_only(f):
+    """
+    View decorator to ensure execution only in online mode.
 
+    If ``GMP_OFFLINE_MODE`` is set, a 503 is returned.
+    """
     @wraps(f)
     def check_offline_mode(*args, **kwargs):
         if app.config['GMP_OFFLINE_MODE']:
@@ -63,7 +68,7 @@ def online_only(f):
 
 
 def mp3ify(resp):
-    '''Sets MIME Type and Content-Disposition header suitable for MP3s.'''
+    """Set MIME Type and Content-Disposition header suitable for MP3s."""
     if resp.mimetype != MP3_TYPE:
         resp.mimetype = MP3_TYPE
     resp.headers.add('Content-Disposition', 'inline', filename='song.mp3')
@@ -71,13 +76,13 @@ def mp3ify(resp):
 
 
 def gmusic_playlist_to_xspf(playlist_id, playlist):
-    '''
-    Converts a playlist from gmusicapi into an XSPF playlist.
+    """
+    Convert a playlist from gmusicapi into an XSPF playlist.
 
     :type playlist: dict
     :return: XSPF (XML), UTF-8 encoded
     :rtype: str
-    '''
+    """
     create_ts = int(playlist['creationTimestamp']) / 1000000.0
     create_iso = datetime.utcfromtimestamp(create_ts).isoformat()
     p_url = url_for('get_playlist', _external=True, playlist_id=playlist_id)
@@ -104,6 +109,14 @@ def gmusic_playlist_to_xspf(playlist_id, playlist):
 
 
 def add_id3_tags_to_mp3(song_id, input_data):
+    """
+    Attach ID3 tags to MP3 data.
+
+    :param str song_id: The Google Music song ID.
+    :param io.BytesIO input_data: The MP3 data.
+    :return: the modified MP3 data
+    :rtype: :class:`io.BytesIO`
+    """
     song_info = music.get_track_info(song_id)
     output = BytesIO()
     # We have to write the MP3 data to a temporary file so mutagen can add
@@ -136,13 +149,14 @@ def add_id3_tags_to_mp3(song_id, input_data):
 @app.route('/songs/<song_id>/info')
 @online_only
 def get_song_info(song_id):
+    """Retrieve the song metadata from the Google Music API."""
     return jsonify(music.get_track_info(song_id))
 
 
 @app.route('/songs/<song_id>')
 @online_only
 def get_song(song_id):
-    '''Retrieves the MP3 for a given ID.'''
+    """Retrieve the MP3 for a given ID."""
     song_url = music.get_stream_url(song_id, app.config['GACCOUNT_DEVICE_ID'])
     response = requests.get(song_url)
     data = BytesIO(response.content)
@@ -157,7 +171,7 @@ def get_song(song_id):
 @app.route('/playlists/<playlist_id>')
 @online_only
 def get_playlist(playlist_id):
-    '''Retrieves the metadata for a given playlist.'''
+    """Retrieve the metadata for a given playlist."""
     # 2014-02-25: At the time of this writing, this idiom is the only way to
     # get a single playlist via the API.
     playlists = [p for p in music.get_all_user_playlist_contents()
@@ -180,7 +194,7 @@ def get_playlist(playlist_id):
 @app.route('/playlists')
 @online_only
 def get_playlists():
-    '''Retrieves all of the logged in user's playlists.'''
+    """Retrieve all of the logged in user's playlists."""
     return jsonify({
         'playlists': music.get_all_user_playlist_contents(),
     })

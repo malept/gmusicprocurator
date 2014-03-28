@@ -15,6 +15,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+"""Flask(-Script) application runner."""
 
 from __future__ import print_function
 
@@ -33,10 +34,11 @@ no_bool_option = partial(manager.option, action='store_false', default=True)
 @no_bool_option('--no-desktop', dest='show_desktop', help='Hide desktop IDs')
 @no_bool_option('--no-mobile', dest='show_mobile', help='Hide mobile IDs')
 def list_devices(show_desktop, show_mobile):
-    '''
-    List device IDs registered with Google Music. Defaults to showing both
-    desktop and mobile IDs.
-    '''
+    """
+    List device IDs registered with Google Music.
+
+    Defaults to showing both desktop and mobile IDs.
+    """
     webclient = Webclient()
     success = webclient.login(app.config['GACCOUNT_EMAIL'],
                               app.config['GACCOUNT_PASSWORD'])
@@ -54,6 +56,7 @@ def list_devices(show_desktop, show_mobile):
 
 
 def run():
+    """Flask-Script convenience runner."""
     manager.run()
 
 if __name__ == '__main__':

@@ -14,6 +14,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+"""Flask views for the frontend UI."""
 
 from flask import render_template
 
@@ -22,4 +23,5 @@ from ..app import app
 
 @app.route('/')
 def main():
+    """Main page of the frontend."""
     return render_template('index.html')

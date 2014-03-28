@@ -14,8 +14,9 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+"""GMusicProcurator base module, ties all of the Flask components together."""
 
 from .app import app
 from . import assets, views  # noqa
 
-__all__ = ['app']
+__all__ = ('app',)

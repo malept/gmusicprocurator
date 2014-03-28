@@ -14,6 +14,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+"""webassets-related code for GMusicProcurator."""
 
 from flask.ext.assets import Bundle
 from webassets.filter import ExternalTool, register_filter
@@ -22,6 +23,14 @@ from .app import assets
 
 
 class ImporterFilter(ExternalTool):
+
+    """
+    webassets_ filter for Importer_.
+
+    .. _webassets: https://webassets.readthedocs.org/
+    .. _Importer: https://github.com/devongovett/importer
+    """
+
     name = 'importer_js'
     method = 'open'
     options = {
@@ -30,6 +39,7 @@ class ImporterFilter(ExternalTool):
     }
 
     def setup(self):
+        """Set up Importer CLI args."""
         self.argv = [
             self.binary or 'importer',
             '{1}',  # source_path
@@ -42,7 +52,7 @@ register_filter(ImporterFilter)
 
 
 def bundlify(fmt, modules, **kwargs):
-    '''Creates a Bundle based on a path format and a list of modules.'''
+    """Create a Bundle based on a path format and a list of modules."""
     return Bundle(*[fmt.format(f) for f in modules], **kwargs)
 
 normalize = 'vendor/normalize-css/normalize.css'
