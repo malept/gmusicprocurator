@@ -4,5 +4,6 @@
 gmusicprocurator/static/vendor/*
 .sass-cache
 .tox
+.vagrant
 .webassets-cache
 build
