@@ -1,8 +1,3 @@
-@mixin bgcolor-rgba($r, $g, $b, $a) {
-  background-color: rgb($r, $g, $b);
-  background-color: rgba($r, $g, $b, $a);
-}
-
 @mixin flexify {
   @include display(flex);
   @include flex(1);

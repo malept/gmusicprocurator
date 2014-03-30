@@ -60,7 +60,7 @@
     }
 
     .fa-play:hover {
-      @include bgcolor-rgba(230, 230, 230, 0.75);
+      background-color: rgba(230, 230, 230, 0.75);
     }
 
     > span {
