@@ -16,6 +16,28 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+####
+# Dirty Monkeypatching Hacks
+####
+
+# distutils sdist for Vagrant
+#
+# Allow distutils sdist to work correctly when using Vagrant + VirtualBox
+# shared folders, where hard links are not implemented.
+#
+# See also: http://bugs.python.org/msg208792
+
+import os
+import sys
+
+if 'sdist' in sys.argv and os.environ.get('USER', '') == 'vagrant':
+    if hasattr(os, 'link'):
+        del os.link
+
+####
+# Your regularly scheduled setup file
+####
+
 import re
 from setuptools import setup
 
