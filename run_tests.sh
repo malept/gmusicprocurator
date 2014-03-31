@@ -7,7 +7,8 @@ SCSS_DIR="${STATIC_DIR}"/scss
 MAIN_OUT_CSS="${SCSS_DIR}"/main.out.css
 
 set -x
-flake8 --exclude=static "${GMP_DIR}"
+
+flake8 "${GMP_DIR}"
 coffeelint -f "${BASE_DIR}"/.coffeelint.json "${STATIC_DIR}"/cs
 scss-lint -e '*.css' "${SCSS_DIR}"
 scss --style expanded "${SCSS_DIR}"/main.scss "${MAIN_OUT_CSS}"
