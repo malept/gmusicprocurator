@@ -13,3 +13,4 @@ scss-lint -e '*.css' "${SCSS_DIR}"
 scss --style expanded "${SCSS_DIR}"/main.scss "${MAIN_OUT_CSS}"
 csslint "${MAIN_OUT_CSS}"
 pep257 gmusicprocurator
+python setup.py check --metadata --restructuredtext --strict

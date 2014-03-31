@@ -34,12 +34,27 @@ if 'sdist' in sys.argv and os.environ.get('USER', '') == 'vagrant':
     if hasattr(os, 'link'):
         del os.link
 
+# distutils check ReST + pygments
+#
+# When the long description contains a code block, the distutils ``check -r``
+# will fail because the default options do not include ``syntax_highlight``.
+# Monkeypatch ``docutils.frontend.OptionParser`` to provide a default for
+# this option.
+
+if 'check' in sys.argv:
+    try:
+        from docutils.frontend import OptionParser
+    except ImportError:
+        pass  # docutils isn't installed, ignore
+    else:
+        OptionParser.settings_defaults['syntax_highlight'] = None
+
 ####
 # Your regularly scheduled setup file
 ####
 
 import re
-from setuptools import setup
+from setuptools import find_packages, setup
 
 GPL3PLUS = 'License :: OSI Approved :: ' \
            'GNU General Public License v3 or later (GPLv3+)',
@@ -70,10 +85,14 @@ with open('README.rst') as f:
 requires = requires_from_req_txt('requirements.txt')
 
 setup(name='gmusicprocurator',
-      version='1.0dev2',
+      version='1.0dev3',
       long_description=long_description,
       author='Mark Lee',
-      packages=['gmusicprocurator'],
+      author_email='gmusicprocurator.no.spam@lazymalevolence.com',
+      url='https://github.com/malept/gmusicprocurator',
+      packages=find_packages(),
+      include_package_data=True,
+      zip_safe=False,
       entry_points={
           'console_scripts': [
               'gmusicprocurator = gmusicprocurator.__main__:run',

@@ -7,3 +7,4 @@ gmusicprocurator/static/vendor/*
 .vagrant
 .webassets-cache
 build
+dist

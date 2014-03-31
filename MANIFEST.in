@@ -1,1 +1,16 @@
-include *.rst LICENSE* requirements*.txt tox.ini
+include *.json *.rst .*rc .*.yml LICENSE* requirements*.txt *.sh tox.ini Vagrantfile
+recursive-include gmusicprocurator/static/cs *.coffee
+recursive-include gmusicprocurator/static/scss *.scss
+recursive-include gmusicprocurator/static/vendor/aurora.js *.coffee *.js README.md
+include gmusicprocurator/static/vendor/backbone/backbone.js
+recursive-include gmusicprocurator/static/vendor/bourbon LICENSE *.scss
+include gmusicprocurator/static/vendor/font-awesome/README.md gmusicprocurator/static/vendor/font-awesome/fonts/* gmusicprocurator/static/vendor/font-awesome/scss/*.scss
+include gmusicprocurator/static/vendor/jquery/dist/jquery.js
+include gmusicprocurator/static/vendor/lodash/dist/lodash.js
+recursive-include gmusicprocurator/static/vendor/mp3.js *.js README.md
+include gmusicprocurator/static/vendor/normalize-css/normalize.css
+include gmusicprocurator/static/vendor/pure/*.css
+include gmusicprocurator/static/vendor/roboto-fontface/roboto-fontface.scss gmusicprocurator/static/vendor/roboto-fontface/fonts/*
+include gmusicprocurator/static/vendor/typeplate/scss/*.scss
+recursive-include gmusicprocurator/templates *.html *.mtpl
+recursive-include salt minion *.sls
