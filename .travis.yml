@@ -8,13 +8,13 @@ python:
 env:
   - NO_FRONTEND=1
 install:
-  - test -z "$NO_FRONTEND" && sudo add-apt-repository --yes ppa:chris-lea/node.js
-  - test -z "$NO_FRONTEND" && sudo apt-get update -qq
-  - test -z "$NO_FRONTEND" && sudo apt-get install nodejs
-  - test -z "$NO_FRONTEND" && sudo npm install -g coffeelint csslint bower
-  - test -z "$NO_FRONTEND" && gem install scss-lint
-  - test -z "$NO_FRONTEND" && bower install
-  - test -z "$NO_PYTHON" && pip install -r requirements-dev.txt
+  - if [[ -z "$NO_FRONTEND" ]]; then sudo add-apt-repository --yes ppa:chris-lea/node.js; fi
+  - if [[ -z "$NO_FRONTEND" ]]; then sudo apt-get update -qq; fi
+  - if [[ -z "$NO_FRONTEND" ]]; then sudo apt-get install nodejs; fi
+  - if [[ -z "$NO_FRONTEND" ]]; then sudo npm install -g coffeelint csslint bower; fi
+  - if [[ -z "$NO_FRONTEND" ]]; then gem install scss-lint; fi
+  - if [[ -z "$NO_FRONTEND" ]]; then bower install; fi
+  - if [[ -z "$NO_PYTHON" ]]; then pip install -r requirements-dev.txt; fi
 script:  ./run_tests.sh
 matrix:
   include:
