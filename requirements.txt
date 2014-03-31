@@ -1,7 +1,10 @@
 cssmin
 Flask
-flask-assets
+# Flask-Assets
+git+https://github.com/malept/flask-assets.git@feature/settings-tree#egg=Flask-Assets
 Flask-Script
 gmusicapi
+# webassets
+git+https://github.com/miracle2k/webassets.git#egg=webassets
 # xspf
-git+git://github.com/alastair/xspf.git#egg=xspf
+git+https://github.com/alastair/xspf.git#egg=xspf
