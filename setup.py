@@ -53,6 +53,7 @@ if 'check' in sys.argv:
 # Your regularly scheduled setup file
 ####
 
+import json
 import re
 from setuptools import find_packages, setup
 
@@ -79,24 +80,32 @@ def requires_from_req_txt(filename):
                 requires.append(req)
     return requires
 
+with open('bower.json') as f:
+    metadata = json.load(f)
+
 with open('README.rst') as f:
     long_description = f.read()
 
 requires = requires_from_req_txt('requirements.txt')
 
-setup(name='gmusicprocurator',
-      version='1.0dev3',
-      long_description=long_description,
-      author='Mark Lee',
-      author_email='gmusicprocurator.no.spam@lazymalevolence.com',
-      url='https://github.com/malept/gmusicprocurator',
-      packages=find_packages(),
-      include_package_data=True,
-      zip_safe=False,
-      entry_points={
-          'console_scripts': [
-              'gmusicprocurator = gmusicprocurator.__main__:run',
-          ],
-      },
-      install_requires=requires,
-      classifiers=CLASSIFIERS)
+attrs = {
+    'name': metadata['name'],
+    'version': metadata['version'],
+    'description': metadata['description'],
+    'long_description': long_description,
+    'author': metadata['authors'][0],
+    'author_email': 'gmusicprocurator.no.spam@lazymalevolence.com',
+    'url': metadata['homepage'],
+    'packages': find_packages(),
+    'include_package_data': True,
+    'zip_safe': False,
+    'entry_points': {
+        'console_scripts': [
+            'gmusicprocurator = gmusicprocurator.__main__:run',
+        ],
+    },
+    'install_requires': requires,
+    'classifiers': CLASSIFIERS,
+}
+
+setup(**attrs)
