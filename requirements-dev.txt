@@ -4,5 +4,5 @@ pep257
 pep8-naming
 Sphinx
 # sphinxcontrib-coffee
-hg+https://bitbucket.org/birkenfeld/sphinx-contrib#egg=sphinxconfib-coffee&subdirectory=coffeedomain
+-e hg+https://bitbucket.org/birkenfeld/sphinx-contrib#egg=sphinxcontrib-coffee&subdirectory=coffeedomain
 sphinxconfig-httpdomain
