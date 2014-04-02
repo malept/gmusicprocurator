@@ -21,7 +21,8 @@ App-specific Flask settings.
 
     This is a mode that **should only be used for development purposes**. If
     set to :data:`True`, the proxy views will only return the HTTP status code
-    ``503`` (Service Unavailable).
+    ``503`` (Service Unavailable). It is on by default only when Read the Docs
+    is building the documentation.
 
 .. attribute:: GMP_SONG_FILTERS
 
@@ -44,8 +45,9 @@ App-specific Flask settings.
     Embed album art in the songs' ID3 tags. Defaults to :data:`False`.
 """
 
+import os
 
-GMP_OFFLINE_MODE = False
+GMP_OFFLINE_MODE = os.environ.get('READTHEDOCS') == 'True'
 
 GMP_SONG_FILTERS = (
     'add_id3_tags_to_mp3',

@@ -28,7 +28,10 @@ metadata = json.load(open(os.path.join(BASE_DIR, 'bower.json')))
 def setup(app):
     app.add_config_value('readthedocs', False, True)
 
-readthedocs = os.environ.get('READTHEDOCS', None) == 'True'
+readthedocs = os.environ.get('READTHEDOCS') == 'True'
+
+if readthedocs:
+    os.environ['GMUSICPROCURATOR_SETTINGS'] = 'default_settings.py'
 
 # -- General configuration ----------------------------------------------------
 
