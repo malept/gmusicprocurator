@@ -35,18 +35,6 @@ Configuration, API docs, and other information are hosted on `Read the Docs`_.
 
 .. _Read the Docs: https://gmusicprocurator.readthedocs.org/
 
-Quick Install
--------------
-
-.. note::
-
-   These **abbreviated instructions** are for running the **proxy only**. For
-   proxy + frontend instructions, plus **detailed prerequisites**, consult
-   ``INSTALL.rst``.
-
-   This has only been tested on Python 2.7. In theory, it runs on PyPy (not
-   PyPy3).
-
 Legal
 -----
 
