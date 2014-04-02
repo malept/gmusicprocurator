@@ -23,40 +23,29 @@ Features
 
 .. _browsers that support HTML5 Audio: http://caniuse.com/audio
 
-Installation
-------------
-
-Please see ``INSTALL.rst`` for details.
-
-Documentation
--------------
-
-Configuration, API docs, and other information are hosted on `Read the Docs`_.
-
-.. _Read the Docs: https://gmusicprocurator.readthedocs.org/
-
-Quick Install
--------------
-
-.. note::
-
-   These **abbreviated instructions** are for running the **proxy only**. For
-   proxy + frontend instructions, plus **detailed prerequisites**, consult
-   ``INSTALL.rst``.
-
-   This has only been tested on Python 2.7. In theory, it runs on PyPy (not
-   PyPy3).
-
 Legal
 -----
 
 This web application is licensed under the terms of the GNU General Public
-License (GNU GPL), version 3 or later, unless otherwise noted in the source
-files. See ``LICENSE`` for the full license text.
+License (`GNU GPL`_), version 3 or later, unless otherwise noted in the source
+files.
 
 The documentation is licensed under the Creative Commons
-Attribution-ShareAlike 4.0 International License; see the ``LICENSE.docs``
-file for details.
+Attribution-ShareAlike 4.0 International License (`CC BY-SA 4.0`_).
 
 This project is not affiliated in any way to Google or any of Google's
 music apps.
+
+.. _GNU GPL: https://gnu.org/licenses/
+.. _CC BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/
+
+Table of Contents
+-----------------
+
+.. toctree::
+   :maxdepth: 4
+
+   install
+   config
+   api
+   contributing

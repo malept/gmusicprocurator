@@ -14,7 +14,35 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-"""Default app-specific Flask settings."""
+"""
+App-specific Flask settings.
+
+.. attribute:: GMP_OFFLINE_MODE
+
+    This is a mode that **should only be used for development purposes**. If
+    set to :data:`True`, the proxy views will only return the HTTP status code
+    ``503`` (Service Unavailable).
+
+.. attribute:: GMP_SONG_FILTERS
+
+    A tuple of callable filters used on streaming MP3 data. By default, it
+    looks like:
+
+    .. code-block:: python
+
+        GMP_SONG_FILTERS = (
+            'add_id3_tags_to_mp3',
+        )
+
+    Tuple items can be either strings (built-in to the app) or callables.
+    Callables have the following signature::
+
+        def (str song_id, io.BytesIO data) -> io.BytesIO
+
+.. attribute:: GMP_EMBED_ALBUM_ART
+
+    Embed album art in the songs' ID3 tags. Defaults to :data:`False`.
+"""
 
 
 GMP_OFFLINE_MODE = False

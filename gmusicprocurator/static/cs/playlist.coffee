@@ -42,8 +42,8 @@ class gmp.Playlist extends Backbone.Model
     ###
     Appends one or more playlist entries to a playlist.
 
-    :type entry_or_entries: :class:`gmp.PlaylistEntry` or an :class:`Array` of
-                            :class:`gmp.PlaylistEntry` objects.
+    :type entry_or_entries: :class:`gmp.PlaylistEntry` or an :js:class:`Array`
+                            of :class:`gmp.PlaylistEntry` objects.
     ###
     @get('tracks').add(entry_or_entries)
 

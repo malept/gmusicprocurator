@@ -41,7 +41,7 @@ class gmp.Queue extends gmp.Playlist
     ###
     Sets the current track to the previous one.
 
-    :rtype: gmp.PlaylistEntry or :data:`null`
+    :rtype: gmp.PlaylistEntry or :js:data:`null`
     ###
     @seek(@get('current_track') - 1)
 
@@ -49,7 +49,7 @@ class gmp.Queue extends gmp.Playlist
     ###
     Advances the queue to the next track.
 
-    :rtype: gmp.PlaylistEntry or :data:`null`
+    :rtype: gmp.PlaylistEntry or :js:data:`null`
     ###
     @seek(@get('current_track') + 1)
 
@@ -57,10 +57,10 @@ class gmp.Queue extends gmp.Playlist
     ###
     Retrieves a specific entry in the playlist and set it as the current track.
 
-    :type idx: :class:`Number` (int)
+    :type idx: :js:class:`Number` (int)
     :param Boolean force_change: Whether to force a track change if ``idx`` is
                                  the same as ``current_track``.
-    :rtype: gmp.PlaylistEntry or :data:`null`
+    :rtype: gmp.PlaylistEntry or :js:data:`null`
     ###
     return null if idx < 0 or idx >= @get('tracks').length
     if @get('current_track') == idx
@@ -73,7 +73,7 @@ class gmp.Queue extends gmp.Playlist
     ###
     Inserts a playlist entry after the current track.
 
-    :rtype: :coffee:class:`Number` (int)
+    :rtype: :js:class:`Number` (int)
     :returns: The index of the playlist entry
     ###
     track_ct = @get('tracks').length

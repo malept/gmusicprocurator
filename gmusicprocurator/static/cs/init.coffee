@@ -40,8 +40,8 @@ gmp.song_url = (metadata) ->
   ###
   Generates a song URL based on song metadata.
 
-  :type metadata: Object with ``id`` key
-  :rtype: String
+  :type metadata: :js:class:`Object` with ``id`` key
+  :rtype: :js:class:`String`
   ###
   return "/songs/#{metadata.id}"
 
@@ -51,11 +51,11 @@ class gmp.View extends Backbone.View
   ###
   render: ->
     ###
-    Renders a template using the data from :meth:`render_data`, and puts it in
-    the view's element.
+    Renders a template using the data from :coffee:meth:`gmp.View.render_data`,
+    and puts it in the view's element.
 
     :return: The view being operated on
-    :rtype: :class:`gmp.View`
+    :rtype: :class:`init::gmp.View`
     ###
     @$el.html(@template(@render_data()))
     return this
@@ -64,7 +64,7 @@ class gmp.View extends Backbone.View
     ###
     The data used by the view to render the template.
 
-    :rtype: :class:`Object`
+    :rtype: :js:class:`Object`
     ###
     return @model.toJSON()
 

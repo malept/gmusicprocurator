@@ -1,4 +1,6 @@
 include *.json *.rst .*rc .*.yml LICENSE* requirements*.txt *.sh tox.ini Vagrantfile
+recursive-include docs *.py *.rst
+include docs/_templates/*.html
 recursive-include gmusicprocurator/static/cs *.coffee
 recursive-include gmusicprocurator/static/scss *.scss
 recursive-include gmusicprocurator/static/vendor/aurora.js *.coffee *.js README.md

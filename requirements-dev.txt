@@ -1,6 +1,8 @@
 -r requirements.txt
-docutils
 flake8
 pep257
 pep8-naming
-pygments
+Sphinx
+# sphinxcontrib-coffee
+hg+https://bitbucket.org/birkenfeld/sphinx-contrib#egg=sphinxconfib-coffee&subdirectory=coffeedomain
+sphinxconfig-httpdomain
