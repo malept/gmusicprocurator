@@ -4,6 +4,9 @@ App Configuration
 
 .. automodule:: gmusicprocurator.default_settings
 
+Google
+------
+
 .. attribute:: GACCOUNT_EMAIL
 
    The Google Account email address that has access to Google Music.

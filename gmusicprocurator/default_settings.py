@@ -17,12 +17,8 @@
 """
 App-specific Flask settings.
 
-.. attribute:: GMP_OFFLINE_MODE
-
-    This is a mode that **should only be used for development purposes**. If
-    set to :data:`True`, the proxy views will only return the HTTP status code
-    ``503`` (Service Unavailable). It is on by default only when Read the Docs
-    is building the documentation.
+Standard
+--------
 
 .. attribute:: GMP_SONG_FILTERS
 
@@ -42,7 +38,20 @@ App-specific Flask settings.
 
 .. attribute:: GMP_EMBED_ALBUM_ART
 
-    Embed album art in the songs' ID3 tags. Defaults to :data:`False`.
+    Embed album art in the songs' ID3 tags (assuming that ID3 tags are being
+    embedded in the MP3s). Defaults to :data:`False`.
+
+Development
+-----------
+
+Settings that should only be configured if you are developing GMusicProcurator
+and/or you know what you're doing.
+
+.. attribute:: GMP_OFFLINE_MODE
+
+    If set to :data:`True`, the proxy views will only return the HTTP status
+    code ``503`` (Service Unavailable). It is on by default only when Read the
+    Docs is building the documentation.
 """
 
 import os
