@@ -52,14 +52,26 @@ and/or you know what you're doing.
     If set to :data:`True`, the proxy views will only return the HTTP status
     code ``503`` (Service Unavailable). It is on by default only when Read the
     Docs is building the documentation.
+
+.. attribute:: GMP_MEMORY_PROFILER
+
+    Uses ``heapy`` to examine what objects are using the most memory in the
+    app. Requires installing guppy_ (via ``pip install guppy``). When the
+    server is running, send the ``SIGUSR1`` signal to the main process, and it
+    will print out a frequency table of allocated objects, and shut down
+    the server.
+
+    .. _guppy: http://guppy-pe.sourceforge.net/#Heapy
 """
 
 import os
-
-GMP_OFFLINE_MODE = os.environ.get('READTHEDOCS') == 'True'
 
 GMP_SONG_FILTERS = (
     'add_id3_tags_to_mp3',
 )
 
 GMP_EMBED_ALBUM_ART = False
+
+GMP_OFFLINE_MODE = os.environ.get('READTHEDOCS') == 'True'
+
+GMP_MEMORY_PROFILER = False

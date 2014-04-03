@@ -26,6 +26,22 @@ from gmusicapi.clients import Webclient
 from gmusicprocurator.app import app, assets
 import sys
 
+if app.config['GMP_MEMORY_PROFILER']:
+    from guppy import hpy
+    import os
+    import signal
+    msg = 'Enabling memory profiler. Send SIGUSR1 to PID {0} for heap info'
+    print(msg.format(os.getpid()), file=sys.stderr)
+    heapy = hpy()
+
+    def dump_memory_usage(signum, frame):
+        """Signal handler: prints out heap object frequency table & exits."""
+        print(heapy.heap())
+        # At the moment, I can't figure out a way to handle a signal without
+        # the socket server dying, so exit here.
+        sys.exit(0)
+    signal.signal(signal.SIGUSR1, dump_memory_usage)
+
 manager = Manager(app)
 manager.add_command('assets', ManageAssets(assets))
 no_bool_option = partial(manager.option, action='store_false', default=True)
