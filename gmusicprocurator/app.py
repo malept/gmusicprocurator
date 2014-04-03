@@ -19,7 +19,6 @@
 from appdirs import user_data_dir
 from flask import Flask
 from flask.ext.assets import Environment
-from gmusicapi import Mobileclient
 import os
 
 SETTINGS_VAR = 'GMUSICPROCURATOR_SETTINGS'
@@ -36,6 +35,7 @@ assets = Environment(app)
 if app.config['GMP_OFFLINE_MODE']:
     music = None
 else:
+    from gmusicapi import Mobileclient
     music = Mobileclient()
     music.login(app.config['GACCOUNT_EMAIL'],
                 app.config['GACCOUNT_PASSWORD'])

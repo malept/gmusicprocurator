@@ -22,7 +22,6 @@ from __future__ import print_function
 from flask.ext.assets import ManageAssets
 from flask.ext.script import Manager
 from functools import partial
-from gmusicapi.clients import Webclient
 from gmusicprocurator.app import app, assets
 import sys
 
@@ -55,6 +54,7 @@ def list_devices(show_desktop, show_mobile):
 
     Defaults to showing both desktop and mobile IDs.
     """
+    from gmusicapi.clients import Webclient
     webclient = Webclient()
     success = webclient.login(app.config['GACCOUNT_EMAIL'],
                               app.config['GACCOUNT_PASSWORD'])
