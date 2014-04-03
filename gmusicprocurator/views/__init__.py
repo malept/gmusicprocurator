@@ -16,6 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """Flask view module loader for GMusicProcurator."""
 
-from . import proxy, ui
-
-__all__ = ('proxy', 'ui')
+from ..app import app
+from . import proxy  # noqa
+if app.config['GMP_FRONTEND_ENABLED']:
+    from . import ui  # noqa

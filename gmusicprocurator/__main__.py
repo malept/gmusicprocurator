@@ -19,10 +19,9 @@
 
 from __future__ import print_function
 
-from flask.ext.assets import ManageAssets
 from flask.ext.script import Manager
 from functools import partial
-from gmusicprocurator.app import app, assets
+from gmusicprocurator.app import app
 import sys
 
 if app.config['GMP_MEMORY_PROFILER']:
@@ -42,7 +41,11 @@ if app.config['GMP_MEMORY_PROFILER']:
     signal.signal(signal.SIGUSR1, dump_memory_usage)
 
 manager = Manager(app)
-manager.add_command('assets', ManageAssets(assets))
+if app.config['GMP_FRONTEND_ENABLED']:
+    from flask.ext.assets import ManageAssets
+    from gmusicprocurator.app import assets
+    manager.add_command('assets', ManageAssets(assets))
+
 no_bool_option = partial(manager.option, action='store_false', default=True)
 
 

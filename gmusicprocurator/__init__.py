@@ -17,6 +17,8 @@
 """GMusicProcurator base module, ties all of the Flask components together."""
 
 from .app import app
-from . import assets, views  # noqa
+from . import views  # noqa
+if app.config['GMP_FRONTEND_ENABLED']:
+    from . import assets  # noqa
 
 __all__ = ('app',)

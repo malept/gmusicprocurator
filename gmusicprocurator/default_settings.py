@@ -20,6 +20,12 @@ App-specific Flask settings.
 Standard
 --------
 
+.. attribute:: GMP_FRONTEND_ENABLED
+
+    Defaults to :data:`True`. If disabled, the code and views related to the
+    frontend are not loaded. For example, ``GET / HTTP/1.1`` will return
+    a ``404``.
+
 .. attribute:: GMP_SONG_FILTERS
 
     A tuple of callable filters used on streaming MP3 data. By default, it
@@ -65,6 +71,8 @@ and/or you know what you're doing.
 """
 
 import os
+
+GMP_FRONTEND_ENABLED = False
 
 GMP_SONG_FILTERS = (
     'add_id3_tags_to_mp3',

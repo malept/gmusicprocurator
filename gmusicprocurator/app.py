@@ -18,7 +18,6 @@
 
 from appdirs import user_data_dir
 from flask import Flask
-from flask.ext.assets import Environment
 import os
 
 SETTINGS_VAR = 'GMUSICPROCURATOR_SETTINGS'
@@ -30,7 +29,11 @@ app = Flask(__name__)
 app.config.from_object('gmusicprocurator.default_settings')
 app.config.from_envvar(SETTINGS_VAR)
 
-assets = Environment(app)
+if app.config['GMP_FRONTEND_ENABLED']:
+    from flask.ext.assets import Environment
+    assets = Environment(app)
+else:
+    assets = None
 
 if app.config['GMP_OFFLINE_MODE']:
     music = None
