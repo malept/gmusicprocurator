@@ -3,6 +3,7 @@ requirements-deps:
     - names:
       - python-dev
       - git
+      - mercurial
 
 python-virtualenv:
   pkg.installed
