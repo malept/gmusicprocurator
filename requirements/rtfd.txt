@@ -1,0 +1,4 @@
+-r base.txt
+-r frontend.txt
+-r checkers.txt
+-r docs-base.txt

@@ -1,10 +1,2 @@
-cssmin
-Flask
-# Flask-Assets
-git+https://github.com/malept/flask-assets.git@feature/settings-tree#egg=Flask-Assets
-Flask-Script
-gmusicapi
-# webassets
-git+https://github.com/miracle2k/webassets.git#egg=webassets
-# xspf
-git+https://github.com/alastair/xspf.git#egg=xspf
+-r requirements/base.txt
+-r requirements/frontend.txt

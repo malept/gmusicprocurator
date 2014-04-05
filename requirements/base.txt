@@ -1,0 +1,5 @@
+Flask
+Flask-Script
+gmusicapi
+# xspf
+git+https://github.com/alastair/xspf.git#egg=xspf

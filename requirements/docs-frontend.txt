@@ -1,8 +1,2 @@
--r requirements.txt
-flake8
-pep257
-pep8-naming
-Sphinx
 # sphinxcontrib-coffee
 #-e hg+https://bitbucket.org/birkenfeld/sphinx-contrib#egg=sphinxcontrib-coffee&subdirectory=coffeedomain
-sphinxcontrib-httpdomain
