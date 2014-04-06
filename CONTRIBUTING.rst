@@ -1,9 +1,37 @@
-This project is hosted at GitHub_. I gladly accept pull requests. Please make
-sure your pull requests pass Travis CI, by running ``./run_tests.sh`` before
-submission. Additionally, It would probably be in your best interests to add
-yourself to the ``AUTHORS.rst`` file if you have not done so already.
+This project is hosted at GitHub_. I gladly accept both issues and pull
+requests.
 
 .. _GitHub: https://github.com/malept/gmusicprocurator
+
+Filing Issues
+-------------
+
+Issues include bugs, feedback, and feature requests. Before you file a new
+issue, please make sure that your issue has not already been filed by someone
+else.
+
+When filing a bug, please include the following information:
+
+* Operating system. If on Linux, please also include the distribution name and
+  version.
+* Python version that is running GMusicProcurator, by running ``python -V``.
+* Installed Python packages, by running ``pip freeze``.
+* Any relevant app settings.
+* A detailed list of steps to reproduce the bug.
+* If the bug is a Python exception, the traceback will be very helpful.
+* If the bug is related to the frontend, a screenshot will be helpful, along
+  with the browser name and version that is being used.
+
+Pull Requests
+-------------
+
+Please make sure your pull requests pass Travis CI, by running
+``./run_tests.sh`` before submission. CI is automatically run on every pull
+request. Additionally, It would probably be in your best interests to add
+yourself to the ``AUTHORS.rst`` file if you have not done so already.
+
+Development Environment
+-----------------------
 
 A Vagrant_ environment is available for developing ``gmusicprocurator``. Run
 the following command in the top-level source directory (once Vagrant
