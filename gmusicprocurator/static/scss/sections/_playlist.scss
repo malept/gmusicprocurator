@@ -14,7 +14,7 @@
 
     > div {
       @include display(flex);
-      @include value-prefixer(min-height, min-content, webkit moz spec);
+      @include value-prefixer(min-height, min-content, webkit moz);
       width: 100%;
     }
   }

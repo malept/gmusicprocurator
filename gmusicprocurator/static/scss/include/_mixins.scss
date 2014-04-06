@@ -12,36 +12,12 @@
                $size $size 0 $color;
 }
 
-@mixin value-prefixer($property, $value, $prefixes) {
-  // based on bourbon's prefixer mixin
+@mixin value-prefixer($property, $value, $prefixes, $spec: true) {
+  // originally based on bourbon's prefixer mixin
   @each $prefix in $prefixes {
-    @if $prefix == webkit {
-      @if $prefix-for-webkit {
-        #{$property}: -webkit-#{$value};
-      }
-    }
-    @else if $prefix == moz {
-      @if $prefix-for-mozilla {
-        #{$property}: -moz-#{$value};
-      }
-    }
-    @else if $prefix == ms {
-      @if $prefix-for-microsoft {
-        #{$property}: -ms-#{$value};
-      }
-    }
-    @else if $prefix == o {
-      @if $prefix-for-opera {
-        #{$property}: -o-#{$value};
-      }
-    }
-    @else if $prefix == spec {
-      @if $prefix-for-spec {
-        #{$property}: $value;
-      }
-    }
-    @else {
-      @warn "Unrecognized prefix: #{$prefix}";
-    }
+    #{$property}: -#{$prefix}-#{$value};
+  }
+  @if $spec {
+    #{$property}: $value;
   }
 }
