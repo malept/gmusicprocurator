@@ -25,10 +25,12 @@ When filing a bug, please include the following information:
 Pull Requests
 -------------
 
-Please make sure your pull requests pass Travis CI, by running
-``./run_tests.sh`` before submission. CI is automatically run on every pull
-request. Additionally, It would probably be in your best interests to add
-yourself to the ``AUTHORS.rst`` file if you have not done so already.
+Please make sure your pull requests pass the continuous integration suite, by
+running ``tox`` before creating your submission. (Run ``pip install tox`` if
+it's not already installed.) The CI suite is also automatically run for every
+pull request, but at this time it's faster to run it locally. Additionally,
+it would probably be in your best interests to add yourself to the
+``AUTHORS.rst`` file if you have not done so already.
 
 Development Environment
 -----------------------
