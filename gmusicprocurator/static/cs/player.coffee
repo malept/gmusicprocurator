@@ -39,7 +39,7 @@ gmp.load_audio_backend = ->
 class gmp.NowPlayingView extends gmp.SingletonView
   tagName: 'span'
   id: 'now-playing'
-  template: gmp.get_template('now-playing')
+  template: gmp.get_template('now-playing', 'track')
 
 
 class gmp.PlayerView extends Backbone.View

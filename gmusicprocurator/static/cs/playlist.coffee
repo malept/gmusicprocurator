@@ -74,8 +74,8 @@ class gmp.Tracks extends Backbone.Collection
 class gmp.PlaylistView extends gmp.SingletonView
   tagName: 'section'
   id: 'playlist'
-  template: gmp.get_template('playlist')
-  track_template: gmp.get_template('playlist-track')
+  template: gmp.get_template('playlist', 'playlist')
+  track_template: gmp.get_template('playlist-track', 'pt')
   events:
     'mouseover .albumart span.fa': 'album_mouseover'
     'mouseout .albumart span.fa': 'album_mouseout'
@@ -145,7 +145,7 @@ class gmp.PlaylistView extends gmp.SingletonView
 
 class gmp.PlaylistEntryView extends gmp.View
   tagName: 'li'
-  template: gmp.get_template('playlist-entry')
+  template: gmp.get_template('playlist-entry', 'entry')
 
 ####
 # Routers

@@ -1,11 +1,11 @@
-[% if (!!albumArtRef && albumArtRef.length > 0) { %]
-<img class="albumart" src="[[ albumArtRef[0].url ]]" alt="" />
+[% if (!!track.albumArtRef && track.albumArtRef.length > 0) { %]
+<img class="albumart" src="[[ track.albumArtRef[0].url ]]" alt="" />
 [% } /* albumArtRef */ %]
 <span class="details">
   <span class="primary">
-    <b>[[ title ]]</b>
+    <b>[[ track.title ]]</b>
   </span>
   <span class="secondary">
-    <span>[[ artist ]]</span>: <i>[[ album ]]</i>
+    <span>[[ track.artist ]]</span>: <i>[[ track.album ]]</i>
   </span>
 </span>

@@ -30,11 +30,14 @@ gmp = {}
 
 gmp.QUEUE_ID = 'queue'
 
-gmp.get_template = (id) ->
+gmp.get_template = (id, variable_name = 'model') ->
   ###
-  Shortcut for retrieving a template by ID.
+  Shortcut for creating a template function.
+
+  Retrieves the template data by selecting the contents of an element by ID,
+  and sets the name of the top-level variable in the template.
   ###
-  return _.template($("##{id}-tpl").html())
+  return _.template($("##{id}-tpl").html(), null, { variable: variable_name })
 
 gmp.song_url = (metadata) ->
   ###
