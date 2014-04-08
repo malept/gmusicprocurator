@@ -76,11 +76,12 @@ def requires_from_req_txt(filename):
     with open(filename) as f:
         for line in f:
             req = RE_REQ_COMMENT.sub('', line).strip()
-            if req != '' and '://' not in req:
-                if req.startswith('-r '):
-                    requires += requires_from_req_txt(req[3:])
-                else:
-                    requires.append(req)
+            if req == '' or '://' in req:
+                continue
+            if req.startswith('-r '):
+                requires += requires_from_req_txt(req[3:])
+            else:
+                requires.append(req)
     return requires
 
 with open('bower.json') as f:
