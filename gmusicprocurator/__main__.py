@@ -21,16 +21,14 @@ from __future__ import print_function
 
 from flask.ext.script import Manager
 from functools import partial
-from gmusicprocurator.app import app
+from gmusicprocurator.app import app, heapy
 import sys
 
-if app.config['GMP_MEMORY_PROFILER']:
-    from guppy import hpy
+if heapy:
     import os
     import signal
     msg = 'Enabling memory profiler. Send SIGUSR1 to PID {0} for heap info'
     print(msg.format(os.getpid()), file=sys.stderr)
-    heapy = hpy()
 
     def dump_memory_usage(signum, frame):
         """Signal handler: prints out heap object frequency table & exits."""

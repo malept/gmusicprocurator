@@ -14,11 +14,15 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-"""Flask view module loader for GMusicProcurator."""
+"""Flask views for debug mode."""
 
+from flask import render_template
 from ..app import app, heapy
-from . import proxy  # noqa
-if app.config['GMP_FRONTEND_ENABLED']:
-    from . import ui  # noqa
-    if heapy:
-        from . import debug  # noqa
+
+
+@app.route('/memory')
+def memory():
+    """Memory heap stats for the app."""
+    h1 = heapy.heap()
+    h2 = h1.more
+    return render_template('memory.html', heap1=h1, heap2=h2)

@@ -43,4 +43,10 @@ else:
     music.login(app.config['GACCOUNT_EMAIL'],
                 app.config['GACCOUNT_PASSWORD'])
 
-__all__ = ('app', 'assets', 'music')
+if app.debug and app.config['GMP_MEMORY_PROFILER']:
+    from guppy import hpy
+    heapy = hpy()
+else:
+    heapy = None
+
+__all__ = ('app', 'assets', 'heapy', 'music')
