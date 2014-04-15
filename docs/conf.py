@@ -144,9 +144,13 @@ intersphinx_mapping = {
     'py': ('http://docs.python.org/2.7/', None)
 }
 mdn_inv = os.path.join(THIS_DIR, 'mdn-js-objects.inv')
-if not readthedocs and os.path.exists(mdn_inv):
-    mdn = 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/'
-    intersphinx_mapping['js'] = (mdn, mdn_inv)
+bb_inv = os.path.join(THIS_DIR, 'backbone.inv')
+if not readthedocs:
+    if os.path.exists(mdn_inv):
+        mdn = 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/'
+        intersphinx_mapping['js'] = (mdn, mdn_inv)
+    if os.path.exists(bb_inv):
+        intersphinx_mapping['backbone'] = ('http://backbonejs.org/', bb_inv)
 
 # coffeedomain extension
 
