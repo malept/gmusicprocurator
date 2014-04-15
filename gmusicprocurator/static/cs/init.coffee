@@ -54,10 +54,10 @@ class gmp.View extends Backbone.View
   ###
   render: ->
     ###
-    Renders a template using the data from :coffee:meth:`gmp.View.render_data`,
+    Renders a template using the data from :meth:`~init::gmp.View.render_data`,
     and puts it in the view's element.
 
-    :return: The view being operated on
+    :return: The view being operated on, for chaining purposes.
     :rtype: :class:`init::gmp.View`
     ###
     @$el.html(@template(@render_data()))

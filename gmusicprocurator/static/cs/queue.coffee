@@ -89,8 +89,8 @@ class gmp.Queue extends gmp.Playlist
     ###
     Adds a non-queue playlist to the queue.
 
-    :type playlist: :coffee:class:`playlist::gmp.Playlist`
-                    (not :coffee:class:`queue::gmp.Queue`)
+    :type playlist: :class:`playlist::gmp.Playlist`
+                    (not :class:`queue::gmp.Queue`)
     ###
     return unless playlist?
     return if playlist instanceof gmp.Queue

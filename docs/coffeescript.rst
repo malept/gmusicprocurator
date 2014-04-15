@@ -1,6 +1,8 @@
 Backbone.js API
 ===============
 
+.. default-domain:: coffee
+
 Views
 -----
 
