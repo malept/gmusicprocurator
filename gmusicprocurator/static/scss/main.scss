@@ -29,6 +29,7 @@ main {
   @include flex-direction(row);
 
   > nav {
+    overflow-y: auto;
     width: 20%;
   }
 }
