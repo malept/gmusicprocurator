@@ -49,6 +49,8 @@ class gmp.Playlist extends Backbone.Model
 
 class gmp.PlaylistCollection extends Backbone.Collection
   model: gmp.Playlist
+  url: '/playlists'
+  parse: (resp, options) -> return resp.playlists
 
 class gmp.PlaylistEntry extends Backbone.Model
   constructor: (data, options) ->
