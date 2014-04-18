@@ -23,6 +23,17 @@ Features
 
 .. _browsers that support HTML5 Audio: http://caniuse.com/audio
 
+Table of Contents
+-----------------
+
+.. toctree::
+   :maxdepth: 4
+
+   install
+   config
+   api
+   contributing
+
 Legal
 -----
 
@@ -38,14 +49,3 @@ music apps.
 
 .. _GNU GPL: https://gnu.org/licenses/
 .. _CC BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/
-
-Table of Contents
------------------
-
-.. toctree::
-   :maxdepth: 4
-
-   install
-   config
-   api
-   contributing

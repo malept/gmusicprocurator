@@ -23,15 +23,11 @@ Features
 
 .. _browsers that support HTML5 Audio: http://caniuse.com/audio
 
-Installation
-------------
-
-Please see ``INSTALL.rst`` for details.
-
 Documentation
 -------------
 
-Configuration, API docs, and other information are hosted on `Read the Docs`_.
+Installation instructions, configuration, API docs, and other information are
+hosted on `Read the Docs`_.
 
 .. _Read the Docs: https://gmusicprocurator.readthedocs.org/
 
