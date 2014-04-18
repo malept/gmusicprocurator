@@ -32,9 +32,18 @@ from .app import assets
 if sass_filter == 'libsass':
 
     class LibSassFilter(Filter):
+
+        """webassets Filter for libsass-python."""
+
         name = 'libsass'
 
         def input(self, _in, out, **kw):
+            """
+            Based on the pyscss filter.
+
+            Makes sure that the ``include_paths`` parameter includes the
+            directory of the source file.
+            """
             source_path = kw['source_path']
             include_paths = [os.path.dirname(source_path)]
             out.write(sass.compile(string=_in.read(),
