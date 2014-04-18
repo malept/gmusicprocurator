@@ -17,9 +17,30 @@
 """webassets-related code for GMusicProcurator."""
 
 from flask.ext.assets import Bundle
+try:
+    import sass
+except ImportError:
+    sass_filter = 'scss'
+else:
+    import os.path
+    from webassets.filter import Filter
+    sass_filter = 'libsass'
 from webassets.filter import ExternalTool, register_filter
 
 from .app import assets
+
+if sass_filter == 'libsass':
+
+    class LibSassFilter(Filter):
+        name = 'libsass'
+
+        def input(self, _in, out, **kw):
+            source_path = kw['source_path']
+            include_paths = [os.path.dirname(source_path)]
+            out.write(sass.compile(string=_in.read(),
+                                   include_paths=include_paths))
+
+    register_filter(LibSassFilter)
 
 
 class ImporterFilter(ExternalTool):
@@ -58,7 +79,7 @@ def bundlify(fmt, modules, **kwargs):
 normalize = 'vendor/normalize-css/normalize.css'
 
 # typography is in a separate bundle so it can be placed before pure
-typography = Bundle('scss/typography.scss', filters='scss',
+typography = Bundle('scss/typography.scss', filters=sass_filter,
                     output='scss/typography.out.css')
 
 pure_modules = [
@@ -68,7 +89,7 @@ pure_modules = [
 
 pure = bundlify('vendor/pure/{0}.css', pure_modules)
 
-main_css = Bundle('scss/main.scss', filters='scss',
+main_css = Bundle('scss/main.scss', filters=sass_filter,
                   output='scss/main.out.css')
 
 css = Bundle(normalize, typography, pure, main_css, filters='cssmin',

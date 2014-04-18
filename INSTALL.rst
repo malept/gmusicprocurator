@@ -15,13 +15,15 @@ Backend
 Frontend
 ~~~~~~~~
 
-* Sass_
+* Either libsass-python_ or the reference implementation of Sass_ (which
+  requires Ruby)
 * Node.js + NPM
 * Bower (``npm install -g bower``)
 * CoffeeScript (``npm install -g coffee-script``)
 * UglifyJS2 (``npm install -g uglify-js``)
 * importer (``npm install -g importer``)
 
+.. _libsass-python: http://dahlia.kr/libsass-python/
 .. _Sass: http://sass-lang.com/
 
 Browser
@@ -64,6 +66,9 @@ Then run the following (lines that start with ``#`` are comments, not commands):
    user@host:gmusicprocurator$ virtualenv venv
    user@host:gmusicprocurator$ source venv/bin/activate
    (venv)user@host:gmusicprocurator$ pip install -r requirements.txt
+   # Only run the next line if you wish to use libsass-python instead of the
+   # Ruby version of Sass:
+   (venv)user@host:gmusicprocurator$ pip install libsass
    (venv)user@host:gmusicprocurator$ python -m gmusicprocurator list_devices --no-desktop
 
 The last command will print out a list of mobile devices that are registered
