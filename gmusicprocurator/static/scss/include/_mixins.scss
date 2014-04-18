@@ -12,8 +12,20 @@
                $size $size 0 $color;
 }
 
+@mixin prefixer($property, $value, $prefixes, $spec: true) {
+  // Originally based on bourbon's prefixer mixin,
+  // plus https://github.com/thoughtbot/bourbon/issues/230
+  @each $prefix in $prefixes {
+    -#{$prefix}-#{$property}: #{$value};
+  }
+  @if $spec {
+    #{$property}: $value;
+  }
+}
+
 @mixin value-prefixer($property, $value, $prefixes, $spec: true) {
-  // originally based on bourbon's prefixer mixin
+  // Originally based on bourbon's prefixer mixin,
+  // plus https://github.com/thoughtbot/bourbon/issues/230
   @each $prefix in $prefixes {
     #{$property}: -#{$prefix}-#{$value};
   }

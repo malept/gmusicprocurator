@@ -1,8 +1,6 @@
-@import '../vendor/bourbon/dist/settings/prefixer';
-@import '../vendor/bourbon/dist/addons/prefixer';
-@import '../vendor/bourbon/dist/css3/flex-box';
 @import 'include/mixins';
 @import 'include/variables';
+@import 'include/flex-box';
 
 // This was incredibly helpful:
 // https://stackoverflow.com/q/21515042
