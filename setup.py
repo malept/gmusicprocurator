@@ -109,9 +109,9 @@ attrs = {
         ],
     },
     'install_requires': requires,
-    'extras_requires': {
+    'extras_require': {
         'libsass': ['libsass'],
-    }
+    },
     'classifiers': CLASSIFIERS,
 }
 
