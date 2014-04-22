@@ -7,7 +7,6 @@ recursive-include gmusicprocurator/static/scss *.scss
 recursive-include gmusicprocurator/static/vendor/aurora.js *.coffee *.js README.md
 prune gmusicprocurator/static/vendor/aurora.js/tests
 include gmusicprocurator/static/vendor/backbone/backbone.js
-recursive-include gmusicprocurator/static/vendor/bourbon LICENSE *.scss
 include gmusicprocurator/static/vendor/font-awesome/README.md gmusicprocurator/static/vendor/font-awesome/fonts/* gmusicprocurator/static/vendor/font-awesome/scss/*.scss
 include gmusicprocurator/static/vendor/jquery/dist/jquery.js
 include gmusicprocurator/static/vendor/lodash/dist/lodash.js
