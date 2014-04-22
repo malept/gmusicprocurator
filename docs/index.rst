@@ -44,6 +44,10 @@ files.
 The documentation is licensed under the Creative Commons
 Attribution-ShareAlike 4.0 International License (`CC BY-SA 4.0`_).
 
+The favicon is the "`Tango Music Charts`_" icon. According to the source page,
+it is licensed under a `Creative Commons Attribution-Share Alike 3.0 License
+<http://creativecommons.org/licenses/by-sa/3.0/>`_.
+
 This project is not affiliated in any way to Google or any of Google's
 music apps.
 
