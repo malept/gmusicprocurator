@@ -20,6 +20,9 @@ class gmp.AppView extends Backbone.View
   el: 'main'
 
   initialize: ->
+    @initialize_player() if @is_player_page()
+
+  initialize_player: ->
     gmp.playlists = new gmp.PlaylistCollection
 
     @listenTo gmp.playlists, 'add', (playlist) ->
@@ -31,17 +34,25 @@ class gmp.AppView extends Backbone.View
     gmp.player = new gmp.PlayerView({model: gmp.queue.model})
     $('body > footer').append(gmp.player.render().el)
 
+  render: ->
+    @render_player() if @is_player_page()
+
+  render_player: ->
+    if location.search.indexOf('offline') == -1
+      gmp.playlists.fetch
+        success: ->
+          $('#playlists-loading').remove()
+          gmp.playlist_router = new gmp.PlaylistRouter
+          Backbone.history.start()
+    else
+      $('#playlists-loading').remove()
+
+  is_player_page: -> $('#playlists').length > 0
+
 ####
 # Initializer
 ####
 
 $ ->
   gmp.app = new gmp.AppView
-  if location.search.indexOf('offline') == -1
-    gmp.playlists.fetch
-      success: ->
-        $('#playlists-loading').remove()
-        gmp.playlist_router = new gmp.PlaylistRouter
-        Backbone.history.start()
-  else
-    $('#playlists-loading').remove()
+  gmp.app.render()
