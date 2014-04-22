@@ -16,12 +16,26 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """Flask views for the frontend UI."""
 
-from flask import render_template
+from flask import render_template, send_from_directory
+import os
 
 from ..app import app
+
+ICO_MIMETYPE = 'image/vnd.microsoft.icon'
 
 
 @app.route('/')
 def main():
     """Main page of the frontend."""
     return render_template('index.html')
+
+
+@app.route('/favicon.ico')
+def favicon():
+    """
+    favicon.ico route.
+
+    From: http://flask.pocoo.org/docs/patterns/favicon/
+    """
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                               'favicon.ico', mimetype=ICO_MIMETYPE)

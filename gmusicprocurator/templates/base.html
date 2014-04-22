@@ -5,7 +5,7 @@
   {% if meta_description %}<meta name="description" content="{{ meta_description }}">{% endif %}
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  {# Place favicon.ico and apple-touch-icon(s) in the root directory #}
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
   {% assets 'css' -%}
   <link rel="stylesheet" href="{{ ASSET_URL }}">
   {% endassets -%}
