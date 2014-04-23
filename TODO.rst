@@ -3,7 +3,11 @@ TODO
 
 In no particular order:
 
-* Play queue (incl. repeat/shuffle)
+* Play queue:
+
+  + shuffle
+  + persist (via indexeddb? localstorage is probably too limited)
+
 * Design tweaks
 * Ability to play filesystem music?
 * Better docs/setup story (wizard?)
