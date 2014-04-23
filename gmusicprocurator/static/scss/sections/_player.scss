@@ -36,7 +36,7 @@
       background: $btn-text-color;
       border-radius: 100%;
       bottom: 0;
-      color: #ddd;
+      color: $ui-element-bg;
       font-size: 50%;
       left: 0;
       position: absolute;
@@ -62,7 +62,7 @@
 }
 
 #track-position {
-  background: #fff;
+  background: $main-bg;
   border: 0;
   cursor: pointer;
   display: block;
@@ -70,7 +70,7 @@
   width: 100%;
 
   &::-webkit-progress-bar {
-    background: #fff;
+    background: $main-bg;
     border: 0;
   }
 }

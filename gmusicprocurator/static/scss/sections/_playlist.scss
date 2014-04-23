@@ -29,17 +29,16 @@
   }
 
   td.albumart {
-    $aa-size: 32px;
     padding: 0;
     vertical-align: middle;
-    width: $aa-size;
+    width: $albumart-size;
 
     span {
       display: inline-block;
-      height: $aa-size;
-      line-height: $aa-size;
+      height: $albumart-size;
+      line-height: $albumart-size;
       text-align: center;
-      width: $aa-size;
+      width: $albumart-size;
 
       &:hover {
         cursor: pointer;
@@ -51,16 +50,16 @@
     }
 
     .fa-music {
-      @include text-outline(#fff);
+      @include text-outline($main-bg);
     }
 
     .fa-spinner {
-      background-image: radial-gradient($ui-element-bg, rgba(255, 255, 255, 0));
-      border-radius: $aa-size / 2;
+      background-image: radial-gradient($ui-element-bg, $transparent);
+      border-radius: $albumart-size / 2;
     }
 
     .fa-play:hover {
-      background-color: rgba(230, 230, 230, 0.75);
+      background-color: $ui-element-hover-bg;
     }
 
     > span {
