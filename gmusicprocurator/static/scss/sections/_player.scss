@@ -23,6 +23,26 @@
   .volume-control {
     display: inline-block;
   }
+
+  .play-to-end {
+    @include text-outline($btn-text-color);
+    color: $ui-element-bg;
+  }
+
+  .repeat-one {
+    position: relative;
+
+    > span {
+      background: $btn-text-color;
+      border-radius: 100%;
+      bottom: 0;
+      color: #ddd;
+      font-size: 50%;
+      left: 0;
+      position: absolute;
+      width: 50%;
+    }
+  }
 }
 
 #now-playing {

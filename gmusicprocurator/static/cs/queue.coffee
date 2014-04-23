@@ -37,21 +37,28 @@ class gmp.Queue extends gmp.Playlist
     return null if tracks.length == 0
     return tracks.at(@get('current_track'))
 
-  previous: ->
+  previous: (play_mode) ->
     ###
     Sets the current track to the previous one.
 
     :rtype: gmp.PlaylistEntry or :js:data:`null`
     ###
-    @seek(@get('current_track') - 1)
+    prev_idx = @get('current_track') - 1
+    if play_mode == 'continuous' and prev_idx < 0
+      # In Python/Ruby/Lua/Perl, -1 % n == n - 1.
+      # In C/Java/JS, -1 % n == -1.
+      prev_idx += @get('tracks').length
+    @seek(prev_idx)
 
-  next: ->
+  next: (play_mode) ->
     ###
     Advances the queue to the next track.
 
     :rtype: gmp.PlaylistEntry or :js:data:`null`
     ###
-    @seek(@get('current_track') + 1)
+    next_idx = @get('current_track') + 1
+    next_idx %= @get('tracks').length if play_mode == 'continuous'
+    @seek(next_idx)
 
   seek: (idx, force_change) ->
     ###

@@ -53,9 +53,28 @@ class gmp.PlayerView extends Backbone.View
     'click .forward': 'forward'
     'click .previous': 'previous_track'
     'click .next': 'next_track'
+    'click .play-mode': 'select_play_mode'
     'click .volume-control': 'toggle_volume_control_widget'
     'change .volume-control-widget': 'update_volume'
     'click #track-position': 'update_position_from_progress'
+
+  play_modes: [
+    'one',
+    'play to end',
+    'continuous',
+    #'shuffle',
+  ]
+  play_mode_icons:
+    'continuous': 'fa-retweet'
+    'play to end': 'fa-retweet play-to-end'
+    'shuffle': 'fa-random'
+
+  constructor: (options) ->
+    super(options)
+    @play_mode_icons.one = (icon) ->
+      icon.addClass('fa fa-retweet fa-stack-1x repeat-one')
+      icon.append($('<span class="fa-stack-1x">1</span>'))
+
   render: ->
     @$el.html(@template())
 
@@ -82,6 +101,12 @@ class gmp.PlayerView extends Backbone.View
     @$volume_widget = @$el.find('.volume-control-widget')
     @$volume_widget.val(50).change()
 
+    @play_mode = -1
+    @audio.ended =>
+      if @play_modes[@play_mode] != 'one'
+        @next_track()
+    @$el.find('.play-mode').click()
+
     return this
 
   play: (metadata, url) ->
@@ -95,6 +120,18 @@ class gmp.PlayerView extends Backbone.View
         window.alert 'You cannot play MP3s natively. Sorry.'
     else
       window.alert 'Cannot play HTML5 audio. Sorry.'
+
+  _select_track: (func_name) ->
+    entry = @model[func_name](@play_modes[@play_mode])
+    return unless entry?
+    track = entry.get('track')
+    @play(track)
+
+  previous_track: ->
+    @_select_track('previous')
+
+  next_track: ->
+    @_select_track('next')
 
   ####
   # Event Handlers
@@ -115,17 +152,21 @@ class gmp.PlayerView extends Backbone.View
     return false unless @audio.play_started()
     @audio.seek(5)
 
-  _select_track: (func_name) ->
-    entry = @model[func_name]()
-    return unless entry?
-    track = entry.get('track')
-    @play(track)
-
-  previous_track: ->
-    @_select_track('previous')
-
-  next_track: ->
-    @_select_track('next')
+  select_play_mode: (e) ->
+    e.stopImmediatePropagation()
+    target = $(e.target)
+    target = target.closest('.play-mode') unless target.hasClass('play-mode')
+    icon = target.children()
+    @play_mode = (@play_mode + 1) % @play_modes.length
+    mode = @play_modes[@play_mode]
+    target.attr('title', "Play mode: #{mode}")
+    key = @play_mode_icons[mode]
+    icon.removeClass().text('').children().remove()
+    if typeof key is 'string'
+      icon.addClass("fa #{key}")
+    else
+      key(icon)
+    return false
 
   toggle_volume_control_widget: ->
     @$volume_widget.toggleClass('invisible')

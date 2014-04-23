@@ -53,6 +53,7 @@ class gmp.AuroraAudio
           @dispatcher.trigger(name)
     @durationchange = create_evt_func('duration')
     @timeupdate = create_evt_func('progress')
+    @ended = create_evt_func('end')
 
     create_prop_func = (name) ->
       return (val = null) ->
