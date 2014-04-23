@@ -24,6 +24,7 @@
     "typeplate": "malept/typeplate-bower#libsass-compat",
     "backbone": "~1.1.2",
     "normalize-css": "~3.0.1",
-    "lodash": "~2.4.1"
+    "lodash": "~2.4.1",
+    "backbone.localstorage": "~1.1.7"
   }
 }

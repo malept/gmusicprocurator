@@ -114,7 +114,8 @@ assets.register('aurora_mp3', aurora_mp3)
 
 vendor = Bundle('vendor/jquery/dist/jquery.js',
                 'vendor/lodash/dist/lodash.js',
-                'vendor/backbone/backbone.js')
+                'vendor/backbone/backbone.js',
+                'vendor/backbone.localstorage/backbone.localStorage.js')
 
 cs_modules = [
     'init',

@@ -31,7 +31,9 @@ class gmp.AppView extends Backbone.View
 
     gmp.queue = new gmp.QueueView({model: new gmp.Queue})
     gmp.playlists.add(gmp.queue.model)
-    gmp.player = new gmp.PlayerView({model: gmp.queue.model})
+    gmp.player = new gmp.PlayerView
+      model: gmp.queue.model
+      settings: new gmp.PlayerSettings
     $('body > footer').append(gmp.player.render().el)
 
   render: ->

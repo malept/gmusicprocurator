@@ -16,6 +16,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+####
+# Functions
+####
+
 gmp.human_readable_time = (seconds) ->
   ###
   Converts seconds to MM:SS.
@@ -35,6 +39,50 @@ gmp.load_audio_backend = ->
     if backend.audio_playable() and backend.mp3_playable()
       return backend
   return null
+
+####
+# Models
+####
+
+class gmp.PlayerSettings extends Backbone.Model
+  localStorage: new Backbone.LocalStorage('GMusicProcurator.Settings')
+  defaults:
+    volume: 50
+    play_mode: 0
+
+  play_modes: [
+    'one',
+    'play to end',
+    'continuous',
+    #'shuffle',
+  ]
+  play_mode_icons:
+    'continuous': 'fa-retweet'
+    'play to end': 'fa-retweet play-to-end'
+    'shuffle': 'fa-random'
+
+  constructor: (data, options) ->
+    data ||= {}
+    data.id = 'singleton'
+    super(data, options)
+    @play_mode_icons.one = (icon) ->
+      icon.addClass('fa fa-retweet fa-stack-1x repeat-one')
+      icon.append($('<span class="fa-stack-1x">1</span>'))
+    @fetch()
+    @on 'change', =>
+      @save()
+
+  play_mode_text: -> return @play_modes[@get('play_mode')]
+
+  play_mode_icon: -> return @play_mode_icons[@play_mode_text()]
+
+  next_play_mode: ->
+    play_mode = @get('play_mode')
+    @set('play_mode', (play_mode + 1) % @play_modes.length)
+
+####
+# Views
+####
 
 class gmp.NowPlayingView extends gmp.SingletonView
   tagName: 'span'
@@ -58,22 +106,9 @@ class gmp.PlayerView extends Backbone.View
     'change .volume-control-widget': 'update_volume'
     'click #track-position': 'update_position_from_progress'
 
-  play_modes: [
-    'one',
-    'play to end',
-    'continuous',
-    #'shuffle',
-  ]
-  play_mode_icons:
-    'continuous': 'fa-retweet'
-    'play to end': 'fa-retweet play-to-end'
-    'shuffle': 'fa-random'
-
   constructor: (options) ->
     super(options)
-    @play_mode_icons.one = (icon) ->
-      icon.addClass('fa fa-retweet fa-stack-1x repeat-one')
-      icon.append($('<span class="fa-stack-1x">1</span>'))
+    @settings = options.settings
 
   render: ->
     @$el.html(@template())
@@ -99,13 +134,13 @@ class gmp.PlayerView extends Backbone.View
 
     @$volume_icon = @$el.find('.volume-control').children('span')
     @$volume_widget = @$el.find('.volume-control-widget')
-    @$volume_widget.val(50).change()
+    @$volume_widget.val(@settings.get('volume')).change()
 
-    @play_mode = -1
     @audio.ended =>
-      if @play_modes[@play_mode] != 'one'
+      if @settings.play_mode_text() != 'one'
         @next_track()
-    @$el.find('.play-mode').click()
+    @play_mode_btn = @$el.find('.play-mode')
+    @set_play_mode_button(@play_mode_btn)
 
     return this
 
@@ -122,7 +157,7 @@ class gmp.PlayerView extends Backbone.View
       window.alert 'Cannot play HTML5 audio. Sorry.'
 
   _select_track: (func_name) ->
-    entry = @model[func_name](@play_modes[@play_mode])
+    entry = @model[func_name](@settings.play_mode_text())
     return unless entry?
     track = entry.get('track')
     @play(track)
@@ -152,27 +187,30 @@ class gmp.PlayerView extends Backbone.View
     return false unless @audio.play_started()
     @audio.seek(5)
 
-  select_play_mode: (e) ->
-    e.stopImmediatePropagation()
-    target = $(e.target)
-    target = target.closest('.play-mode') unless target.hasClass('play-mode')
-    icon = target.children()
-    @play_mode = (@play_mode + 1) % @play_modes.length
-    mode = @play_modes[@play_mode]
-    target.attr('title', "Play mode: #{mode}")
-    key = @play_mode_icons[mode]
+  set_play_mode_button: (button) ->
+    icon = button.children()
+    mode = @settings.play_mode_text()
+    button.attr('title', "Play mode: #{mode}")
+    key = @settings.play_mode_icon()
     icon.removeClass().text('').children().remove()
     if typeof key is 'string'
       icon.addClass("fa #{key}")
     else
       key(icon)
+
+  select_play_mode: (e) ->
+    e.stopImmediatePropagation()
+    @settings.next_play_mode()
+    @set_play_mode_button(@play_mode_btn)
     return false
 
   toggle_volume_control_widget: ->
     @$volume_widget.toggleClass('invisible')
 
   update_volume: (e) =>
-    volume = $(e.target).val() / 100
+    value = $(e.target).val()
+    @settings.set('volume', value)
+    volume = value / 100
     @audio.volume(volume)
     @$volume_icon.removeClass('fa-volume-off fa-volume-down fa-volume-up')
     if volume > 0.5
