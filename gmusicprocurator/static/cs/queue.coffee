@@ -37,17 +37,29 @@ class gmp.Queue extends gmp.Playlist
     return null if tracks.length == 0
     return tracks.at(@get('current_track'))
 
+  shuffle_idx: (current, size) ->
+    idx = current
+    if size > 1
+      while idx == current
+        idx = Math.floor(Math.random() * size)
+    return idx
+
   previous: (play_mode) ->
     ###
     Sets the current track to the previous one.
 
     :rtype: gmp.PlaylistEntry or :js:data:`null`
     ###
-    prev_idx = @get('current_track') - 1
-    if play_mode == 'continuous' and prev_idx < 0
-      # In Python/Ruby/Lua/Perl, -1 % n == n - 1.
-      # In C/Java/JS, -1 % n == -1.
-      prev_idx += @get('tracks').length
+    current_track = @get('current_track')
+    queue_size = @get('tracks').length
+    if play_mode == 'shuffle'
+      prev_idx = @shuffle_idx(current_track, queue_size)
+    else
+      prev_idx = current_track - 1
+      if play_mode == 'continuous' and prev_idx < 0
+        # In Python/Ruby/Lua/Perl, -1 % n == n - 1.
+        # In C/Java/JS, -1 % n == -1.
+        prev_idx += queue_size
     @seek(prev_idx)
 
   next: (play_mode) ->
@@ -56,8 +68,13 @@ class gmp.Queue extends gmp.Playlist
 
     :rtype: gmp.PlaylistEntry or :js:data:`null`
     ###
-    next_idx = @get('current_track') + 1
-    next_idx %= @get('tracks').length if play_mode == 'continuous'
+    current_track = @get('current_track')
+    queue_size = @get('tracks').length
+    if play_mode == 'shuffle'
+      next_idx = @shuffle_idx(current_track, queue_size)
+    else
+      next_idx = current_track + 1
+      next_idx %= queue_size if play_mode == 'continuous'
     @seek(next_idx)
 
   seek: (idx, force_change) ->

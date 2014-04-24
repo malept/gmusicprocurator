@@ -54,7 +54,7 @@ class gmp.PlayerSettings extends Backbone.Model
     'one',
     'play to end',
     'continuous',
-    #'shuffle',
+    'shuffle',
   ]
   play_mode_icons:
     'continuous': 'fa-retweet'

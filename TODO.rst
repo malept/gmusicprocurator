@@ -5,7 +5,6 @@ In no particular order:
 
 * Play queue:
 
-  + shuffle
   + persist (via indexeddb? localstorage is probably too limited)
 
 * Design tweaks
