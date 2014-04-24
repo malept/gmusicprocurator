@@ -137,6 +137,7 @@ class gmp.PlaylistView extends gmp.SingletonView
 
   add_to_queue: ->
     gmp.queue.model.add_playlist(@model)
+    gmp.notify("Added playlist '#{@model.get('name')}' to queue.")
 
   on_tracks_add: (model, collection, options) =>
     track = @render_track(model, collection.indexOf(model))
