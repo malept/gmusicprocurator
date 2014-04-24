@@ -8,6 +8,8 @@ In no particular order:
   + persist (via indexeddb? localstorage is probably too limited)
 
 * Design tweaks
+* Scrobbling?
+* Notifications
 * Ability to play filesystem music?
 * Better docs/setup story (wizard?)
 * Multi-user?
