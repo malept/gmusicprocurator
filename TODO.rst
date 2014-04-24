@@ -9,7 +9,6 @@ In no particular order:
 
 * Design tweaks
 * Scrobbling?
-* Notifications
 * Ability to play filesystem music?
 * Better docs/setup story (wizard?)
 * Multi-user?

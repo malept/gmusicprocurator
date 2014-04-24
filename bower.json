@@ -25,6 +25,7 @@
     "backbone": "~1.1.2",
     "normalize-css": "~3.0.1",
     "lodash": "~2.4.1",
-    "backbone.localstorage": "~1.1.7"
+    "backbone.localstorage": "~1.1.7",
+    "html5-desktop-notifications": "a4b050d71bd1627a25932f8b5adde3bb08bdae72"
   }
 }

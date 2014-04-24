@@ -112,10 +112,15 @@ mp3 = Bundle('vendor/mp3.js/mp3.js', filters='importer_js',
 aurora_mp3 = Bundle(aurora, mp3, filters='uglifyjs', output='auroramp3.min.js')
 assets.register('aurora_mp3', aurora_mp3)
 
-vendor = Bundle('vendor/jquery/dist/jquery.js',
-                'vendor/lodash/dist/lodash.js',
-                'vendor/backbone/backbone.js',
-                'vendor/backbone.localstorage/backbone.localStorage.js')
+vendor_js = [
+    'vendor/jquery/dist/jquery.js',
+    'vendor/lodash/dist/lodash.js',
+    'vendor/backbone/backbone.js',
+    'vendor/backbone.localstorage/backbone.localStorage.js',
+    'vendor/html5-desktop-notifications/desktop-notify.js',
+]
+
+vendor = Bundle(*vendor_js)
 
 cs_modules = [
     'init',

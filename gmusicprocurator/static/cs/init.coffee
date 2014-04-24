@@ -48,6 +48,19 @@ gmp.song_url = (metadata) ->
   ###
   return "/songs/#{metadata.id}"
 
+gmp.notify = (title, options) ->
+  return unless notify.isSupported
+  permission_level = notify.permissionLevel()
+  switch permission_level
+    when notify.PERMISSION_DEFAULT
+      notify.requestPermission (result) ->
+        gmp.notify(title, options) if result is notify.PERMISSION_GRANTED
+    when notify.PERMISSION_GRANTED
+      options ||= {}
+      options.icon = '/favicon.ico' unless options.icon?
+      notify.createNotification(title, options)
+    # do nothing for notify.PERMISSION_DENIED
+
 class gmp.View extends Backbone.View
   ###
   Abstract base class for common GMP+Backbone views.
