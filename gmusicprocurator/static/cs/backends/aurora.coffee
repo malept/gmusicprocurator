@@ -44,11 +44,7 @@ class gmp.AuroraAudio
     create_evt_func = (name) ->
       return (handler) ->
         if handler?
-          if @player?
-            @player.on name, handler
-          else
-            @dispatcher.on 'create_player', =>
-              @player.on name, handler
+          @_handle_player => @player.on name, handler
         else
           @dispatcher.trigger(name)
     @durationchange = create_evt_func('duration')
@@ -61,12 +57,15 @@ class gmp.AuroraAudio
           result = @player[name]
           return result
         else
-          if @player?
-            @player[name] = val
-          else
-            @dispatcher.once 'create_player', =>
-              @player[name] = val
+          @_handle_player => @player[name] = val
     @volume = create_prop_func('volume')
+
+  _handle_player: (handler) ->
+    if @player?
+      handler()
+    else
+      @dispatcher.once 'create_player', ->
+        handler()
 
   load: (url) ->
     @player = AV.Player.fromURL(url)
@@ -86,11 +85,7 @@ class gmp.AuroraAudio
       setter = =>
         @player.seek(val * 1000)
         @player.play()
-      if @player?
-        setter()
-      else
-        @dispatcher.once 'create_player', ->
-          setter()
+      @_handle_player -> setter()
 
   duration: ->
     return @player.duration / 1000
