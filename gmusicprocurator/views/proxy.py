@@ -157,6 +157,9 @@ def get_song_info(song_id):
 @online_only
 def get_song(song_id):
     """Retrieve the MP3 for a given ID."""
+    if song_id == 'undefined':
+        # This occurs when the web UI sends a nonexistent song ID.
+        abort(404)
     song_url = music.get_stream_url(song_id, app.config['GACCOUNT_DEVICE_ID'])
     response = requests.get(song_url)
     data = BytesIO(response.content)
