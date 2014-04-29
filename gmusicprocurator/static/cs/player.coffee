@@ -181,7 +181,10 @@ class gmp.PlayerView extends Backbone.View
   ####
 
   play_pause: ->
-    @audio.toggle_playback()
+    if !@audio.play_started() && 0 == @model.get('current_track')
+      @model.seek(0, true)
+    else
+      @audio.toggle_playback()
 
   stop: ->
     return false unless @audio.play_started()
