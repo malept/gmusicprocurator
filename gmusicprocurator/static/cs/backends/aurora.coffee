@@ -51,21 +51,18 @@ class gmp.AuroraAudio
     @timeupdate = create_evt_func('progress')
     @ended = create_evt_func('end')
 
-    create_prop_func = (name) ->
-      return (val = null) ->
-        if val is null
-          result = @player[name]
-          return result
-        else
-          @_handle_player => @player[name] = val
-    @volume = create_prop_func('volume')
-
   _handle_player: (handler) ->
     if @player?
       handler()
     else
       @dispatcher.once 'create_player', ->
         handler()
+
+  volume: (val = null) ->
+    if val is null
+      return @player.volume / 100
+    else
+      @_handle_player => @player[name] = val * 100
 
   load: (url) ->
     @player = AV.Player.fromURL(url)
