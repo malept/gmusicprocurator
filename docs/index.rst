@@ -48,6 +48,8 @@ The favicon is the "`Tango Music Charts`_" icon. According to the source page,
 it is licensed under a `Creative Commons Attribution-Share Alike 3.0 License
 <http://creativecommons.org/licenses/by-sa/3.0/>`_.
 
+.. _Tango Music Charts: http://darkobra.deviantart.com/art/Tango-Music-Charts-Icon-121663353
+
 This project is not affiliated in any way to Google or any of Google's
 music apps.
 
