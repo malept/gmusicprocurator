@@ -41,7 +41,7 @@
 
     // 2012
     display: -webkit-flex;
-    display: -moz-flex;
+    // display: -moz-flex only existed in Firefox 18, behind an about:config pref (defaulted off).
     display: flex;
   }
 
