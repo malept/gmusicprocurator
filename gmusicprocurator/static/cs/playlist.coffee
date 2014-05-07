@@ -50,7 +50,15 @@ class gmp.Playlist extends Backbone.Model
 class gmp.PlaylistCollection extends Backbone.Collection
   model: gmp.Playlist
   url: '/playlists'
-  parse: (resp) -> return resp.playlists
+  parse: (resp) ->
+    ###
+    Prunes playlist entries sans metadata, and playlists without any
+    playable entries.
+    ###
+    return resp.playlists.filter (playlist) ->
+      playlist.tracks = playlist.tracks.filter (entry) ->
+        return entry.track?.storeId?
+      return playlist.tracks.length > 0
 
 class gmp.PlaylistEntry extends Backbone.Model
   constructor: (data, options) ->
