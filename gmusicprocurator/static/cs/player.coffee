@@ -69,8 +69,7 @@ class gmp.PlayerSettings extends Backbone.Model
       icon.addClass('fa fa-retweet fa-stack-1x repeat-one')
       icon.append($('<span class="fa-stack-1x">1</span>'))
     @fetch()
-    @on 'change', =>
-      @save()
+    @on 'change', => @save()
 
   play_mode_text: -> return @play_modes[@get('play_mode')]
 
