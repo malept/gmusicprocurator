@@ -16,6 +16,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+do ($ = jQuery) ->
+  $.fn.replaceClass = (to_remove, to_add) ->
+    ###
+    For a given jQuery object, replace one or more classes with another set of
+    one or more classes.
+    ###
+    return this.removeClass(to_remove).addClass(to_add)
+
 # Config for underscore templates:
 # * evaluate = [% ... %]
 # * interpolate = [[ ... ]]

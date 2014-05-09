@@ -120,9 +120,9 @@ class gmp.PlayerView extends Backbone.View
 
     # For some reason, can't transform these into view-based events
     @audio.pause =>
-      @$play_pause.removeClass('fa-pause').addClass('fa-play')
+      @$play_pause.replaceClass('fa-pause', 'fa-play')
     @audio.play =>
-      @$play_pause.removeClass('fa-play').addClass('fa-pause')
+      @$play_pause.replaceClass('fa-play', 'fa-pause')
     @audio.durationchange =>
       @$track_position.attr('max', @audio.duration())
     @audio.timeupdate =>
