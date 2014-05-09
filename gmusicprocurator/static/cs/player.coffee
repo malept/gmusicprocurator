@@ -147,7 +147,8 @@ class gmp.PlayerView extends Backbone.View
     url = gmp.song_url(metadata) unless url?
     if @audio?.audio_playable()
       if @audio.mp3_playable()
-        @audio.play_started ->
+        @audio.play_started =>
+          @$play_pause.replaceClass('fa-spinner fa-spin', 'fa-play')
           tview = new gmp.NowPlayingView({model: metadata})
           tview.renderify('#player > nav', 'prepend')
           icon = '/favicon.ico'
@@ -158,6 +159,7 @@ class gmp.PlayerView extends Backbone.View
             body: "#{track.title} - #{track.artist}: #{track.album}"
             tag: track.id
         @audio.load(url)
+        @$play_pause.replaceClass('fa-play fa-pause', 'fa-spinner fa-spin')
       else
         window.alert 'You cannot play MP3s natively. Sorry.'
     else
