@@ -23,11 +23,7 @@ class gmp.AuroraAudio
   constructor: ->
     unless AV?
       # load Aurora.js + MP3.js if they aren't loaded
-      head = $('head')
-      # TODO figure out if there's a better way to do this
-      # without adding a performance hit for browsers which
-      # don't use this backend
-      head.append($('<script src="/static/auroramp3.min.js"/>'))
+      $('head').append($('<script src="/static/auroramp3.min.js"/>'))
 
     @dispatcher = _.clone(Backbone.Events)
 
