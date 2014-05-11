@@ -16,6 +16,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+gmp.MAX_FAILED_TRACKS = 4
+
 ####
 # Functions
 ####
@@ -118,6 +120,9 @@ class gmp.PlayerView extends Backbone.View
     @audio = gmp.load_audio_backend()
     return this unless @audio?
 
+    do_next_track = =>
+      @next_track() if @settings.play_mode_text() != 'one'
+
     # For some reason, can't transform these into view-based events
     @audio.pause =>
       @$play_pause.replaceClass('fa-pause', 'fa-play')
@@ -130,16 +135,27 @@ class gmp.PlayerView extends Backbone.View
       cur_pos = gmp.human_readable_time(@audio.currentTime())
       total = gmp.human_readable_time(@audio.duration())
       @$track_position.attr('title', "#{cur_pos} / #{total}")
+    @audio.error =>
+      @failed_tracks++
+      if @failed_tracks < gmp.MAX_FAILED_TRACKS
+        msg = 'Could not load track, skipping.'
+        do_next_track()
+      else
+        msg = 'Could not load track. Please check your connection.'
+        @$play_pause.replaceClass('fa-spinner fa-spin', 'fa-play')
+      gmp.notify 'Error loading track',
+        body: msg
+        tag: 'track-load-error'
+    @audio.ended -> do_next_track()
 
     @$volume_icon = @$el.find('.volume-control').children('span')
     @$volume_widget = @$el.find('.volume-control-widget')
     @$volume_widget.val(@settings.get('volume')).change()
 
-    @audio.ended =>
-      if @settings.play_mode_text() != 'one'
-        @next_track()
     @play_mode_btn = @$el.find('.play-mode')
     @set_play_mode_button(@play_mode_btn)
+
+    @failed_tracks = 0
 
     return this
 
@@ -148,6 +164,7 @@ class gmp.PlayerView extends Backbone.View
     if @audio?.audio_playable()
       if @audio.mp3_playable()
         @audio.play_started =>
+          @failed_tracks = 0
           @$play_pause.replaceClass('fa-spinner fa-spin', 'fa-play')
           tview = new gmp.NowPlayingView({model: metadata})
           tview.renderify('#player > nav', 'prepend')

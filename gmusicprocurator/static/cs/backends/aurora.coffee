@@ -46,6 +46,7 @@ class gmp.AuroraAudio
     @durationchange = create_evt_func('duration')
     @timeupdate = create_evt_func('progress')
     @ended = create_evt_func('end')
+    @error = create_evt_func('error')
 
   _handle_player: (handler) ->
     if @player?

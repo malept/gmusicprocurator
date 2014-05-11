@@ -129,6 +129,8 @@ class gmp.PlaylistView extends gmp.SingletonView
     icon.replaceClass('fa-play', spin_cls)
     gmp.player.audio.play_started ->
       icon.replaceClass(spin_cls, 'fa-music')
+    gmp.player.audio.error ->
+      icon.removeClass(spin_cls)
 
   play_track: (e) ->
     icon = $(e.target)
