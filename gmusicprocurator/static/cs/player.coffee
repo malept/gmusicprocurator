@@ -186,6 +186,7 @@ class gmp.PlayerView extends Backbone.View
     entry = @model[func_name](@settings.play_mode_text())
     return unless entry?
     track = entry.get('track')
+    @stop()
     @play(track)
 
   previous_track: ->
@@ -207,6 +208,8 @@ class gmp.PlayerView extends Backbone.View
   stop: ->
     return false unless @audio.play_started()
     @audio.stop()
+    @$track_position.val(0)
+    return true
 
   rewind: ->
     return false unless @audio.play_started()

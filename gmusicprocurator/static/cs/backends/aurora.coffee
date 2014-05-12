@@ -27,20 +27,22 @@ class gmp.AuroraAudio
 
     @dispatcher = _.clone(Backbone.Events)
 
-    create_proxy_evt_func = (name) ->
-      return (handler) ->
+    create_proxy_evt_func = (name) =>
+      return (handler) =>
         if handler?
-          @dispatcher.on name, handler
+          @dispatcher.on(name, handler)
         else
           @player[name]()
           @dispatcher.trigger(name)
     for n in ['play', 'pause']
       @[n] = create_proxy_evt_func(n)
 
-    create_evt_func = (name) ->
-      return (handler) ->
+    create_evt_func = (name) =>
+      @dispatcher.on 'create_player', =>
+        @player.on name, => @dispatcher.trigger(name)
+      return (handler) =>
         if handler?
-          @_handle_player => @player.on name, handler
+          @dispatcher.on(name, handler)
         else
           @dispatcher.trigger(name)
     @durationchange = create_evt_func('duration')
@@ -59,17 +61,24 @@ class gmp.AuroraAudio
     if val is null
       return @player.volume / 100
     else
-      @_handle_player => @player[name] = val * 100
+      @_handle_player => @player.volume = val * 100
 
   load: (url) ->
+    prev_player = false
+    if @player?
+      prev_player = true
+      vol = @volume()
+      @player.stop()
     @player = AV.Player.fromURL(url)
     @dispatcher.trigger 'create_player'
     @started_play = false
     @player.once 'ready', =>
       @started_play = true
+      @dispatcher.trigger('ready')
     @player.once 'end', =>
       @started_play = false
       @dispatcher.trigger('pause')
+    @volume(vol) if prev_player
     @play()
 
   currentTime: (val = null) ->
@@ -92,7 +101,7 @@ class gmp.AuroraAudio
 
   play_started: (handler) ->
     if handler?
-      @player.once 'ready', handler
+      @dispatcher.once('ready', handler)
     else
       return @started_play
 
@@ -104,7 +113,9 @@ class gmp.AuroraAudio
     @player.seek((@currentTime() + delta) * 1000)
 
   stop: ->
-    @player.stop()
+    @player.pause()
+    @player.seek(0)
+    @dispatcher.trigger('pause')
 
   is_playing: ->
     return @player?.playing
