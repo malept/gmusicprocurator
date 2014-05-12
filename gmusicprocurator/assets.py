@@ -124,7 +124,7 @@ vendor = Bundle(*vendor_js)
 
 cs_modules = [
     'init',
-    'backends/webaudio',
+    'backends/html5audio',
     'backends/aurora',
     'player',
     'playlist',
