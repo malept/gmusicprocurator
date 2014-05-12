@@ -165,7 +165,7 @@ class gmp.PlayerView extends Backbone.View
       if @audio.mp3_playable()
         @audio.play_started =>
           @failed_tracks = 0
-          @$play_pause.replaceClass('fa-spinner fa-spin', 'fa-play')
+          @$play_pause.replaceClass('fa-spinner fa-spin', 'fa-pause')
           tview = new gmp.NowPlayingView({model: metadata})
           tview.renderify('#player > nav', 'prepend')
           icon = '/favicon.ico'
