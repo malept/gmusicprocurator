@@ -17,11 +17,11 @@
     "tests"
   ],
   "dependencies": {
-    "font-awesome": "~4.0.3",
-    "jquery": "~2.1.0",
+    "font-awesome": "~4.1.0",
+    "jquery": "~2.1.1",
     "pure": "~0.4.2",
-    "roboto-fontface": "~0.1.4",
-    "typeplate": "malept/typeplate-bower#libsass-compat",
+    "roboto-fontface": "~0.1.5",
+    "typeplate": "typeplate-starter-kit#~1.1.4",
     "backbone": "~1.1.2",
     "normalize-css": "~3.0.1",
     "lodash": "~2.4.1",
