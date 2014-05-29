@@ -19,7 +19,7 @@
   "dependencies": {
     "font-awesome": "~4.1.0",
     "jquery": "~2.1.1",
-    "pure": "~0.4.2",
+    "pure": "~0.5.0",
     "roboto-fontface": "~0.1.5",
     "typeplate": "typeplate-starter-kit#~1.1.4",
     "backbone": "~1.1.2",
