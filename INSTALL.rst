@@ -53,7 +53,6 @@ The contents of the file will look like this:
 .. code-block:: python
 
    GACCOUNT_EMAIL = 'my-google-account@gmail.com'
-   GACCOUNT_PASSWORD = 'my-password'
 
 Then run the following (lines that start with ``#`` are comments, not commands):
 
@@ -69,12 +68,23 @@ Then run the following (lines that start with ``#`` are comments, not commands):
    # Only run the next line if you wish to use libsass-python instead of the
    # Ruby version of Sass:
    (venv)user@host:gmusicprocurator$ pip install libsass
+   (venv)user@host:gmusicprocurator$ python -m gmusicprocurator set_password
+
+The last command will activate an interactive prompt that will store your
+Google account password (or, if your account has two-factor authentication
+enabled, your application-specific password) into the operating system's
+password storage service.
+
+Once your password is set, you will need to associate GMusicProcurator with one
+of your mobile devices. Run the following command to list the devices:
+
+.. code-block:: shell-session
+
    (venv)user@host:gmusicprocurator$ python -m gmusicprocurator list_devices --no-desktop
 
-The last command will print out a list of mobile devices that are registered
-with Google Music. Select one of them and add the following to the config file
-from above (substituting ``REPLACE_ME`` with the ID, which is after the colon
-in the device ID printout):
+Select one of them and add the following to the config file from above
+(substituting ``REPLACE_ME`` with the ID, which is after the colon in the
+device ID printout):
 
 .. code-block:: python
 

@@ -21,6 +21,7 @@ from __future__ import print_function
 
 from flask.ext.script import Manager
 from functools import partial
+from getpass import getpass
 from gmusicprocurator.app import app, heapy
 import sys
 
@@ -44,6 +45,11 @@ if app.config['GMP_FRONTEND_ENABLED']:
     from gmusicprocurator.app import assets
     manager.add_command('assets', ManageAssets(assets))
 
+
+def error(msg):
+    """Print an error message (prepended by ``ERROR: ``) to stderr."""
+    print('ERROR: {0}'.format(msg), file=sys.stderr)
+
 no_bool_option = partial(manager.option, action='store_false', default=True)
 
 
@@ -56,11 +62,16 @@ def list_devices(show_desktop, show_mobile):
     Defaults to showing both desktop and mobile IDs.
     """
     from gmusicapi.clients import Webclient
+    from keyring import get_password
     webclient = Webclient()
-    success = webclient.login(app.config['GACCOUNT_EMAIL'],
-                              app.config['GACCOUNT_PASSWORD'])
+    email = app.config['GACCOUNT_EMAIL']
+    password = get_password('gmusicprocurator', email)
+    if password is None:
+        error('Password not set. Please run the set_password subcommand.')
+        return
+    success = webclient.login(email, password)
     if not success:
-        print('Login failed.', file=sys.stderr)
+        error('Login failed.')
         return
 
     for device in webclient.get_registered_devices():
@@ -70,6 +81,24 @@ def list_devices(show_desktop, show_mobile):
         if not show_mobile and device['type'] == 'PHONE':
             continue
         print(u'* {dname} ({type}): {id}'.format(dname=dname, **device))
+
+
+@manager.command
+def set_password():
+    """Set the Google account password."""
+    import keyring
+    password = None
+    repeated = None
+    while password is None or password != repeated:
+        password = getpass('Please enter your password: ')
+        repeated = getpass('Please verify your password: ')
+        if password == repeated:
+            keyring.set_password('gmusicprocurator',
+                                 app.config['GACCOUNT_EMAIL'],
+                                 password)
+            print('Password set successfully.')
+        else:
+            error('Passwords do not match.')
 
 
 def run():

@@ -39,9 +39,14 @@ if app.config['GMP_OFFLINE_MODE']:
     music = None
 else:
     from gmusicapi import Mobileclient
+    from keyring import get_password
     music = Mobileclient()
-    music.login(app.config['GACCOUNT_EMAIL'],
-                app.config['GACCOUNT_PASSWORD'])
+    email = app.config['GACCOUNT_EMAIL']
+    password = get_password('gmusicprocurator', email)
+    if password is None:
+        music = None
+    else:
+        music.login(email, password)
 
 if app.debug and app.config['GMP_MEMORY_PROFILER']:
     from guppy import hpy
