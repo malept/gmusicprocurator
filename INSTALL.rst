@@ -61,7 +61,7 @@ Then run the following (lines that start with ``#`` are comments, not commands):
    # Get the code
    user@host:Code$ git clone --recursive https://github.com/malept/gmusicprocurator.git
    user@host:Code$ cd gmusicprocurator
-   # Create a new virtual
+   # Create a new virtual environment
    user@host:gmusicprocurator$ virtualenv venv
    user@host:gmusicprocurator$ source venv/bin/activate
    (venv)user@host:gmusicprocurator$ pip install -r requirements.txt
