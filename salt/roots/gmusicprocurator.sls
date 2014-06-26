@@ -7,4 +7,3 @@
     - recurse:
       - user
       - group
-      - mode
