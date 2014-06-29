@@ -52,33 +52,38 @@ if sass_filter == 'libsass':
     register_filter(LibSassFilter)
 
 
-class ImporterFilter(ExternalTool):
+class BrowserifyFilter(ExternalTool):
 
     """
-    webassets_ filter for Importer_.
+    webassets_ filter for Browserify_.
 
     .. _webassets: https://webassets.readthedocs.org/
-    .. _Importer: https://github.com/devongovett/importer
+    .. _Browserify: http://browserify.org
     """
 
-    name = 'importer_js'
+    name = 'browserify'
     method = 'open'
     options = {
-        'binary': 'IMPORTERJS_BIN',
-        'extra_args': 'IMPORTERJS_EXTRA_ARGS',
+        'binary': 'BROWSERIFY_BIN',
+        'coffeescript': 'BROWSERIFY_COFFEESCRIPT',
+        'extra_args': 'BROWSERIFY_EXTRA_ARGS',
     }
 
     def setup(self):
-        """Set up Importer CLI args."""
+        """Set up Browserify CLI args."""
         self.argv = [
-            self.binary or 'importer',
+            self.binary or 'browserify',
             '{1}',  # source_path
+            '-o',
             '{{output}}',
         ]
+        if self.coffeescript:
+            self.argv.extend(['--transform', 'coffeeify',
+                              '--extension', '.coffee'])
         if self.extra_args:
             self.argv.extend(self.extra_args)
 
-register_filter(ImporterFilter)
+register_filter(BrowserifyFilter)
 
 
 def bundlify(fmt, modules, **kwargs):
@@ -105,9 +110,12 @@ css = Bundle(normalize, typography, pure, main_css, filters='cssmin',
              output='all.min.css')
 assets.register('css', css)
 
-aurora = Bundle('vendor/aurora.js/browser_slim.coffee', filters='importer_js',
+aurora_b_ify = BrowserifyFilter(coffeescript=True,
+                                extra_args=['--standalone', 'AV'])
+aurora = Bundle('vendor/aurora.js/browser_slim.coffee', filters=aurora_b_ify,
                 output='vendor/aurora.built.js')
-mp3 = Bundle('vendor/mp3.js/mp3.js', filters='importer_js',
+mp3_b_ify = BrowserifyFilter(extra_args=['--transform', 'browserify-shim'])
+mp3 = Bundle('vendor/mp3.js/index.js', filters=mp3_b_ify,
              output='vendor/mp3.built.js')
 aurora_mp3 = Bundle(aurora, mp3, filters='uglifyjs', output='auroramp3.min.js')
 assets.register('aurora_mp3', aurora_mp3)

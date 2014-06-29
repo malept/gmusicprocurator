@@ -21,7 +21,7 @@ Frontend
 * Bower (``npm install -g bower``)
 * CoffeeScript (``npm install -g coffee-script``)
 * UglifyJS2 (``npm install -g uglify-js``)
-* importer (``npm install -g importer``)
+* Browserify and related dependencies (``npm install -g browserify coffeeify browserify-shim``)
 
 .. _libsass-python: http://dahlia.kr/libsass-python/
 .. _Sass: http://sass-lang.com/

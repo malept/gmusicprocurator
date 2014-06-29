@@ -2,8 +2,10 @@ assets-deps:
   npm.installed:
     - names:
       - bower
+      - browserify
+      - browserify-shim
+      - coffeeify
       - coffee-script
-      - importer
       - uglify-js
   gem.installed:
     - names:

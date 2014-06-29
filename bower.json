@@ -26,6 +26,8 @@
     "normalize-css": "~3.0.1",
     "lodash": "~2.4.1",
     "backbone.localstorage": "~1.1.7",
-    "html5-desktop-notifications": "malept/HTML5-Desktop-Notifications#firefox-mobile"
+    "html5-desktop-notifications": "malept/HTML5-Desktop-Notifications#firefox-mobile",
+    "aurora.js": "malept/aurora.js#global-browserify",
+    "mp3.js": "audiocogs/mp3.js#~0.1.0"
   }
 }

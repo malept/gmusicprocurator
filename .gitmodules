@@ -1,6 +1,0 @@
-[submodule "gmusicprocurator/static/vendor/aurora.js"]
-	path = gmusicprocurator/static/vendor/aurora.js
-	url = https://github.com/audiocogs/aurora.js.git
-[submodule "gmusicprocurator/static/vendor/mp3.js"]
-	path = gmusicprocurator/static/vendor/mp3.js
-	url = https://github.com/audiocogs/mp3.js.git
