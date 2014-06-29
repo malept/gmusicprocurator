@@ -16,14 +16,17 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """GMusicProcurator Flask app module."""
 
-from appdirs import user_data_dir
+try:
+    from appdirs import user_config_dir  # appdirs >= 1.3.0
+except ImportError:
+    from appdirs import user_data_dir as user_config_dir
 from flask import Flask
 import os
 
 SETTINGS_VAR = 'GMUSICPROCURATOR_SETTINGS'
 CFG_FILENAME = 'gmusicprocurator.cfg'
 os.environ.setdefault(SETTINGS_VAR,
-                      os.path.join(user_data_dir('gmusicapi'), CFG_FILENAME))
+                      os.path.join(user_config_dir('gmusicapi'), CFG_FILENAME))
 
 app = Flask(__name__)
 app.config.from_object('gmusicprocurator.default_settings')
