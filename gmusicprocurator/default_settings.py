@@ -72,7 +72,7 @@ and/or you know what you're doing.
 
 import os
 
-GMP_FRONTEND_ENABLED = False
+GMP_FRONTEND_ENABLED = True
 
 GMP_SONG_FILTERS = (
     'add_id3_tags_to_mp3',
