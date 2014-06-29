@@ -59,7 +59,7 @@ Then run the following (lines that start with ``#`` are comments, not commands):
 .. code-block:: shell-session
 
    # Get the code
-   user@host:Code$ git clone --recursive https://github.com/malept/gmusicprocurator.git
+   user@host:Code$ git clone https://github.com/malept/gmusicprocurator.git
    user@host:Code$ cd gmusicprocurator
    # Create a new virtual environment
    user@host:gmusicprocurator$ virtualenv venv
