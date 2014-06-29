@@ -27,7 +27,7 @@ else:
     sass_filter = 'libsass'
 from webassets.filter import ExternalTool, register_filter
 
-from .app import assets
+from .app import app, assets
 
 if sass_filter == 'libsass':
 
@@ -134,5 +134,11 @@ cs_modules = [
 
 cs = bundlify('cs/{0}.coffee', cs_modules, filters='coffeescript',
               output='cs/out.js')
-js = Bundle(vendor, cs, filters='uglifyjs', output='all.min.js')
-assets.register('js', js)
+
+js_kwargs = {
+    'output': 'all.min.js',
+}
+if not app.debug:
+    js_kwargs['filters'] = 'uglifyjs'
+
+assets.register('js', Bundle(vendor, cs, **js_kwargs))
