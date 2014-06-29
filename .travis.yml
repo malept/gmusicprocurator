@@ -14,7 +14,7 @@ install:
   - if [[ -z "$NO_FRONTEND" ]]; then sudo npm install -g coffeelint csslint bower; fi
   - if [[ -z "$NO_FRONTEND" ]]; then gem install scss-lint; fi
   - if [[ -z "$NO_FRONTEND" ]]; then bower install; fi
-  - if [[ -z "$NO_PYTHON" ]]; then pip install -r requirements/dev.txt; fi
+  - if [[ -z "$NO_PYTHON" ]]; then export REQ_TXT=requirements/dev.txt; else export REQ_TXT=requirements.txt; fi; pip install -r "$REQ_TXT"
 script:  ./run_tests.sh
 matrix:
   include:
