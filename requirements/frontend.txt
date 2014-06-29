@@ -1,3 +1,4 @@
 cssmin
-flask-assets
+# Flask-Assets
+git+https://github.com/miracle2k/flask-assets.git#egg=Flask-Assets
 webassets
