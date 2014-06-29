@@ -23,7 +23,7 @@ if [[ -z "$NO_FRONTEND" ]]; then
     csslint "${MAIN_OUT_CSS}"
     if [[ ! -f "$CFG_PATH" ]]; then
         mkdir -p "$CFG_DIR"
-        touch "$CFG_PATH"
+        echo 'GMP_OFFLINE_MODE = True' > "$CFG_PATH"
     fi
     python -m gmusicprocurator assets build --no-cache
 fi
