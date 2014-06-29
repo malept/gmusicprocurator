@@ -1,5 +1,3 @@
 cssmin
-# Flask-Assets
-git+https://github.com/malept/flask-assets.git@feature/settings-tree#egg=Flask-Assets
-# webassets
-git+https://github.com/miracle2k/webassets.git#egg=webassets
+flask-assets
+webassets
