@@ -90,6 +90,12 @@ device ID printout):
 
    GACCOUNT_DEVICE_ID = 'REPLACE_ME'
 
+If you do not want to run the frontend, add the following to the config file:
+
+.. code-block:: python
+
+   GMP_FRONTEND_ENABLED = False
+
 Once the config file is saved, the server can be started.
 
 .. code-block:: shell-session
