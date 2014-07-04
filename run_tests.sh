@@ -7,6 +7,7 @@ SCSS_DIR="${STATIC_DIR}"/scss
 MAIN_OUT_CSS="${SCSS_DIR}"/main.out.css
 CFG_DIR="$HOME/.config/gmusicapi"
 CFG_PATH="$CFG_DIR"/gmusicprocurator.cfg
+NODE_BIN_DIR="${BASE_DIR}/node_modules/.bin"
 
 set -x
 
@@ -17,10 +18,10 @@ if [[ -z "$NO_PYTHON" ]]; then
 fi
 
 if [[ -z "$NO_FRONTEND" ]]; then
-    coffeelint -f "${BASE_DIR}"/.coffeelint.json "${STATIC_DIR}"/cs
+    "$NODE_BIN_DIR"/coffeelint -f "${BASE_DIR}"/.coffeelint.json "${STATIC_DIR}"/cs
     scss-lint -e '*.css' "${SCSS_DIR}"
     scss --style expanded "${SCSS_DIR}"/main.scss "${MAIN_OUT_CSS}"
-    csslint "${MAIN_OUT_CSS}"
+    "$NODE_BIN_DIR"/csslint "${MAIN_OUT_CSS}"
     if [[ ! -f "$CFG_PATH" ]]; then
         mkdir -p "$CFG_DIR"
         echo 'GMP_OFFLINE_MODE = True' > "$CFG_PATH"

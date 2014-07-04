@@ -114,5 +114,5 @@ the server:
 
 .. code-block:: shell-session
 
-   (venv)user@host:gmusicprocurator$ npm install
+   (venv)user@host:gmusicprocurator$ npm install --production
    (venv)user@host:gmusicprocurator$ node_modules/.bin/bower install -p

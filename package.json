@@ -23,5 +23,10 @@
     "coffeeify": "0.6.x",
     "uglify-js": "2.x"
   },
+  "devDependencies": {
+    "coffeedoc": "0.x",
+    "coffeelint": "1.x",
+    "csslint": "0.x"
+  },
   "private": true
 }
