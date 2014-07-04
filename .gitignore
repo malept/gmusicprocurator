@@ -1,7 +1,9 @@
+*.egg-info
 *.inv
 *.min.css
 *.min.js*
 *.out.css
+*.pyc
 gmusicprocurator/static/vendor/*
 .sass-cache
 .tox
