@@ -1,12 +1,9 @@
 assets-deps:
-  npm.installed:
-    - names:
-      - bower
-      - browserify
-      - browserify-shim
-      - coffeeify
-      - coffee-script
-      - uglify-js
+  npm.bootstrap:
+    - name: /vagrant
+    - user: vagrant
+    - require:
+      - pkg: nodejs
   gem.installed:
     - names:
       - sass

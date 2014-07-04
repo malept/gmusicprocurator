@@ -1,0 +1,27 @@
+{
+  "name": "gmusicprocurator",
+  "description": "Google Music proxy/frontend for streaming",
+  "version": "0.5.0",
+  "homepage": "https://gmusicprocurator.readthedocs.org/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/malept/gmusicprocurator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/malept/gmusicprocurator/issues"
+  },
+  "author": {
+    "name": "Mark Lee",
+    "url": "https://malept.com/"
+  },
+  "license": "GPL-3.0+",
+  "dependencies": {
+    "bower": "1.x",
+    "browserify": "4.x",
+    "browserify-shim": "3.x",
+    "coffee-script": "1.x",
+    "coffeeify": "0.6.x",
+    "uglify-js": "2.x"
+  },
+  "private": true
+}

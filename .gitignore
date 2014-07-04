@@ -11,3 +11,4 @@ gmusicprocurator/static/vendor/*
 .webassets-cache
 build
 dist
+node_modules

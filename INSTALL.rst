@@ -18,10 +18,6 @@ Frontend
 * Either libsass-python_ or the reference implementation of Sass_ (which
   requires Ruby)
 * Node.js + NPM
-* Bower (``npm install -g bower``)
-* CoffeeScript (``npm install -g coffee-script``)
-* UglifyJS2 (``npm install -g uglify-js``)
-* Browserify and related dependencies (``npm install -g browserify coffeeify browserify-shim``)
 
 .. _libsass-python: http://dahlia.kr/libsass-python/
 .. _Sass: http://sass-lang.com/
@@ -113,9 +109,10 @@ with the proper playlist ID.
 Frontend-specific
 ~~~~~~~~~~~~~~~~~
 
-If you want to run the frontend as well, run the following before you start the
-server:
+If you want to run the frontend as well, run the following before starting
+the server:
 
 .. code-block:: shell-session
 
-   (venv)user@host:gmusicprocurator$ bower install -p
+   (venv)user@host:gmusicprocurator$ npm install
+   (venv)user@host:gmusicprocurator$ node_modules/.bin/bower install -p

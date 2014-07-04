@@ -26,6 +26,12 @@ Standard
     frontend are not loaded. For example, ``GET / HTTP/1.1`` will return
     a ``404``.
 
+.. attribute:: GMP_NODE_MODULES_DIR
+
+    Defaults to the ``node_modules`` directory in the top-level directory of
+    the repository. This is the path where all of the Node-based asset
+    utilities are installed.
+
 .. attribute:: GMP_SONG_FILTERS
 
     A tuple of callable filters used on streaming MP3 data. By default, it
@@ -73,6 +79,12 @@ and/or you know what you're doing.
 import os
 
 GMP_FRONTEND_ENABLED = True
+
+dirname = os.path.dirname
+default_node_modules_dir = os.path.join(dirname(dirname(__file__)),
+                                        'node_modules')
+GMP_NODE_MODULES_DIR = os.environ.get('GMP_NODE_MODULES_DIR',
+                                      default_node_modules_dir)
 
 GMP_SONG_FILTERS = (
     'add_id3_tags_to_mp3',

@@ -78,8 +78,7 @@ class BrowserifyFilter(ExternalTool):
             '{{output}}',
         ]
         if self.coffeescript:
-            self.argv.extend(['--transform', 'coffeeify',
-                              '--extension', '.coffee'])
+            self.argv.extend(['--extension', '.coffee'])
         if self.extra_args:
             self.argv.extend(self.extra_args)
 
