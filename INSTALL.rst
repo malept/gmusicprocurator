@@ -116,3 +116,14 @@ the server:
 
    (venv)user@host:gmusicprocurator$ npm install --production
    (venv)user@host:gmusicprocurator$ node_modules/.bin/bower install -p
+
+Via Saltstack
+-------------
+
+If you use the Saltstack_ systems management software, a formula_ has been
+written so that most of GMusicProcurator's dependencies can be installed
+automatically. If using the frontend, the bower dependencies still need to
+be installed "manually".
+
+.. _Saltstack: http://www.saltstack.com/
+.. _formula: https://github.com/malept/gmusicprocurator-formula
