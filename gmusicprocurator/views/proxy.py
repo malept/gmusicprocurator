@@ -198,6 +198,27 @@ def get_playlist(playlist_id):
 @online_only
 def get_playlists():
     """Retrieve all of the logged in user's playlists."""
-    return jsonify({
-        'playlists': music.get_all_user_playlist_contents(),
-    })
+    gmusic_playlists = music.get_all_user_playlist_contents()
+
+    resp_type = request.accept_mimetypes.best_match([XSPF_TYPE, JSON_TYPE])
+    # Return JSON playlist only if explicitly requested.
+    if resp_type == JSON_TYPE:
+        return jsonify({
+            'playlists': gmusic_playlists,
+        })
+
+    # Generate XSPF playlist, otherwise.
+    xspf = Xspf(title='Playlists',
+                location=url_for('get_playlists', _external=True))
+
+    for playlist in gmusic_playlists:
+        if playlist['deleted']:
+            continue
+        xspf.add_track({
+            'location': url_for('get_playlist', _external=True,
+                                playlist_id=playlist['id']),
+            'title': playlist['name'],
+            'creator': playlist['ownerName'],
+        })
+
+    return Response(xspf.toXml(), mimetype=XSPF_TYPE)
