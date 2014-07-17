@@ -68,7 +68,7 @@ class gmp.HTML5Audio
 
   play_started: (handler) ->
     if handler?
-      @$player.one 'play', handler
+      @$player.on 'play', handler
     else
       return @player.played.length > 0
 

@@ -135,6 +135,18 @@ class gmp.PlayerView extends Backbone.View
       cur_pos = gmp.human_readable_time(@audio.currentTime())
       total = gmp.human_readable_time(@audio.duration())
       @$track_position.attr('title', "#{cur_pos} / #{total}")
+    @audio.play_started =>
+      @failed_tracks = 0
+      @$play_pause.replaceClass('fa-spinner fa-spin', 'fa-pause')
+      tview = new gmp.NowPlayingView({model: @current_track_metadata})
+      tview.renderify('#player > nav', 'prepend')
+      icon = '/favicon.ico'
+      track = @current_track_metadata.attributes
+      icon = track.albumArtRef[0].url if track.albumArtRef?.length > 0
+      gmp.notify "Now Playing",
+        icon: icon
+        body: "#{track.title} - #{track.artist}: #{track.album}"
+        tag: track.id
     @audio.error =>
       @failed_tracks++
       if @failed_tracks < gmp.MAX_FAILED_TRACKS
@@ -163,18 +175,7 @@ class gmp.PlayerView extends Backbone.View
     url = gmp.song_url(metadata) unless url?
     if @audio?.audio_playable()
       if @audio.mp3_playable()
-        @audio.play_started =>
-          @failed_tracks = 0
-          @$play_pause.replaceClass('fa-spinner fa-spin', 'fa-pause')
-          tview = new gmp.NowPlayingView({model: metadata})
-          tview.renderify('#player > nav', 'prepend')
-          icon = '/favicon.ico'
-          track = metadata.attributes
-          icon = track.albumArtRef[0].url if track.albumArtRef?.length > 0
-          gmp.notify "Now Playing",
-            icon: icon
-            body: "#{track.title} - #{track.artist}: #{track.album}"
-            tag: track.id
+        @current_track_metadata = metadata
         @audio.load(url)
         @$play_pause.replaceClass('fa-play fa-pause', 'fa-spinner fa-spin')
       else

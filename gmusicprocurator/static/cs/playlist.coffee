@@ -125,12 +125,16 @@ class gmp.PlaylistView extends gmp.SingletonView
     spin_cls = 'fa-spinner fa-spin'
     @$('.albumart span.fa-music').removeClass('fa-music')
     @$('.albumart span.fa-spinner').removeClass(spin_cls)
+    @current_icon = icon
     gmp.player.play(song)
     icon.replaceClass('fa-play', spin_cls)
-    gmp.player.audio.play_started ->
-      icon.replaceClass(spin_cls, 'fa-music')
-    gmp.player.audio.error ->
-      icon.removeClass(spin_cls)
+    unless @_set_play_started_handler?
+      gmp.player.audio.play_started =>
+        @current_icon.replaceClass(spin_cls, 'fa-music') if @current_icon
+      @_set_play_started_handler = true
+    gmp.player.audio.error =>
+      @current_icon.removeClass(spin_cls) if @current_icon
+      @current_icon = null
 
   play_track: (e) ->
     icon = $(e.target)

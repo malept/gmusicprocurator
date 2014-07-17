@@ -101,7 +101,7 @@ class gmp.AuroraAudio
 
   play_started: (handler) ->
     if handler?
-      @dispatcher.once('ready', handler)
+      @dispatcher.on('ready', handler)
     else
       return @started_play
 
