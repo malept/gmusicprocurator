@@ -30,6 +30,8 @@ from xspf import Xspf
 from ..app import app, music
 from ..id3 import EasyMP3
 
+HALF_MB = 1024 * 512  # in bytes
+
 JSON_TYPE = 'application/json'
 MP3_TYPE = 'audio/mpeg'
 XSPF_TYPE = 'application/xspf+xml'
@@ -161,14 +163,18 @@ def get_song(song_id):
         # This occurs when the web UI sends a nonexistent song ID.
         abort(404)
     song_url = music.get_stream_url(song_id, app.config['GACCOUNT_DEVICE_ID'])
-    response = requests.get(song_url)
-    data = BytesIO(response.content)
-    for song_filter in app.config['GMP_SONG_FILTERS']:
-        if callable(song_filter):
-            data = song_filter(song_id, data)
-        else:
-            data = globals()[song_filter](song_id, data)
-    return mp3ify(Response(data.getvalue()))
+    if app.config['GMP_SONG_FILTERS']:
+        response = requests.get(song_url)
+        data = BytesIO(response.content)
+        for song_filter in app.config['GMP_SONG_FILTERS']:
+            if callable(song_filter):
+                data = song_filter(song_id, data)
+            else:
+                data = globals()[song_filter](song_id, data)
+        return mp3ify(Response(data.getvalue()))
+    else:
+        response = requests.get(song_url, stream=True)
+        return mp3ify(Response(response.iter_content(chunk_size=HALF_MB)))
 
 
 @app.route('/playlists/<playlist_id>')
