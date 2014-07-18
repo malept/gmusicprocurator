@@ -45,7 +45,6 @@ class gmp.AuroraAudio
           @dispatcher.on(name, handler)
         else
           @dispatcher.trigger(name)
-    @durationchange = create_evt_func('duration')
     @timeupdate = create_evt_func('progress')
     @ended = create_evt_func('end')
     @error = create_evt_func('error')
@@ -89,9 +88,6 @@ class gmp.AuroraAudio
         @player.seek(val * 1000)
         @player.play()
       @_handle_player -> setter()
-
-  duration: ->
-    return @player.duration / 1000
 
   audio_playable: ->
     true

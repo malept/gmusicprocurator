@@ -128,12 +128,10 @@ class gmp.PlayerView extends Backbone.View
       @$play_pause.replaceClass('fa-pause', 'fa-play')
     @audio.play =>
       @$play_pause.replaceClass('fa-play', 'fa-pause')
-    @audio.durationchange =>
-      @$track_position.attr('max', @audio.duration())
     @audio.timeupdate =>
       @$track_position.val(@audio.currentTime())
       cur_pos = gmp.human_readable_time(@audio.currentTime())
-      total = gmp.human_readable_time(@audio.duration())
+      total = gmp.human_readable_time(@current_duration)
       @$track_position.attr('title', "#{cur_pos} / #{total}")
     @audio.play_started =>
       @failed_tracks = 0
@@ -142,6 +140,8 @@ class gmp.PlayerView extends Backbone.View
       tview.renderify('#player > nav', 'prepend')
       icon = '/favicon.ico'
       track = @current_track_metadata.attributes
+      @current_duration = track.durationMillis / 1000
+      @$track_position.attr('max', @current_duration)
       icon = track.albumArtRef[0].url if track.albumArtRef?.length > 0
       gmp.notify "Now Playing",
         icon: icon
@@ -259,7 +259,7 @@ class gmp.PlayerView extends Backbone.View
     $tgt = $(e.target)
     # see http://bugs.jquery.com/ticket/8523#comment:12
     offset = e.offsetX or (e.clientX - $tgt.offset().left)
-    @audio.currentTime((offset / $tgt.width()) * @audio.duration())
+    @audio.currentTime((offset / $tgt.width()) * @current_duration)
 
   is_playing: ->
     return @audio.is_playing()

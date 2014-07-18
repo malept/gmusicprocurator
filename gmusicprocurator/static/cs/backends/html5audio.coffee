@@ -35,7 +35,7 @@ class gmp.HTML5Audio
           @player[name](args...)
         else
           @$player.trigger(name, args)
-    for n in ['play', 'pause', 'durationchange', 'timeupdate', 'ended', 'error']
+    for n in ['play', 'pause', 'timeupdate', 'ended', 'error']
       @[n] = create_evt_func(n)
 
     create_prop_func = (name) ->
@@ -56,9 +56,6 @@ class gmp.HTML5Audio
   load: (url) ->
     @$player.attr('src', url)
     @player.load()
-
-  duration: ->
-    return @player.duration
 
   audio_playable: ->
     return !!@player.canPlayType
