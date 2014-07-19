@@ -77,7 +77,7 @@ def mp3ify(resp):
     return resp
 
 
-def gmusic_playlist_to_xspf(playlist_id, playlist):
+def gmusic_playlist_to_xspf(playlist_id, playlist, all_songs=False):
     """
     Convert a playlist from gmusicapi into an XSPF playlist.
 
@@ -85,15 +85,33 @@ def gmusic_playlist_to_xspf(playlist_id, playlist):
     :return: XSPF (XML), UTF-8 encoded
     :rtype: str
     """
-    create_ts = int(playlist['creationTimestamp']) / 1000000.0
-    create_iso = datetime.utcfromtimestamp(create_ts).isoformat()
-    p_url = url_for('get_playlist', _external=True, playlist_id=playlist_id)
-    xspf = Xspf(title=playlist['name'], creator=playlist['ownerName'],
-                date=create_iso, location=p_url)
-    for track in playlist['tracks']:
-        if 'track' not in track:
+    if all_songs:
+        xspf_kwargs = {
+            'title': 'All Songs',
+            'date': datetime.now().isoformat(),
+            'location': url_for('get_all_songs_playlist', _external=True),
+        }
+    else:
+        create_ts = int(playlist['creationTimestamp']) / 1000000.0
+        xspf_kwargs = {
+            'title': playlist['name'],
+            'creator': playlist['ownerName'],
+            'date': datetime.utcfromtimestamp(create_ts).isoformat(),
+            'location': url_for('get_playlist', _external=True,
+                                playlist_id=playlist_id),
+        }
+    xspf = Xspf(**xspf_kwargs)
+    if all_songs:
+        tracks = playlist
+    else:
+        tracks = playlist['tracks']
+    for track in tracks:
+        if not all_songs and 'track' not in track:
             continue
-        tmd = track['track']
+        if all_songs:
+            tmd = track
+        else:
+            tmd = track['track']
         url = url_for('get_song', _external=True, song_id=tmd['storeId'])
         metadata = {
             'location': url,
@@ -175,6 +193,33 @@ def get_song(song_id):
     else:
         response = requests.get(song_url, stream=True)
         return mp3ify(Response(response.iter_content(chunk_size=HALF_MB)))
+
+
+@app.route('/playlists/all_songs')
+@online_only
+def get_all_songs_playlist():
+    """
+    Retrieve a special playlist that contains all songs owned by the user.
+
+    By default, it returns an XSPF_-formatted playlist. If ``application/json``
+    is preferred in the ``Accept`` HTTP header, it will return the JSON
+    representation that is returned by GMusic.
+
+    .. _XSPF: http://xspf.org/
+    """
+    songs = music.get_all_songs()
+
+    resp_type = request.accept_mimetypes.best_match([XSPF_TYPE, JSON_TYPE])
+    # Return JSON playlist only if explicitly requested.
+    if resp_type == JSON_TYPE:
+        playlist = [{'track': song} for song in songs]
+        return jsonify({
+            'tracks': playlist,
+        })
+
+    # Generate XSPF playlist, otherwise.
+    xspf = gmusic_playlist_to_xspf('all_songs', songs, all_songs=True)
+    return Response(xspf, mimetype=XSPF_TYPE)
 
 
 @app.route('/playlists/<playlist_id>')
