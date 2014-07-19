@@ -151,7 +151,7 @@ def add_id3_tags_to_mp3(song_id, input_data):
 @app.route('/songs/<song_id>/info')
 @online_only
 def get_song_info(song_id):
-    """Retrieve the song metadata from the Google Music API."""
+    """Retrieve the song metadata from the Google Music API in JSON."""
     return jsonify(music.get_track_info(song_id))
 
 
@@ -180,7 +180,15 @@ def get_song(song_id):
 @app.route('/playlists/<playlist_id>')
 @online_only
 def get_playlist(playlist_id):
-    """Retrieve the metadata for a given playlist."""
+    """
+    Retrieve the metadata for a given playlist.
+
+    By default, it returns an XSPF_-formatted playlist. If ``application/json``
+    is preferred in the ``Accept`` HTTP header, it will return the JSON
+    representation that is returned by GMusic.
+
+    .. _XSPF: http://xspf.org/
+    """
     # 2014-02-25: At the time of this writing, this idiom is the only way to
     # get a single playlist via the API.
     playlists = [p for p in music.get_all_user_playlist_contents()
@@ -203,7 +211,15 @@ def get_playlist(playlist_id):
 @app.route('/playlists')
 @online_only
 def get_playlists():
-    """Retrieve all of the logged in user's playlists."""
+    """
+    Retrieve all of the logged in user's playlists.
+
+    By default, it returns an XSPF_-formatted playlist. If ``application/json``
+    is preferred in the ``Accept`` HTTP header, it will return the JSON
+    representation that is returned by GMusic.
+
+    .. _XSPF: http://xspf.org/
+    """
     gmusic_playlists = music.get_all_user_playlist_contents()
 
     resp_type = request.accept_mimetypes.best_match([XSPF_TYPE, JSON_TYPE])
