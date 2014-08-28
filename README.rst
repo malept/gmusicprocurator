@@ -5,6 +5,9 @@ GMusicProcurator
 .. image:: https://travis-ci.org/malept/gmusicprocurator.svg?branch=master
    :target: https://travis-ci.org/malept/gmusicprocurator
 
+.. image:: https://readthedocs.org/projects/gmusicprocurator/badge/
+   :target: https://gmusicprocurator.readthedocs.org/
+
 A proxy/HTML5 frontend for Google Music streaming. This mini webapp is
 inspired by GMusicProxy_.
 
