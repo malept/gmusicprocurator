@@ -35,6 +35,12 @@ pull request, but at this time it's faster to run it locally. Additionally,
 it would probably be in your best interests to add yourself to the
 ``AUTHORS.rst`` file if you have not done so already.
 
+When you submit your PR, if you have changed CoffeeScript files, `Hound CI`_
+will make comments about its conformity to the code style guide as described in
+the `.coffeelint.json` file in the top level of the repository.
+
+.. _Hound CI: https://houndci.com/
+
 Development Environment
 -----------------------
 
