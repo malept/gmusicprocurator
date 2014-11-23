@@ -45,7 +45,10 @@ if app.config['GMP_OFFLINE_MODE']:
     music = None
 else:
     from gmusicapi import Mobileclient
-    from keyring import get_password
+    from keyring.core import get_password, load_keyring, set_keyring
+    keyring_backend = app.config.get('KEYRING_BACKEND')
+    if keyring_backend:
+        set_keyring(load_keyring(keyring_backend))
     music = Mobileclient()
     email = app.config['GACCOUNT_EMAIL']
     password = get_password('gmusicprocurator', email)
