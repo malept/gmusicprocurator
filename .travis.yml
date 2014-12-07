@@ -11,8 +11,9 @@ install:
   - if [[ -z "$NO_FRONTEND" ]]; then sudo add-apt-repository --yes ppa:chris-lea/node.js; sudo apt-get update -qq; sudo apt-get install nodejs; npm install; fi
   - if [[ -z "$NO_FRONTEND" ]]; then gem install scss-lint; fi
   - if [[ -z "$NO_FRONTEND" ]]; then bower install --force-latest; fi
+  - if [[ -z "$NO_FRONTEND" ]]; then pip install libsass; fi
   - if [[ -z "$NO_PYTHON" ]]; then export REQ_TXT=requirements/dev.txt; else export REQ_TXT=requirements.txt; fi; pip install -r "$REQ_TXT"
-script:  ./run_tests.sh
+script: ./run_tests.sh
 matrix:
   include:
     - python: "2.7"
