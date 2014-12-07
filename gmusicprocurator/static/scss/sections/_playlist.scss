@@ -28,7 +28,7 @@
     height: 60px;
   }
 
-  td.albumart {
+  .albumart {
     padding: 0;
     vertical-align: middle;
     width: $albumart-size;
@@ -39,10 +39,10 @@
       line-height: $albumart-size;
       text-align: center;
       width: $albumart-size;
+    }
 
-      &:hover {
-        cursor: pointer;
-      }
+    span:hover {
+      cursor: pointer;
     }
 
     .fa {

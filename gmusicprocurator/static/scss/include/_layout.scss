@@ -1,0 +1,30 @@
+// This was incredibly helpful:
+// https://stackoverflow.com/q/21515042
+
+body {
+  @include display(flex);
+  @include flex-direction(column);
+
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+header,
+footer {
+  background: $main-bg;
+  width: 100%;
+}
+
+main {
+  @include flexify;
+  @include flex-direction(row);
+
+  > nav {
+    overflow-y: auto;
+    width: 20%;
+  }
+}

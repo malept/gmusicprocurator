@@ -1,36 +1,7 @@
 @import 'include/mixins';
 @import 'include/variables';
 @import 'include/flex-box';
-
-// This was incredibly helpful:
-// https://stackoverflow.com/q/21515042
-
-body {
-  bottom: 0;
-  @include display(flex);
-  @include flex-direction(column);
-  left: 0;
-  overflow: hidden;
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-
-header,
-footer {
-  background: $main-bg;
-  width: 100%;
-}
-
-main {
-  @include flexify;
-  @include flex-direction(row);
-
-  > nav {
-    overflow-y: auto;
-    width: 20%;
-  }
-}
+@import 'include/layout';
 
 @import 'sections/player';
 @import 'sections/playlist';

@@ -14,3 +14,8 @@ linters:
     exclude:
       # Due to a weird parsing quirk
       - '*/_mixins.scss'
+
+  VendorPrefixes:
+    exclude:
+      # Can't do much about flex boxes…
+      - '*/_flex-box.scss'
