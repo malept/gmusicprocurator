@@ -166,20 +166,13 @@ def add_id3_tags_to_mp3(song_id, input_data):
     return output
 
 
-@app.route('/songs/<song_id>/info')
-@online_only
 def get_song_info(song_id):
     """Retrieve the song metadata from the Google Music API in JSON."""
     return jsonify(music.get_track_info(song_id))
 
 
-@app.route('/songs/<song_id>')
-@online_only
-def get_song(song_id):
+def get_song_mp3(song_id):
     """Retrieve the MP3 for a given ID."""
-    if song_id == 'undefined':
-        # This occurs when the web UI sends a nonexistent song ID.
-        abort(404)
     song_url = music.get_stream_url(song_id, app.config['GACCOUNT_DEVICE_ID'])
     if app.config['GMP_SONG_FILTERS']:
         response = requests.get(song_url)
@@ -195,6 +188,27 @@ def get_song(song_id):
         return mp3ify(Response(response.iter_content(chunk_size=HALF_MB)))
 
 
+@app.route('/songs/<song_id>')
+@online_only
+def get_song(song_id):
+    """
+    Retrieve the song data for a given store ID.
+
+    By default, it returns the MP3. If ``application/json`` is preferred in
+    the ``Accept`` HTTP header, it will pass through the JSON representation
+    that is returned by GMusic.
+    """
+    if song_id == 'undefined':
+        # This occurs when the web UI sends a nonexistent song ID.
+        abort(404)
+    resp_type = request.accept_mimetypes.best_match([MP3_TYPE, JSON_TYPE])
+    # Return JSON metadata only if explicitly requested.
+    if resp_type == JSON_TYPE:
+        return get_song_info(song_id)
+    else:
+        return get_song_mp3(song_id)
+
+
 @app.route('/playlists/all_songs')
 @online_only
 def get_all_songs_playlist():
@@ -202,7 +216,7 @@ def get_all_songs_playlist():
     Retrieve a special playlist that contains all songs owned by the user.
 
     By default, it returns an XSPF_-formatted playlist. If ``application/json``
-    is preferred in the ``Accept`` HTTP header, it will return the JSON
+    is preferred in the ``Accept`` HTTP header, it will pass through the JSON
     representation that is returned by GMusic.
 
     .. _XSPF: http://xspf.org/
