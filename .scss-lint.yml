@@ -5,6 +5,9 @@ linters:
   LeadingZero:
     enabled: false
 
+  IdSelector:
+    enabled: false
+
   NameFormat:
     exclude:
       # roboto variable name can't change
