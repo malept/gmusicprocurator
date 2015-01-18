@@ -121,7 +121,7 @@ assets.register('aurora_mp3', aurora_mp3)
 
 vendor_js = [
     'vendor/jquery/dist/jquery.js',
-    'vendor/lodash/dist/lodash.js',
+    'vendor/underscore/dist/lodash.js',
     'vendor/backbone/backbone.js',
     'vendor/backbone.localstorage/backbone.localStorage.js',
     'vendor/html5-desktop-notifications/desktop-notify.js',
