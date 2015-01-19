@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # vim: set ts=2 sts=2 sw=2 :
 #
-###! Copyright (C) 2014 Mark Lee, under the GPL (version 3+) ###
+###! Copyright (C) 2014, 2015 Mark Lee, under the GPL (version 3+) ###
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 # Models
 ####
 
-class gmp.AllSongs extends gmp.Playlist
+class gmp.AllSongs extends AlpacAudio.Playlist
   ###
   Special-cased playlist for "all songs".
   ###
@@ -34,5 +34,5 @@ class gmp.AllSongs extends gmp.Playlist
     super(data, options)
 
   parse: (resp) ->
-    resp.tracks = new gmp.PlaylistEntries(resp.tracks)
+    resp.tracks = new AlpacAudio.PlaylistEntries(resp.tracks)
     return resp

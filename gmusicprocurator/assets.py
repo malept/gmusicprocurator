@@ -130,17 +130,18 @@ vendor_js = [
 vendor = Bundle(*vendor_js)
 
 cs_modules = [
-    'init',
-    'backends/html5audio',
-    'backends/aurora',
-    'player',
-    'playlist',
-    'all_songs',
-    'queue',
-    'app',
+    'cs/init',
+    'vendor/alpacaudio/script/alpacaudio',
+    'vendor/alpacaudio/script/backends/html5audio',
+    'vendor/alpacaudio/script/backends/aurora',
+    'vendor/alpacaudio/script/player',
+    'vendor/alpacaudio/script/playlist',
+    'cs/all_songs',
+    'vendor/alpacaudio/script/queue',
+    'cs/app',
 ]
 
-cs = bundlify('cs/{0}.coffee', cs_modules, filters='coffeescript',
+cs = bundlify('{0}.coffee', cs_modules, filters='coffeescript',
               output='cs/out.js')
 
 js_kwargs = {

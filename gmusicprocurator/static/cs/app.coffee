@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # vim: set ts=2 sts=2 sw=2 :
 #
-###! Copyright (C) 2014 Mark Lee, under the GPL (version 3+) ###
+###! Copyright (C) 2014, 2015 Mark Lee, under the GPL (version 3+) ###
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,33 +23,33 @@ class gmp.AppView extends Backbone.View
     @initialize_player() if @is_player_page()
 
   initialize_player: ->
-    gmp.playlists = new gmp.PlaylistCollection
+    AlpacAudio.playlists = new AlpacAudio.PlaylistCollection
 
-    @listenTo gmp.playlists, 'add', (playlist) ->
-      view = new gmp.PlaylistEntryView({model: playlist})
+    @listenTo AlpacAudio.playlists, 'add', (playlist) ->
+      view = new AlpacAudio.PlaylistEntryView({model: playlist})
       $('#playlists').append(view.render().el)
 
-    gmp.queue = new gmp.QueueView({model: new gmp.Queue})
-    gmp.playlists.add(gmp.queue.model)
+    AlpacAudio.queue = new AlpacAudio.QueueView({model: new AlpacAudio.Queue})
+    AlpacAudio.playlists.add(AlpacAudio.queue.model)
 
-    gmp.all_songs = new gmp.PlaylistView({model: new gmp.AllSongs})
-    gmp.playlists.add(gmp.all_songs.model)
+    gmp.all_songs = new AlpacAudio.PlaylistView({model: new gmp.AllSongs})
+    AlpacAudio.playlists.add(gmp.all_songs.model)
 
-    gmp.player = new gmp.PlayerView
-      model: gmp.queue.model
-      settings: new gmp.PlayerSettings
-    $('body > footer').append(gmp.player.render().el)
+    AlpacAudio.player = new AlpacAudio.PlayerView
+      model: AlpacAudio.queue.model
+      settings: new AlpacAudio.PlayerSettings
+    $('body > footer').append(AlpacAudio.player.render().el)
 
   render: ->
     @render_player() if @is_player_page()
 
   render_player: ->
     if location.search.indexOf('offline') == -1
-      gmp.playlists.fetch
+      AlpacAudio.playlists.fetch
         remove: false
         success: ->
           $('#playlists-loading').remove()
-          gmp.playlist_router = new gmp.PlaylistRouter
+          gmp.playlist_router = new AlpacAudio.PlaylistRouter
           Backbone.history.start()
     else
       $('#playlists-loading').remove()
