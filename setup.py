@@ -84,7 +84,7 @@ def requires_from_req_txt(filename):
                 requires.append(req)
     return requires
 
-with open('bower.json') as f:
+with open('package.json') as f:
     metadata = json.load(f)
 
 with open('README.rst') as f:
@@ -97,7 +97,7 @@ attrs = {
     'version': metadata['version'],
     'description': metadata['description'],
     'long_description': long_description,
-    'author': metadata['authors'][0],
+    'author': metadata['author']['name'],
     'author_email': 'gmusicprocurator.no.spam@lazymalevolence.com',
     'url': metadata['homepage'],
     'packages': find_packages(),
