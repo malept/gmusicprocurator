@@ -32,6 +32,7 @@ class gmp.AppView extends Backbone.View
     AlpacAudio.queue = new AlpacAudio.QueueView({model: new AlpacAudio.Queue})
     AlpacAudio.playlists.add(AlpacAudio.queue.model)
 
+    AlpacAudio.tracks = new AlpacAudio.Tracks
     gmp.all_songs = new AlpacAudio.PlaylistView({model: new gmp.AllSongs})
     AlpacAudio.playlists.add(gmp.all_songs.model)
 
