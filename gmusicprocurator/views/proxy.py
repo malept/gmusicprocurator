@@ -24,7 +24,7 @@ from io import BytesIO
 import requests
 from shutil import copyfileobj
 from tempfile import NamedTemporaryFile
-from werkzeug.exceptions import ServiceUnavailable
+from werkzeug.exceptions import BadRequest, ServiceUnavailable
 from xspf import Xspf
 
 from ..app import app, music
@@ -303,3 +303,18 @@ def get_playlists():
         })
 
     return Response(xspf.toXml(), mimetype=XSPF_TYPE)
+
+
+@app.route('/search', methods=['POST'])
+@online_only
+def search():
+    """
+    Search All Access for artists/albums/tracks.
+
+    Requires a JSON payload with one key: ``query``.
+    Returns the JSON results directly from the API.
+    """
+    json = request.get_json()
+    if json is None:
+        return BadRequest('JSON payload required')
+    return jsonify(music.search_all_access(json['query']))
