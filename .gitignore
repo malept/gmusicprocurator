@@ -1,5 +1,6 @@
 *.egg-info
 *.inv
+*.map
 *.min.css
 *.min.js*
 *.out.css
