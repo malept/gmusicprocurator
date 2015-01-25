@@ -13,7 +13,6 @@ install:
   - npm install
   - gem install scss-lint
   - bower install --force-latest
-  - pip install wheel
   - pip wheel --find-links wheelhouse -r requirements/dev.txt libsass
   - pip install --find-links wheelhouse -r requirements/dev.txt libsass
 script: ./run_tests.sh
