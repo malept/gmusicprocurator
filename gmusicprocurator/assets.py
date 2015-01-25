@@ -136,6 +136,7 @@ cs_modules = [
     'vendor/alpacaudio/script/backends/aurora',
     'vendor/alpacaudio/script/player',
     'vendor/alpacaudio/script/playlist',
+    'cs/playlist',
     'cs/all_songs',
     'vendor/alpacaudio/script/queue',
     'cs/app',

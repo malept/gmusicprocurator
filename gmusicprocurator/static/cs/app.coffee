@@ -50,7 +50,7 @@ class gmp.AppView extends Backbone.View
         remove: false
         success: ->
           $('#playlists-loading').remove()
-          gmp.playlist_router = new AlpacAudio.PlaylistRouter
+          gmp.playlist_router = new gmp.PlaylistRouter
           Backbone.history.start()
     else
       $('#playlists-loading').remove()
