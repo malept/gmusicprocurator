@@ -3,12 +3,17 @@ python:
   - "2.7"
   - "pypy"
 sudo: false
+cache:
+  - pip
+  - directories:
+    - node_modules
+    - gmusicprocurator/static/vendor
 env:
   - NO_FRONTEND=1
 install:
-  - if [[ -z "$NO_FRONTEND" ]]; then npm install; fi
+  - npm install
   - if [[ -z "$NO_FRONTEND" ]]; then gem install scss-lint; fi
-  - if [[ -z "$NO_FRONTEND" ]]; then bower install --force-latest; fi
+  - bower install --force-latest
   - if [[ -z "$NO_FRONTEND" ]]; then pip install libsass; fi
   - if [[ -z "$NO_PYTHON" ]]; then export REQ_TXT=requirements/dev.txt; else export REQ_TXT=requirements.txt; fi; pip install -r "$REQ_TXT"
 script: ./run_tests.sh
