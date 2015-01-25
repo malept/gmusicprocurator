@@ -4,9 +4,15 @@ GMusicProcurator
 
 .. image:: https://travis-ci.org/malept/gmusicprocurator.svg?branch=master
    :target: https://travis-ci.org/malept/gmusicprocurator
+   :alt: [Travis CI]
 
 .. image:: https://readthedocs.org/projects/gmusicprocurator/badge/
    :target: https://gmusicprocurator.readthedocs.org/
+   :alt: [Read The Docs]
+
+.. image:: https://img.shields.io/badge/Hu-Board-8165d0.svg?style=flat
+   :target: https://huboard.com/malept/gmusicprocurator
+   :alt: [HuBoard]
 
 A proxy/HTML5 frontend for Google Music streaming. This mini webapp is
 inspired by GMusicProxy_.
