@@ -1,10 +1,21 @@
 [%
 var track = pt.track;
 var aa = track.get('albumArtRef');
+var track_duration = track.get('durationMillis') / 1000;
+var track_mins = Math.floor(track_duration / 60);
+var track_secs = track_duration % 60;
+var fmt_time = function (num) {
+  if (num >= 0 && num < 10) {
+      return '0' + num;
+    } else {
+      return '' + num;
+    }
+};
 %]
 <tr data-entry-id="[[ pt.id ]]">
   <td class="albumart">[% if (!!aa) { %]<span data-idx="[[ pt.idx ]]" data-art-url="[[ aa[0].url ]]" style="background-image:url([[ aa[0].url ]])"><span class="fa"></span></span>[% } %]</td>
   <td>[[ track.get('title') ]]</td>
+  <td>[[ fmt_time(track_mins) ]]:[[ fmt_time(track_secs) ]]</td>
   <td>[[ track.get('artist') ]]</td>
   <td>[[ track.get('album') ]]</td>
   <td>[[ track.get('trackNumber') ]]</td>
