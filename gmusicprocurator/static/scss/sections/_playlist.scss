@@ -1,23 +1,5 @@
 #playlist {
-  @include flexify;
-
-  > div {
-    @include display(flex);
-    @include flex-direction(column);
-    width: 100%;
-  }
-
-  .playlist-contents {
-    @include flexify;
-    overflow-y: auto;
-    width: 100%;
-
-    > div {
-      @include display(flex);
-      @include value-prefixer(min-height, min-content, webkit moz);
-      width: 100%;
-    }
-  }
+  @include scrollable-flexbox-container;
 
   .listing {
     font-size: smaller;

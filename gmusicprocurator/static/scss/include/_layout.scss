@@ -28,3 +28,19 @@ main {
     width: 20%;
   }
 }
+
+.scrollable-container {
+  @include scrollable-flexbox-container;
+}
+
+.scrollable-contents {
+  @include flexify;
+  overflow-y: auto;
+  width: 100%;
+
+  > div {
+    @include display(flex);
+    @include value-prefixer(min-height, min-content, webkit moz);
+    width: 100%;
+  }
+}

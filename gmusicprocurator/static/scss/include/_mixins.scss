@@ -3,6 +3,16 @@
   @include flex(1);
 }
 
+@mixin scrollable-flexbox-container {
+  @include flexify;
+
+  > div {
+    @include display(flex);
+    @include flex-direction(column);
+    width: 100%;
+  }
+}
+
 @mixin text-outline($color, $size: 1px) {
   // Based on https://stackoverflow.com/a/4919231
   $nsize: -$size;

@@ -8,7 +8,7 @@
     </ul>
     [% } /* !queue */ %]
   </section>
-  <div class="playlist-contents">
+  <div class="scrollable-contents">
     <div>[% /* For flexbox */ %]
       <table data-playlist-id="[[ playlist.id ]]" class="listing pure-table pure-table-striped">
         <thead>
