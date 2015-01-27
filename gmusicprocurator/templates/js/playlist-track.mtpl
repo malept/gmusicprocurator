@@ -3,7 +3,7 @@ var track = pt.track;
 var aa = track.get('albumArtRef');
 var track_duration = track.get('durationMillis') / 1000;
 var track_mins = Math.floor(track_duration / 60);
-var track_secs = track_duration % 60;
+var track_secs = Math.round(track_duration % 60);
 var fmt_time = function (num) {
   if (num >= 0 && num < 10) {
       return '0' + num;
