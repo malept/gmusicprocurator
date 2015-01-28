@@ -33,7 +33,7 @@ class gmp.PlaylistRouter extends Backbone.Router
     view = @playlists[id]
     func = 'replace'
     unless view
-      view = new AlpacAudio.PlaylistView({
+      view = new AlpacAudio.TrackListView({
         model: AlpacAudio.playlists.get(id)
       })
       @playlists[id] = view

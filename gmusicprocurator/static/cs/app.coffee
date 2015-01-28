@@ -26,14 +26,14 @@ class gmp.AppView extends Backbone.View
     AlpacAudio.playlists = new AlpacAudio.PlaylistCollection
 
     @listenTo AlpacAudio.playlists, 'add', (playlist) ->
-      view = new AlpacAudio.PlaylistEntryView({model: playlist})
+      view = new AlpacAudio.TrackListEntryView({model: playlist})
       $('#playlists').append(view.render().el)
 
     AlpacAudio.queue = new AlpacAudio.QueueView({model: new AlpacAudio.Queue})
     AlpacAudio.playlists.add(AlpacAudio.queue.model)
 
     AlpacAudio.tracks = new AlpacAudio.Tracks
-    gmp.all_songs = new AlpacAudio.PlaylistView({model: new gmp.AllSongs})
+    gmp.all_songs = new AlpacAudio.TrackListView({model: new gmp.AllSongs})
     AlpacAudio.playlists.add(gmp.all_songs.model)
 
     AlpacAudio.player = new AlpacAudio.PlayerView

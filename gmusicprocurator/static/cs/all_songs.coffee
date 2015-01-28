@@ -20,7 +20,7 @@
 # Models
 ####
 
-class gmp.AllSongs extends AlpacAudio.Playlist
+class gmp.AllSongs extends AlpacAudio.TrackList
   ###
   Special-cased playlist for "all songs".
   ###
@@ -34,5 +34,5 @@ class gmp.AllSongs extends AlpacAudio.Playlist
     super(data, options)
 
   parse: (resp) ->
-    resp.tracks = new AlpacAudio.PlaylistEntries(resp.tracks)
+    resp.tracks = new AlpacAudio.TrackListEntries(resp.tracks)
     return resp
