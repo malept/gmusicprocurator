@@ -309,7 +309,7 @@ def get_playlists():
 @online_only
 def get_album_info(album_id):
     """Retrieve the album metadata from the Google Music API in JSON."""
-    return jsonify(music.get_album_info(album_id, include_tracks=True))
+    return jsonify(music.get_album_info(album_id))
 
 
 @app.route('/search', methods=['POST'])
