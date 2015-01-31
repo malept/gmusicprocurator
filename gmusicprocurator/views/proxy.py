@@ -78,6 +78,15 @@ def mp3ify(resp):
 
 
 def render_playlist(playlist_id, playlist):
+    """
+    Render a playlist, depending on the HTTP ``Accept`` header.
+
+    By default, it returns an XSPF_-formatted playlist. If ``application/json``
+    is preferred in the ``Accept`` HTTP header, it will return the JSON
+    representation that is returned by GMusic.
+
+    .. _XSPF: http://xspf.org/
+    """
     resp_type = request.accept_mimetypes.best_match([XSPF_TYPE, JSON_TYPE])
     # Return JSON playlist only if explicitly requested.
     if resp_type == JSON_TYPE:
@@ -301,7 +310,15 @@ def get_playlists():
 @app.route('/albums/<album_id>')
 @online_only
 def get_album_info(album_id):
-    """Retrieve the album metadata from the Google Music API in JSON."""
+    """
+    Retrieve the album metadata from the Google Music API.
+
+    By default, it returns an XSPF_-formatted playlist. If ``application/json``
+    is preferred in the ``Accept`` HTTP header, it will return the JSON
+    representation that is returned by GMusic.
+
+    .. _XSPF: http://xspf.org/
+    """
     album = music.get_album_info(album_id)
     album['tracks'] = [{'track': song} for song in album['tracks']]
     return render_playlist(album_id, album)
