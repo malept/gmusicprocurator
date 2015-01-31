@@ -103,6 +103,13 @@ def gmusic_playlist_to_xspf(playlist_id, playlist):
             'date': datetime.now().isoformat(),
             'location': url_for('get_all_songs_playlist', _external=True),
         }
+    elif playlist_id.startswith('B') and len(playlist_id) == 27:
+        xspf_kwargs = {
+            'title': playlist['name'],
+            'date': datetime(playlist['year'], 1, 1).isoformat(),
+            'location': url_for('get_album_info', _external=True,
+                                album_id=playlist_id),
+        }
     else:
         create_ts = int(playlist['creationTimestamp']) / 1000000.0
         xspf_kwargs = {
@@ -295,7 +302,9 @@ def get_playlists():
 @online_only
 def get_album_info(album_id):
     """Retrieve the album metadata from the Google Music API in JSON."""
-    return jsonify(music.get_album_info(album_id))
+    album = music.get_album_info(album_id)
+    album['tracks'] = [{'track': song} for song in album['tracks']]
+    return render_playlist(album_id, album)
 
 
 @app.route('/artists/<artist_id>')
