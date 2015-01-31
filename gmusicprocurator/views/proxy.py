@@ -312,6 +312,13 @@ def get_album_info(album_id):
     return jsonify(music.get_album_info(album_id))
 
 
+@app.route('/artists/<artist_id>')
+@online_only
+def get_artist_info(artist_id):
+    """Retrieve the artist metadata from the Google Music API in JSON."""
+    return jsonify(music.get_artist_info(artist_id))
+
+
 @app.route('/search', methods=['POST'])
 @online_only
 def search():
