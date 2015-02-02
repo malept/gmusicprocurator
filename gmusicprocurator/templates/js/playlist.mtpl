@@ -1,16 +1,22 @@
 <div>[% /* For flexbox */ %]
+  [% if (typeof(playlist.description) !== 'undefined') { %]
   <section id="playlist-info">
+    [% if (!!playlist.name) { %]
     <h3 class="delta name">[[ playlist.name ]]</h3>
+    [% } /* playlist.name */ %]
     [% if (playlist.id != gmp.QUEUE_ID) { %]
-    <ul>
+    <ul class="actions">
+      [% if (!!playlist.id) { %]
       <li><a href="/playlists/[[ playlist.id ]]">XSPF Playlist</a></li>
+      [% } /* playlist.id */ %]
       <li><button class="add-to-queue">Add to queue</button></li>
     </ul>
     [% } /* !queue */ %]
   </section>
+  [% } /* playlist.description */ %]
   <div class="scrollable-contents">
     <div>[% /* For flexbox */ %]
-      <table data-playlist-id="[[ playlist.id ]]" class="listing pure-table pure-table-striped">
+      <table[% if (!!playlist.id) { %] data-playlist-id="[[ playlist.id ]]"[% } %] class="listing pure-table pure-table-striped">
         <thead>
           <tr>
             <th>&nbsp;</th>
