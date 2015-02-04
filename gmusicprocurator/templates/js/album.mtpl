@@ -1,0 +1,19 @@
+<div>[% /* For flexbox */ %]
+  <h3>[[ album.name ]] - [[ album.artist ]]</h3>
+
+  <section id="album-metadata">
+    <figure>
+      <img src="[[ album.albumArtRef ]]" alt="">
+      <figcaption>
+        <p>[[ album.tracks.length ]] song[% if (album.tracks.length != 1) { %]s[% } %]</p>
+        <p>[[ AlpacAudio.human_readable_milliseconds(album.duration) ]]</p>
+        <p>[[ album.year ]]</p>
+        <p>[[ album.genres.join(', ') ]]</p>
+      </figcaption>
+    </figure>
+    <ul class="actions">
+      <li><a href="/albums/[[ album.id ]]">XSPF Playlist</a></li>
+      <li><button class="add-to-queue">Add to queue</button></li>
+    </ul>
+  </section>
+</div>

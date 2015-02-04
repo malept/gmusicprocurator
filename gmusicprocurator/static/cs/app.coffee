@@ -51,6 +51,7 @@ class gmp.AppView extends Backbone.View
         success: ->
           $('#playlists-loading').remove()
           gmp.playlist_router = new gmp.PlaylistRouter
+          gmp.metadata_router = new gmp.MetadataRouter
           Backbone.history.start()
     else
       $('#playlists-loading').remove()

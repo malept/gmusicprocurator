@@ -1,0 +1,22 @@
+#album-metadata {
+  @include display(flex);
+  @include flex-direction(row);
+
+  figcaption {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  figure {
+    @include flex-grow(1);
+    margin: 0;
+
+    img {
+      width: 300px;
+    }
+  }
+
+  p + p {
+    text-indent: 0;
+  }
+}

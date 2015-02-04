@@ -7,6 +7,6 @@ var aa = track.get('albumArtRef');
   <td>[[ track.get('title') ]]</td>
   <td>[[ AlpacAudio.human_readable_milliseconds(track.get('durationMillis')) ]]</td>
   <td>[[ track.get('artist') ]]</td>
-  <td>[[ track.get('album') ]]</td>
+  <td><a href="#/albums/[[ track.get('albumId') ]]">[[ track.get('album') ]]</a></td>
   <td>[[ track.get('trackNumber') ]]</td>
 </tr>
