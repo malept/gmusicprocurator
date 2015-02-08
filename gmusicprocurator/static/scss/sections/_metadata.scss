@@ -1,22 +1,91 @@
-#album-metadata {
+#album-metadata,
+#artist-metadata {
   @include display(flex);
   @include flex-direction(row);
 
   figcaption {
     display: inline-block;
+    padding: 0 10px;
     vertical-align: top;
   }
 
   figure {
+    @include display(flex);
+    @include flex-direction(row);
     @include flex-grow(1);
     margin: 0;
 
     img {
-      width: 300px;
+      object-fit: contain;
+    }
+  }
+}
+
+#album,
+#artist {
+  p + p {
+    text-indent: 0;
+  }
+}
+
+#album-metadata img {
+  max-height: 300px;
+  max-width: 300px;
+}
+
+#artist-metadata img {
+  max-height: 180px;
+  max-width: 360px;
+}
+
+#artist-metadata + section > div {
+  @include display(flex);
+  @include flex-direction(column);
+}
+
+#artist > div > section {
+  display: block;
+}
+
+#albums {
+  margin-top: 10px;
+}
+
+.secondary-album-art {
+  width: 160px;
+}
+
+.secondary-artist-art {
+  max-width: 320px;
+}
+
+.scrollable-figures {
+  ul {
+    margin: 0;
+    overflow-x: auto;
+    padding: 0;
+    white-space: nowrap;
+    width: 99%;
+  }
+
+  li {
+    display: inline-block;
+    list-style-type: none;
+    margin: 0 10px;
+
+    &:first-child,
+    &:last-child {
+      margin: 0;
     }
   }
 
-  p + p {
-    text-indent: 0;
+  figcaption p {
+    @include overflow-ellipsis;
+  }
+
+  figure,
+  img {
+    display: inline-block;
+    margin: 0;
   }
 }

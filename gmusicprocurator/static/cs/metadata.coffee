@@ -16,16 +16,20 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-class gmp.Album extends AlpacAudio.TrackList
-  urlRoot: '/albums'
+class gmp.Metadata extends AlpacAudio.TrackList
 
   constructor: (data, options) ->
     super(data, options)
     @tracklist = new AlpacAudio.TrackListView(model: this)
 
   parse: (resp) ->
-    resp.tracks = new AlpacAudio.TrackListEntries(resp.tracks)
+    tracks_attr = @tracks_attr or 'tracks'
+    resp.tracks = new AlpacAudio.TrackListEntries(resp[tracks_attr])
     return resp
+
+
+class gmp.Album extends gmp.Metadata
+  urlRoot: '/albums'
 
   duration: ->
     ###
@@ -59,24 +63,57 @@ class gmp.AlbumView extends AlpacAudio.TrackListView
     return data
 
 
+class gmp.Artist extends gmp.Metadata
+  urlRoot: '/artists'
+  tracks_attr: 'topTracks'
+
+  parse: (resp) ->
+    resp[@tracks_attr] = ({track: t} for t in resp[@tracks_attr])
+    return super(resp)
+
+
+class gmp.Artists extends Backbone.Collection
+
+
+class gmp.ArtistView extends AlpacAudio.SingletonView
+  className: 'scrollable-container'
+  id: 'artist'
+  tagName: 'section'
+  template: AlpacAudio.get_template('artist', 'artist')
+
+
 class gmp.MetadataRouter extends Backbone.Router
   routes:
     'albums/:id': 'load_album'
+    'artists/:id': 'load_artist'
 
-  render_album: (album) ->
-    if gmp.album_view?
-      gmp.album_view.model = album
+  render_item: (item, view_attr, view_cls, tracklist_selector) ->
+    if gmp[view_attr]?
+      gmp[view_attr].model = item
     else
-      gmp.album_view = new gmp.AlbumView(model: album)
-    gmp.album_view.renderify('main nav:first', 'after')
-    album.tracklist.renderify('#album-metadata', 'after')
+      gmp[view_attr] = new view_cls(model: item)
+    gmp[view_attr].renderify('main nav:first', 'after')
+    item.tracklist.renderify(tracklist_selector, 'after')
+
+  render_album: (album) =>
+    @render_item(album, 'album_view', gmp.AlbumView, '#album-metadata')
+
+  render_artist: (artist) =>
+    artist.set('dont_scroll', true)
+    @render_item(artist, 'artist_view', gmp.ArtistView, '#related-artists + h4')
+
+  load_item: (id, collection_attr, collection, model, render_item) ->
+    gmp[collection_attr] ?= new collection
+    item = gmp[collection_attr].get(id)
+    if item
+      render_item(item)
+    else
+      item = new model(id: id)
+      gmp[collection_attr].add(item)
+      item.fetch(success: -> render_item(item))
 
   load_album: (id) ->
-    gmp.albums ?= new gmp.Albums
-    album = gmp.albums.get(id)
-    if album
-      @render_album(album)
-    else
-      album = new gmp.Album(id: id)
-      gmp.albums.add(album)
-      album.fetch(success: => @render_album(album))
+    @load_item(id, 'albums', gmp.Albums, gmp.Album, @render_album)
+
+  load_artist: (id) ->
+    @load_item(id, 'artists', gmp.Artists, gmp.Artist, @render_artist)

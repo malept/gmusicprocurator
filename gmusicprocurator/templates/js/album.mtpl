@@ -1,5 +1,5 @@
 <div>[% /* For flexbox */ %]
-  <h3>[[ album.name ]] - [[ album.artist ]]</h3>
+  <h3>[[ album.name ]] - [% if (!!album.artistId) { %]<a href="#/artists/[[ album.artistId[0] ]]">[% } %][[ album.artist ]][% if (!!album.artistId) { %]</a>[% } %]</h3>
 
   <section id="album-metadata">
     <figure>

@@ -3,6 +3,12 @@
   @include flex(1);
 }
 
+@mixin overflow-ellipsis {
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 @mixin scrollable-flexbox-container {
   @include flexify;
 
