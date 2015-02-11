@@ -1,0 +1,7 @@
+{
+  "gmusicprocurator/static/cs/*.coffee": {"type": "script"},
+  "gmusicprocurator/static/scss/*.scss": {"type": "style"},
+  "gmusicprocurator/templates/*.html": {"type": "template"},
+  "gmusicprocurator/templates/js/*.mtpl": {"type": "mtemplate"},
+  "gmusicprocurator/views/*.py": {"type": "view"}
+}
