@@ -28,5 +28,6 @@
     "coffeelint": "1.x",
     "csslint": "0.x"
   },
+  "coffeelintConfig": ".coffeelint.json",
   "private": true
 }
