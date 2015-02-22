@@ -19,6 +19,25 @@ footer {
   width: 100%;
 }
 
+header {
+  @include display(flex);
+  @include flex-direction(row);
+}
+
+h1,
+#search {
+  padding: 10px;
+}
+
+h1 {
+  @include flex-grow(1);
+}
+
+#search {
+  @include align-items(flex-end);
+  @include flex-shrink;
+}
+
 main {
   @include flexify;
   @include flex-direction(row);

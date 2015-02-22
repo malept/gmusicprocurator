@@ -97,6 +97,7 @@ typography = Bundle('scss/typography.scss', filters=sass_filter,
 
 pure_modules = [
     'buttons',
+    'forms',
     'tables',
 ]
 
@@ -140,6 +141,7 @@ cs_modules = [
     'cs/playlist',
     'cs/all_songs',
     'vendor/alpacaudio/script/queue',
+    'cs/search',
     'cs/app',
 ]
 

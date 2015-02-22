@@ -36,6 +36,9 @@ class gmp.AppView extends Backbone.View
     gmp.all_songs = new AlpacAudio.TrackListView({model: new gmp.AllSongs})
     AlpacAudio.playlists.add(gmp.all_songs.model)
 
+    gmp.search_box = new gmp.SearchBox
+    $('body > header').append(gmp.search_box.render().el)
+
     AlpacAudio.player = new AlpacAudio.PlayerView
       model: AlpacAudio.queue.model
       settings: new AlpacAudio.PlayerSettings
@@ -52,6 +55,7 @@ class gmp.AppView extends Backbone.View
           $('#playlists-loading').remove()
           gmp.playlist_router = new gmp.PlaylistRouter
           gmp.metadata_router = new gmp.MetadataRouter
+          gmp.search_router = new gmp.SearchRouter
           Backbone.history.start()
     else
       $('#playlists-loading').remove()

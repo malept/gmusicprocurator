@@ -1,0 +1,2 @@
+<input type="search" name="query" placeholder="Search…" required="required" value="[% if (typeof query != 'undefined' && !!query) { %][[ query ]][% } %]">[% /* eliminate padding
+*/ %]<button type="submit" class="pure-button" title="Search"><span class="fa fa-search"></span></button>

@@ -1,0 +1,41 @@
+#search {
+  button {
+    border: 1px solid transparent;
+    border-radius: 0 4px 4px 0;
+  }
+
+  input {
+    border-bottom-right-radius: 0;
+    border-right-width: 0;
+    border-top-right-radius: 0;
+    box-shadow: none;
+  }
+}
+
+#search-results {
+  .scrollable-contents > div {
+    @include flex-direction(column);
+  }
+
+  section {
+    margin-bottom: 18em;
+    width: 100%;
+
+    + h4 {
+      margin: 2em 0;
+    }
+  }
+
+  p {
+    @include overflow-ellipsis;
+    margin: 0;
+
+    + p {
+      text-indent: 0;
+    }
+  }
+
+  #playlist {
+    display: block;
+  }
+}
