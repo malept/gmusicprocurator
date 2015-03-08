@@ -23,7 +23,7 @@
           <tr>
             <th>&nbsp;</th>
             <th>Track</th>
-            <th><span class="fa fa-clock-o"></span></th>
+            <th><span class="fa fa-clock-o" title="Duration"></span></th>
             <th>Artist</th>
             <th>Album</th>
             <th>#</th>
