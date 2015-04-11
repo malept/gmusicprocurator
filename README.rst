@@ -6,6 +6,10 @@ GMusicProcurator
    :target: https://travis-ci.org/malept/gmusicprocurator
    :alt: [Travis CI]
 
+.. image:: https://codeclimate.com/github/malept/gmusicprocurator/badges/gpa.svg
+   :target: https://codeclimate.com/github/malept/gmusicprocurator
+   :alt: [CodeClimate]
+
 .. image:: https://readthedocs.org/projects/gmusicprocurator/badge/
    :target: https://gmusicprocurator.readthedocs.org/
    :alt: [Read The Docs]
