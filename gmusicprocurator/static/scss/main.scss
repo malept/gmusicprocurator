@@ -23,5 +23,6 @@
 }
 
 .invisible {
+  // scss-lint:disable ImportantRule
   visibility: hidden !important;
 }

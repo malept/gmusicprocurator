@@ -7,18 +7,3 @@ linters:
 
   IdSelector:
     enabled: false
-
-  NameFormat:
-    exclude:
-      # roboto variable name can't change
-      - '*/typography.scss'
-
-  TrailingSemicolonAfterPropertyValue:
-    exclude:
-      # Due to a weird parsing quirk
-      - '*/_mixins.scss'
-
-  VendorPrefixes:
-    exclude:
-      # Can't do much about flex boxes…
-      - '*/_flex-box.scss'
