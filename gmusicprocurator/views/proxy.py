@@ -28,7 +28,7 @@ from werkzeug.exceptions import BadRequest, ServiceUnavailable
 from xspf import Xspf
 
 from ..app import app, music
-from ..id3 import EasyMP3
+from ..id3 import convert_google_field_to_mp3, EasyMP3
 
 HALF_MB = 1024 * 512  # in bytes
 
@@ -166,22 +166,10 @@ def add_id3_tags_to_mp3(song_id, input_data):
         f.write(input_data.getvalue())
         f.flush()
         audio = EasyMP3(f.name)
-        for gmf, id3f in METADATA_FIELDS.iteritems():
-            if gmf in song_info:
-                if isinstance(song_info[gmf], basestring):
-                    audio[id3f] = song_info[gmf]
-                elif isinstance(song_info[gmf], list):
-                    # take the first value, see what it is
-                    val = song_info[gmf][0]
-                    if isinstance(val, basestring):
-                        audio[id3f] = val
-                    elif isinstance(val, dict) and 'url' in val:
-                        # e.g., albumArtRef
-                        audio[id3f] = val['url']
-                    else:
-                        audio[id3f] = str(val)
-                else:
-                    audio[id3f] = str(song_info[gmf])
+        audio.update(dict(
+            [(id3_field, convert_google_field_to_mp3(song_info[google_field]))
+             for google_field, id3_field in METADATA_FIELDS.iteritems()
+             if google_field in song_info]))
         audio.save()
         copyfileobj(open(f.name, 'rb'), output)
     return output

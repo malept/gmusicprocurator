@@ -40,4 +40,26 @@ def set_albumart(id3, key, urls):
 
 EasyID3.RegisterKey('albumart', setter=set_albumart)
 
+
+def convert_google_field_to_mp3(google_value):
+    """
+    Convert a Google metadata field value to the equivalent ID3 tag value.
+
+    :rtype: str
+    """
+    if isinstance(google_value, basestring):
+        return google_value
+    elif isinstance(google_value, list):
+        # take the first value, see what it is
+        item = google_value[0]
+        if isinstance(item, basestring):
+            return item
+        elif isinstance(item, dict) and 'url' in item:
+            # e.g., albumArtRef
+            return item['url']
+        else:
+            return str(item)
+    else:
+        return str(google_value)
+
 __all__ = ('EasyMP3',)
