@@ -1,5 +1,5 @@
 <div>[% /* For flexbox */ %]
-  [% if (typeof(playlist.description) !== 'undefined') { %]
+  [% if (typeof(playlist.ownerName) !== 'undefined' || playlist.id == AlpacAudio.QUEUE_ID) { %]
   <section id="playlist-info">
     [% if (!!playlist.name) { %]
     <h3 class="delta name">[[ playlist.name ]]</h3>
