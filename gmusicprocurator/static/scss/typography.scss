@@ -1,3 +1,5 @@
+// scss-lint:disable PlaceholderInExtend
+
 $roboto-font-path: 'vendor/roboto-fontface/fonts';
 
 @import '../vendor/roboto-fontface/roboto-fontface';
@@ -12,3 +14,15 @@ $typl8-font-size: 100;
 $fa-font-path: 'vendor/font-awesome/fonts';
 
 @import '../vendor/font-awesome/scss/font-awesome';
+
+h1 {
+  @extend .typl8-beta;
+}
+
+h3 {
+  @extend .typl8-delta;
+}
+
+h4 {
+  @extend .typl8-epsilon;
+}
