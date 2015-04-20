@@ -17,9 +17,9 @@
   ],
   "dependencies": {
     "alpacaudio": "malept/alpacaudio",
-    "normalize-css": "~3.0.1",
-    "pure": "~0.5.0",
-    "roboto-fontface": "~0.2.0",
-    "typeplate": "typeplate-starter-kit#~2.0.0"
+    "normalize-css": "~3.0.2",
+    "pure": "~0.6.0",
+    "roboto-fontface": "~0.3.0",
+    "typeplate": "typeplate-starter-kit#~2.1.0"
   }
 }
