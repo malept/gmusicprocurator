@@ -44,6 +44,19 @@ hosted on `Read the Docs`_.
 
 .. _Read the Docs: https://gmusicprocurator.readthedocs.org/
 
+Related
+-------
+
+* `Electron frontend`_ - desktop shell for GMusicProcurator using
+  Atom's Electron_
+* `Saltstack formula`_ - Use the Saltstack_ configuration management system to
+  install GMusicProcurator
+
+.. _Electron frontend: https://github.com/malept/gmusicprocurator-app
+.. _Electron: http://electron.atom.io/
+.. _Saltstack formula: https://github.com/malept/gmusicprocurator-formula
+.. _Saltstack: https://docs.saltstack.com/
+
 Legal
 -----
 
