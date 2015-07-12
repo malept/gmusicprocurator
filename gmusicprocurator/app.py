@@ -55,7 +55,7 @@ else:
     if password is None:
         music = None
     else:
-        music.login(email, password)
+        music.login(email, password, app.config.get('GACCOUNT_DEVICE_ID'))
 
 if app.debug and app.config['GMP_MEMORY_PROFILER']:
     from guppy import hpy

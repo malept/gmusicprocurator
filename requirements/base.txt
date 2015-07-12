@@ -1,6 +1,6 @@
 Flask
 Flask-Script
-gmusicapi
+gmusicapi >= 6.0.0
 keyring
 # xspf
 git+https://github.com/alastair/xspf.git#egg=xspf
