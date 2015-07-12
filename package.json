@@ -26,7 +26,7 @@
   "devDependencies": {
     "coffeedoc": "0.x",
     "coffeelint": "1.x",
-    "csslint": "CSSLint/csslint#f69cf12"
+    "csslint": "0.x"
   },
   "coffeelintConfig": ".coffeelint.json",
   "private": true
