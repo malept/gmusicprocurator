@@ -26,5 +26,5 @@ if [[ -z "$NO_FRONTEND" ]]; then
         mkdir -p "$CFG_DIR"
         echo 'GMP_OFFLINE_MODE = True' > "$CFG_PATH"
     fi
-    python -m gmusicprocurator assets build --no-cache
+    GMP_OFFLINE_MODE=1 python -m gmusicprocurator assets build --no-cache
 fi
