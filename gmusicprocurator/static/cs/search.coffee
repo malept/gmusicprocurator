@@ -65,7 +65,7 @@ class gmp.SearchBox extends AlpacAudio.SingletonView
 
   send_query: (e) ->
     e.preventDefault()
-    query = @$el.find('[name=query]').val()
+    query = window.encodeURIComponent(@$el.find('[name=query]').val())
     window.location.hash = "#/search/#{query}"
     return false
 
