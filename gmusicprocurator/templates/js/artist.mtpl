@@ -1,11 +1,11 @@
 <div>[% /* For flexbox */ %]
-  <h3>[[ artist.name ]]</h3>
+  <h3>[%- artist.name %]</h3>
 
   <section id="artist-metadata">
     <figure>
       <img src="[[ artist.artistArtRef ]]" alt="">
       <figcaption>
-        <p>[[ artist.artistBio ]]</p>
+        <p>[%- artist.artistBio %]</p>
       </figcaption>
     </figure>
   </section>
@@ -16,10 +16,10 @@
       <ul>
       [% artist.albums.forEach(function (album) { %]
         <li><figure class="secondary-album-art">
-          <a href="#/albums/[[ album.albumId ]]"><img src="[[ album.albumArtRef ]]" alt="" title="[[ album.name ]]" class="secondary-album-art"></a>
+          <a href="#/albums/[[ album.albumId ]]"><img src="[[ album.albumArtRef ]]" alt="" title="[%- album.name %]" class="secondary-album-art"></a>
           <figcaption>
-            <p><a href="#/albums/[[ album.albumId ]]" title="[[ album.name ]]">[[ album.name ]]</a></p>
-            <p>[% if (!!album.artistId[0]) { %]<a href="#/artists/[[ album.artistId[0] ]]" title="[[ album.artist ]]">[% } %][[ album.artist ]][% if (!!album.artistId[0]) { %]</a>[% } %]</p>
+            <p><a href="#/albums/[[ album.albumId ]]" title="[%- album.name %]">[%- album.name %]</a></p>
+            <p>[% if (!!album.artistId[0]) { %]<a href="#/artists/[[ album.artistId[0] ]]" title="[%- album.artist %]">[% } %][%- album.artist %][% if (!!album.artistId[0]) { %]</a>[% } %]</p>
           </figcaption>
         </figure></li>
       [% }); /* artist.albums.forEach */ %]
@@ -32,8 +32,8 @@
       <ul>
       [% artist.related_artists.forEach(function (related) { %]
         <li><a href="#/artists/[[ related.artistId ]]"><figure class="secondary-artist-art">
-          <img src="[[ related.artistArtRef ]]" alt="" title="[[ related.name ]]" class="secondary-artist-art">
-          <figcaption title="[[ related.name ]]">[[ related.name ]]</figcaption>
+          <img src="[[ related.artistArtRef ]]" alt="" title="[%- related.name %]" class="secondary-artist-art">
+          <figcaption title="[%- related.name %]">[%- related.name %]</figcaption>
         </figure></a></li>
       [% }); /* artist.related_artists.forEach */ %]
       </ul>

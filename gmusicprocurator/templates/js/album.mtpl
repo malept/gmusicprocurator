@@ -1,14 +1,14 @@
 <div>[% /* For flexbox */ %]
-  <h3>[[ album.name ]] - [% if (!!album.artistId) { %]<a href="#/artists/[[ album.artistId[0] ]]">[% } %][[ album.artist ]][% if (!!album.artistId) { %]</a>[% } %]</h3>
+  <h3>[%- album.name %] - [% if (!!album.artistId) { %]<a href="#/artists/[[ album.artistId[0] ]]">[% } %][%- album.artist %][% if (!!album.artistId) { %]</a>[% } %]</h3>
 
   <section id="album-metadata">
     <figure>
       <img src="[[ album.albumArtRef ]]" alt="">
       <figcaption>
-        <p>[[ album.tracks.length ]] song[% if (album.tracks.length != 1) { %]s[% } %]</p>
-        <p>[[ AlpacAudio.human_readable_milliseconds(album.duration) ]]</p>
-        <p>[[ album.year ]]</p>
-        <p>[[ album.genres.join(', ') ]]</p>
+        <p>[%- album.tracks.length %] song[% if (album.tracks.length != 1) { %]s[% } %]</p>
+        <p>[%- AlpacAudio.human_readable_milliseconds(album.duration) %]</p>
+        <p>[%- album.year %]</p>
+        <p>[%- album.genres.join(', ') %]</p>
       </figcaption>
     </figure>
     <ul class="actions">

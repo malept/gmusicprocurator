@@ -2,7 +2,7 @@
   [% if (typeof(playlist.ownerName) !== 'undefined' || playlist.id == AlpacAudio.QUEUE_ID) { %]
   <section id="playlist-info">
     [% if (!!playlist.name) { %]
-    <h3 class="name">[[ playlist.name ]]</h3>
+    <h3 class="name">[%- playlist.name %]</h3>
     [% } /* playlist.name */ %]
     [% if (playlist.id != AlpacAudio.QUEUE_ID) { %]
     <ul class="actions">

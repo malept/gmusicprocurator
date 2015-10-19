@@ -8,8 +8,8 @@
       <ul>
       [% model.artist_hits.forEach(function (hit) { %]
         <li><a href="#/artists/[[ hit.artist.artistId ]]"><figure>
-          <img src="[[ hit.artist.artistArtRef ]]" alt="" title="[[ hit.artist.name ]]" class="secondary-artist-art">
-          <figcaption title="[[ hit.artist.name ]]">[[ hit.artist.name ]]</figcaption>
+          <img src="[[ hit.artist.artistArtRef ]]" alt="" title="[%- hit.artist.name %]" class="secondary-artist-art">
+          <figcaption title="[%- hit.artist.name %]">[%- hit.artist.name %]</figcaption>
         </figure></a></li>
       [% }); /* artist_hits.forEach */ %]
       </ul>
@@ -22,10 +22,10 @@
       <ul>
       [% model.album_hits.forEach(function (hit) { %]
         <li><figure>
-          <a href="#/albums/[[ hit.album.albumId ]]"><img src="[[ hit.album.albumArtRef ]]" alt="" title="[[ hit.album.name ]]" class="secondary-album-art"></a>
+          <a href="#/albums/[[ hit.album.albumId ]]"><img src="[[ hit.album.albumArtRef ]]" alt="" title="[%- hit.album.name %]" class="secondary-album-art"></a>
           <figcaption>
-            <p><a href="#/albums/[[ hit.album.albumId ]]" title="[[ hit.album.name ]]">[[ hit.album.name ]]</a></p>
-            <p>[% if (!!hit.album.artistId[0]) { %]<a href="#/artists/[[ hit.album.artistId[0] ]]" title="[[ hit.album.artist ]]">[% } %][[ hit.album.artist ]][% if (!!hit.album.artistId[0]) { %]</a>[% } %]</p>
+            <p><a href="#/albums/[[ hit.album.albumId ]]" title="[%- hit.album.name %]">[%- hit.album.name %]</a></p>
+            <p>[% if (!!hit.album.artistId[0]) { %]<a href="#/artists/[[ hit.album.artistId[0] ]]" title="[%- hit.album.artist %]">[% } %][% hit.album.artist %][% if (!!hit.album.artistId[0]) { %]</a>[% } %]</p>
           </figcaption>
         </figure></li>
       [% }); /* album_hits.forEach */ %]

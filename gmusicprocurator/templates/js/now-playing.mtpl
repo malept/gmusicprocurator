@@ -3,9 +3,9 @@
 [% } /* albumArtRef */ %]
 <span class="details">
   <span class="primary">
-    <b>[[ track.title ]]</b>
+    <b>[%- track.title %]</b>
   </span>
   <span class="secondary">
-    <span>[[ track.artist ]]</span>: <i>[[ track.album ]]</i>
+    <span>[%- track.artist %]</span>: <i>[%- track.album %]</i>
   </span>
 </span>

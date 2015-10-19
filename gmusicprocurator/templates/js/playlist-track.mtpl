@@ -4,9 +4,9 @@ var aa = track.get('albumArtRef');
 %]
 <tr data-entry-id="[[ pt.id ]]">
   <td class="albumart">[% if (!!aa) { %]<span data-idx="[[ pt.idx ]]" data-art-url="[[ aa[0].url ]]" style="background-image:url([[ aa[0].url ]])"><span class="fa"></span></span>[% } %]</td>
-  <td>[[ track.get('title') ]]</td>
-  <td>[[ AlpacAudio.human_readable_milliseconds(track.get('durationMillis')) ]]</td>
-  <td><a href="#/artists/[[ track.get('artistId')[0] ]]">[[ track.get('artist') ]]</a></td>
-  <td><a href="#/albums/[[ track.get('albumId') ]]">[[ track.get('album') ]]</a></td>
-  <td>[[ track.get('trackNumber') ]]</td>
+  <td>[%- track.get('title') %]</td>
+  <td>[%- AlpacAudio.human_readable_milliseconds(track.get('durationMillis')) %]</td>
+  <td><a href="#/artists/[[ track.get('artistId')[0] ]]">[%- track.get('artist') %]</a></td>
+  <td><a href="#/albums/[[ track.get('albumId') ]]">[%- track.get('album') %]</a></td>
+  <td>[%- track.get('trackNumber') %]</td>
 </tr>
