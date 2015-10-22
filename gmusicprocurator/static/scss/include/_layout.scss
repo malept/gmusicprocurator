@@ -1,6 +1,10 @@
 // This was incredibly helpful:
 // https://stackoverflow.com/q/21515042
 
+html {
+  height: 100%;
+}
+
 body {
   @include display(flex);
   @include flex-direction(column);
@@ -16,12 +20,17 @@ body {
 header,
 footer {
   background: $main-bg;
-  width: 100%;
 }
 
 header {
   @include display(flex);
   @include flex-direction(row);
+}
+
+footer {
+  bottom: 0;
+  position: fixed;
+  width: 100%;
 }
 
 h1,
@@ -39,12 +48,24 @@ h1 {
 }
 
 main {
-  @include flexify;
-  @include flex-direction(row);
+  @include display(flex);
+  @include flex(1 6 90%);
+  @include flex-flow(row);
+  margin-bottom: $player-height;
+  min-height: 0;
 
   > nav {
+    @include flex(3 1 20%);
+
+    max-width: 20%;
     overflow-y: auto;
-    width: 20%;
+
+    + * {
+      @include flex(3 1 80%);
+
+      max-width: 80%;
+      overflow-x: hidden;
+    }
   }
 }
 
@@ -54,6 +75,7 @@ main {
 
 .scrollable-contents {
   @include flexify;
+  min-height: 0;
   overflow-y: auto;
   width: 100%;
 

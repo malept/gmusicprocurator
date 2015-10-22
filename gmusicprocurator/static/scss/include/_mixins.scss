@@ -10,7 +10,7 @@
 }
 
 @mixin scrollable-flexbox-container {
-  @include flexify;
+  @include display(flex);
 
   > div {
     @include display(flex);
