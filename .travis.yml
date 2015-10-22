@@ -14,7 +14,7 @@ install:
   - gem install scss-lint
   - bower install --force-latest
   # See: https://github.com/travis-ci/travis-ci/issues/4756
-  - if [[ "$TRAVIS_PYTHON_VERSION" = "pypy"]; then pip wheel --find-links wheelhouse 'cryptography<1.0'; fi
+  - if [[ "$TRAVIS_PYTHON_VERSION" = "pypy" ]]; then pip wheel --find-links wheelhouse 'cryptography<1.0'; fi
   - pip wheel --find-links wheelhouse -r requirements/dev.txt libsass
   - pip install --find-links wheelhouse -r requirements/dev.txt libsass
 script: ./run_tests.sh
