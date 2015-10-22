@@ -32,7 +32,6 @@ from .app import app, assets
 if sass_filter == 'libsass':
 
     class LibSassFilter(Filter):
-
         """webassets Filter for libsass-python."""
 
         name = 'libsass'
@@ -53,7 +52,6 @@ if sass_filter == 'libsass':
 
 
 class BrowserifyFilter(ExternalTool):
-
     """
     webassets_ filter for Browserify_.
 
