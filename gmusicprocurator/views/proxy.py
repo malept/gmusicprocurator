@@ -331,4 +331,4 @@ def search():
     json = request.get_json()
     if json is None:
         return BadRequest('JSON payload required')
-    return jsonify(music.search_all_access(json['query']))
+    return jsonify(music.search(json['query']))
