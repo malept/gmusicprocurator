@@ -19,7 +19,7 @@
 
 from __future__ import print_function
 
-from flask.ext.script import Manager
+from flask_script import Manager
 from functools import partial
 from getpass import getpass
 from gmusicprocurator.app import app, heapy
@@ -41,7 +41,7 @@ if heapy:
 
 manager = Manager(app)
 if app.config['GMP_FRONTEND_ENABLED']:
-    from flask.ext.assets import ManageAssets
+    from flask_assets import ManageAssets
     from gmusicprocurator.app import assets
     manager.add_command('assets', ManageAssets(assets))
 

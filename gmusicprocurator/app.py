@@ -33,7 +33,7 @@ app.config.from_object('gmusicprocurator.default_settings')
 app.config.from_envvar(SETTINGS_VAR)
 
 if app.config['GMP_FRONTEND_ENABLED']:
-    from flask.ext.assets import Environment
+    from flask_assets import Environment
     assets = Environment(app)
     os.environ['PATH'] = \
         '{}/.bin:{}'.format(app.config['GMP_NODE_MODULES_DIR'],

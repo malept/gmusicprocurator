@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """webassets-related code for GMusicProcurator."""
 
-from flask.ext.assets import Bundle
+from flask_assets import Bundle
 try:
     import sass
 except ImportError:
