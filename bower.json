@@ -19,7 +19,7 @@
     "alpacaudio": "malept/alpacaudio",
     "normalize-css": "~4.2.0",
     "pure": "~0.6.0",
-    "roboto-fontface": "malept/roboto-fontface-bower#case-sensitive-folder-names",
+    "roboto-fontface": "9827ebcaf9e2f645b5ff704845b0819c5a696cee",
     "typeplate": "typeplate-starter-kit#~2.1.0"
   }
 }
