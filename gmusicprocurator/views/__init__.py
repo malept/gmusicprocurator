@@ -18,6 +18,8 @@
 
 from ..app import app, heapy
 from . import proxy  # noqa
+if app.config['GMP_CHROMECAST_ENABLED']:
+    from . import chromecast  # noqa
 if app.config['GMP_FRONTEND_ENABLED']:
     from . import ui  # noqa
     if heapy:

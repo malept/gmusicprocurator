@@ -78,6 +78,8 @@ and/or you know what you're doing.
 
 import os
 
+GMP_CHROMECAST_ENABLED = False
+
 GMP_FRONTEND_ENABLED = True
 
 dirname = os.path.dirname
